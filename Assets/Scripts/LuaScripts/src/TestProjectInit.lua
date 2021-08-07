@@ -11,25 +11,28 @@
 
 --引入控制层管理器脚本
 --require("TestCtrlMgr")
-
 TestProjectInit={}
 local this=TestProjectInit
 
+-------------UI控制-----------------
 function TestProjectInit.Init()
     --导入引入项目中所有的视图层脚本
     this.ImportAllViews()
-    
-    --lua控制器初始化
-   -- TestCtrlMgr.Init()
-    --启动lua加载A
-   -- print("ProjectInit.Init执行成功，开始调用TestCtrlMgr.StartProcess()")
-   -- TestCtrlMgr.StartProcess(CtrlName.DefenseListCtr)
 end
+
+
+
 
 --导入引入项目中所有的视图层脚本
 function TestProjectInit.ImportAllViews()
+    print("导入视图层脚本成功")
+    --UI框架视图层
     for i = 1, #TViewNames do
         require(tostring(TViewNames[i]))
+    end
+    --游戏场景视图层
+    for i=1, #A_ViewNames do
+        require(tostring(A_ViewNames[i]))
     end
 end
 
