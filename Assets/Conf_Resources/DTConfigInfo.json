@@ -1,0 +1,15 @@
+﻿{
+"ConfigInfo":
+[
+
+{"Key":"DefenseA",
+"Value":"defensetowers|defensetowers/defensetowers.ab|DefenseA.prefab"},
+
+{"Key":"DefenseB",
+"Value":"defensetowers|defensetowers/defensetowers.ab|DefenseB.prefab"},
+
+{"Key":"DefenseC",
+"Value":"defensetowers|defensetowers/defensetowers.ab|DefenseC.prefab"}
+
+]
+}
