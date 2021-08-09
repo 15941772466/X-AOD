@@ -35,7 +35,16 @@ namespace DemoProject
             RigisterButtonObjectEvent("Btn_Res",
                 () => OpenUIForm(ProConst.RES_UIFORM)
                 );
-            
+
+            var t1 = UnityHelper.FindTheChildNode(this.transform.gameObject, "Inp_Name");
+            var t2 = UnityHelper.FindTheChildNode(this.transform.gameObject, "Inp_PW");
+            var t3 = UnityHelper.FindTheChildNode(this.transform.gameObject, "Btn_OK");
+            var t4 = UnityHelper.FindTheChildNode(this.transform.gameObject, "Btn_Reg");
+            Button btnok = t3.gameObject.GetComponent<Button>();
+            //Login.LogIn(t1.Find("Text").GetComponent<Text>().text, t2.Find("Text").GetComponent<Text>().text);
+            btnok.onClick.AddListener(() => Login.LogIn(t1.Find("Text").GetComponent<Text>().text, t2.Find("Text").GetComponent<Text>().text));
+            Button btnreg = t4.gameObject.GetComponent<Button>();
+
         }
 
     }

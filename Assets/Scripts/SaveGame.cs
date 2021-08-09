@@ -7,7 +7,7 @@ using System.IO;
 
 public class Savegame : MonoBehaviour
 {
-   public bool SaveGame(string id,string name,string password,int cin,List<string> tower)
+   public static bool SaveGame(string id,string name,string password,int cin,List<string> tower)
    {
         Gamedata gamedata = new Gamedata();
         gamedata.ID = id;

@@ -7,11 +7,11 @@ using XProgect;
 
 public class Login : MonoBehaviour
 {
-    public bool LogIn(string id ,string password)
+    public static bool LogIn(string id ,string password)
     {
-        if (File.Exists(Application.dataPath + "/" + name))
+        if (File.Exists(Application.dataPath + "/" + id))
         {
-            byte[] read = File.ReadAllBytes(Application.dataPath + "/" + name);
+            byte[] read = File.ReadAllBytes(Application.dataPath + "/" + id);
             Gamedata message = new Gamedata();
             message.MergeFrom(read);
             if (password==message.Password)
