@@ -58,39 +58,6 @@ namespace ABFW
                 _LisAllDependenceAB.Add(abName);
             }
         }
-
-        /// <summary>
-        /// 移除依赖关系
-        /// </summary>
-        /// <param name="abName">移除的包名称</param>
-        /// <returns>
-        /// true；　此AssetBundel 没有依赖项
-        /// false;  此AssetBundel 还有其他的依赖项
-        /// 
-        /// </returns>
-        public bool RemoveDependece(string abName)
-        {
-            if (_LisAllDependenceAB.Contains(abName))
-            {
-                _LisAllDependenceAB.Remove(abName);
-            }
-            if (_LisAllDependenceAB.Count > 0)
-            {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-
-        //获取所有依赖关系
-        public List<string> GetAllDependence()
-        {
-            return _LisAllDependenceAB;
-        }
-
-
-
         /* 引用关系 */
         /// <summary>
         /// 引用依赖关系
@@ -103,37 +70,66 @@ namespace ABFW
                 _lisAllReferenceAB.Add(abName);
             }
         }
-
         /// <summary>
-        /// 移除引用关系
+        /// 移除依赖关系
         /// </summary>
         /// <param name="abName">移除的包名称</param>
         /// <returns>
-        /// true；　此AssetBundel 没有引用项
-        /// false;  此AssetBundel 还有其他的引用项
+        /// true；　此AssetBundel 没有依赖项
+        /// false;  此AssetBundel 还有其他的依赖项
         /// 
         /// </returns>
-        public bool RemoveReference(string abName)
-        {
-            if (_lisAllReferenceAB.Contains(abName))
-            {
-                _lisAllReferenceAB.Remove(abName);
-            }
-            if (_lisAllReferenceAB.Count > 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+        //public bool RemoveDependece(string abName)
+        //{
+        //    if (_LisAllDependenceAB.Contains(abName))
+        //    {
+        //        _LisAllDependenceAB.Remove(abName);
+        //    }
+        //    if (_LisAllDependenceAB.Count > 0)
+        //    {
+        //        return false;
+        //    }
+        //    else {
+        //        return true;
+        //    }
+        //}
 
-        //获取所有引用关系
-        public List<string> GetAllReference()
-        {
-            return _lisAllReferenceAB;
-        }
+        ////获取所有依赖关系
+        //public List<string> GetAllDependence()
+        //{
+        //    return _LisAllDependenceAB;
+        //}
+
+        ///// <summary>
+        ///// 移除引用关系
+        ///// </summary>
+        ///// <param name="abName">移除的包名称</param>
+        ///// <returns>
+        ///// true；　此AssetBundel 没有引用项
+        ///// false;  此AssetBundel 还有其他的引用项
+        ///// 
+        ///// </returns>
+        //public bool RemoveReference(string abName)
+        //{
+        //    if (_lisAllReferenceAB.Contains(abName))
+        //    {
+        //        _lisAllReferenceAB.Remove(abName);
+        //    }
+        //    if (_lisAllReferenceAB.Count > 0)
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
+
+        ////获取所有引用关系
+        //public List<string> GetAllReference()
+        //{
+        //    return _lisAllReferenceAB;
+        //}
     }
 }
 

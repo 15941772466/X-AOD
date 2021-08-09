@@ -4,15 +4,6 @@
  *           辅助类： 
  *                读取AssetBundle 依赖关系清单文件。（Windows.Manifest）
  *
- *   Description:
- *          功能： 
- *
- *   Author: Liuguozhu
- *
- *   Date: 2017.10
- *
- *   Modify：  
- *
  */
 using System;
 using System.Collections;
@@ -21,7 +12,7 @@ using UnityEngine;
 
 namespace ABFW
 {
-    public class ABManifestLoader : System.IDisposable
+    public class ABManifestLoader 
     {
         //本类实例
         private static ABManifestLoader _Instance;
@@ -90,7 +81,7 @@ namespace ABFW
         }
 
         /// <summary>
-        /// 获取AssetBundleManifest 系统类实例
+        /// 获取AssetBundleManifest系统类实例(最全的那个)
         /// </summary>
         /// <returns></returns>
         public AssetBundleManifest GetABManifest()
@@ -130,13 +121,13 @@ namespace ABFW
         /// <释放本类资源summary>
         /// 释放本类资源
         /// </summary>
-        public void Dispose()
-        {
-            if (_ABReadManifest!=null)
-            {
-                _ABReadManifest.Unload(true);
-            }
-        }
+        //public void Dispose()
+        //{
+        //    if (_ABReadManifest!=null)
+        //    {
+        //        _ABReadManifest.Unload(true);
+        //    }
+        //}
     }
 }
 

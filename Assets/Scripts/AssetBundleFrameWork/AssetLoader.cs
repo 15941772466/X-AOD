@@ -1,22 +1,11 @@
 ﻿/***
  *
- *   Title: "AssetBundle简单框架"项目
- *          框架主流程： 
- *          第1层： AB（AssetBundle）资源加载类
+ *          框架主流程第1层： AB（AssetBundle）资源加载类
  *          
- *
- *   Description:
  *          功能： 
  *              1： 管理与加载指定AB的资源。
  *              2： 加载具有“缓存功能”的资源，带选用参数。
- *              3： 卸载、释放AB资源。
- *              4： 查看当前AB资源。
- *
- *   Author: Liuguozhu
- *
- *   Date: 2017.10
- *
- *   Modify：  
+ *              3： 卸载、释放AB资源。。
  *
  */
 using System;
@@ -94,22 +83,6 @@ namespace ABFW
 
 
         /// <summary>
-        /// 卸载指定的资源
-        /// </summary>
-        /// <param name="asset">资源名称</param>
-        /// <returns></returns>
-        public bool UnLoadAsset(UnityEngine.Object asset)
-        {
-            if(asset!=null)
-            {
-                Resources.UnloadAsset(asset);
-                return true;
-            }
-            Debug.LogError(GetType()+ "/UnLoadAsset()/参数 asset==null ,请检查！");
-            return false;
-        }
-
-        /// <summary>
         /// 释放当前AssetBundle内存镜像资源
         /// </summary>
         public void Dispose()
@@ -125,14 +98,7 @@ namespace ABFW
             _CurrentAssetBundle.Unload(true);
         }
 
-        /// <summary>
-        /// 查询当前AssetBundle中包含的所有资源名称。
-        /// </summary>
-        /// <returns></returns>
-        public string[] RetriveAllAssetName()
-        {
-            return _CurrentAssetBundle.GetAllAssetNames();
-        }
+
     }
 }
 

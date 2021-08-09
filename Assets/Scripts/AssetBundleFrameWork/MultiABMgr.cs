@@ -1,19 +1,11 @@
 ﻿/***
- *
- *   Title: "AssetBundle简单框架"项目
  *           主流程（3层）：(一个场景中)多个AssetBundle 包管理
  *
  *   Description:
  *          功能： 
  *              1： 获取AB包之间的依赖与引用关系。
  *              2： 管理AssetBundle包之间的自动连锁（递归）加载机制
- *
- *   Author: Liuguozhu
- *
- *   Date: 2017.10
- *
- *   Modify：  
- *
+ 
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -41,7 +33,7 @@ namespace ABFW
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="scenesName">场景名称</param>
+        /// <param name="scenesName">根目录文件名称</param>
         /// <param name="abName">AB包名称</param>
         /// <param name="loadAllABPackCompleteHandle">（委托）是否调用完成</param>
         public MultiABMgr(string scenesName,string abName,DelLoadComplete loadAllABPackCompleteHandle)
@@ -95,7 +87,6 @@ namespace ABFW
                 //添加“引用”项    （递归调用）
                 yield return LoadReference(item_Depence, abName);
             }
-
             //真正加载AB包
             if (_DicSingleABLoaderCache.ContainsKey(abName))
             {
@@ -113,7 +104,7 @@ namespace ABFW
         /// <summary>
         /// 加载引用AB包
         /// </summary>
-        /// <param name="abName">AB包名称</param>
+        /// <param name="abName">AB包名称（被依赖项）</param>
         /// <param name="refABName">被引用AB包名称</param>
         /// <returns></returns>
         private IEnumerator LoadReference(string abName,string refABName)
@@ -146,7 +137,7 @@ namespace ABFW
         {
             foreach (string item_abName in _DicSingleABLoaderCache.Keys)
             {
-                if (abName== item_abName)
+                if (abName == item_abName)
                 {
                     return _DicSingleABLoaderCache[item_abName].LoadAsset(assetName, isCache);
                 }
@@ -181,7 +172,7 @@ namespace ABFW
                 _LoadAllABPackageCompleteHandel = null;
 
                 //卸载没有使用到的资源
-                Resources.UnloadUnusedAssets();
+                // Resources.UnloadUnusedAssets();
                 //强制垃圾收集
                 System.GC.Collect();
             }

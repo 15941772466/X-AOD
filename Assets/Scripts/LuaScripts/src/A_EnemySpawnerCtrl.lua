@@ -6,6 +6,10 @@
 A_EnemySpawnerCtrl={}
 local this=A_EnemySpawnerCtrl
 
+local DTManager=CS.PFW.DefenseManager
+local abDTObj=DTManager.GetInstance()
+
+
 function A_EnemySpawnerCtrl.GetInstance()
 	print("进入敌人生成管理类")
     return this
@@ -14,6 +18,7 @@ end
 function A_EnemySpawnerCtrl.StartProcess()
 	print("开始处理敌人逻辑")
      --加载敌人 need todo
+        --local tmpObj=abDTObj:PrefabAB("DefenseA")
      --生成敌人
      --if(tmpObj~=nil) then
         --Enemy1Obj=CS.UnityEngine.Object.Instantiate(tmpObj)
