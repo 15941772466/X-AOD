@@ -22,6 +22,7 @@ namespace DemoProject
 		public const string DEFENSE_LIST_UIFORM = "DefenseListUIForm";
 
 		public const string NOTIFICATION_UIFORM = "NotificationUIForm";
+		public const string RES_UIFORM = "ResUIForm";
 		/* 常量定义： 其他 */
 
 	}

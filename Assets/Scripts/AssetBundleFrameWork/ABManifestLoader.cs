@@ -4,15 +4,6 @@
  *           辅助类： 
  *                读取AssetBundle 依赖关系清单文件。（Windows.Manifest）
  *
- *   Description:
- *          功能： 
- *
- *   Author: Liuguozhu
- *
- *   Date: 2017.10
- *
- *   Modify：  
- *
  */
 using System;
 using System.Collections;

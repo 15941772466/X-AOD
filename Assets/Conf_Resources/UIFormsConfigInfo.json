@@ -31,7 +31,9 @@
 "Value":"uiprefabs|uiprefabs/uiprefabs.ab|GameInfoUIForm.prefab"},
 
 {"Key":"DefenseListUIForm",
-"Value":"uiprefabs|uiprefabs/uiprefabs.ab|DefenseListUIForm.prefab"}
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|DefenseListUIForm.prefab"},
 
+{"Key":"ResUIForm",
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|ResUIForm.prefab"}
 ]
 }
