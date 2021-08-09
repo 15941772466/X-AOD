@@ -1,6 +1,9 @@
 --Enemy1的控制类
 
-require("TestSysDefine")
+
+--游戏结算脚本
+require("A_SettlementCtrl")
+
 --require("A_EnemySpawnerCtrl")
 A_Enemy1={}
 local this=A_Enemy1
@@ -20,25 +23,10 @@ function A_Enemy1.Awake(obj)
 end
 
 function A_Enemy1.Start(obj)
-	print("startLua")
-	-- --获取敌人的navmesh组件
-	-- local agent = obj:GetComponent(typeof(CSU.AI.NavMeshAgent))
-	-- --获取敌人的目标位置
-	-- local goal=CSU.GameObject.Find("EndPosition")
-	-- --设置目标位置
-	-- agent.destination=goal.transform.position
+
 end
 
-function A_Enemy1.StartProcess()
-	print("敌人自动寻路")
-	--获取敌人的navmesh组件
-	local Enemy1Obj=CSU.GameObject.Find("A_Enemy1")
-	local agent = Enemy1Obj:GetComponent(typeof(CSU.AI.NavMeshAgent))
-	--获取敌人的目标位置
-	local goal=CSU.GameObject.Find("EndPosition")
-	--设置目标位置
-	agent.destination=goal.transform.position
-end
+
 
 --脚本销毁
 function A_Enemy1.OnDestroy()

@@ -28,19 +28,19 @@ end
 
 
 --根据实际UI中炮塔的数量与类型添加监听事件
-function AddListener(ChildObjPanel)
-   --存入所有炮塔的Button
-   for i,child in pairs(ChildObjPanel) do
-          TurretUIList[i]=child.gameObject --:GetComponent(typeof("CSU.UI.Button"))
-          print(TurretUIList[i])
-   end
-   --添加事件监听
-   for i,listner in pairs(TurretUIList) do
-      TurretUIList[i].onClick:AddListener(ListenerProcess(i))
-   end
-end
+-- function AddListener(ChildObjPanel)
+--    --存入所有炮塔的Button
+--    for i,child in pairs(ChildObjPanel) do
+--           TurretUIList[i]=child.gameObject --:GetComponent(typeof("CSU.UI.Button"))
+--           print(TurretUIList[i])
+--    end
+--    --添加事件监听
+--    for i,listner in pairs(TurretUIList) do
+--       TurretUIList[i].onClick:AddListener(ListenerProcess(i))
+--    end
+-- end
 
-function ListenerProcess(i)
-   SelectedTurret=TurretUIList[i].name
-end
+-- function ListenerProcess(i)
+--    SelectedTurret=TurretUIList[i].name
+-- end
 

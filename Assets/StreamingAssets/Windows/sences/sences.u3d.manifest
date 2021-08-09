@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1484318549
+CRC: 3834241010
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: cf13d2f6b761887f790dcfece6fb4eae
+    Hash: 56be92c3b3a0e6d0eddbf213902cff1c
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 134ff4f55deb815ea102181d0527c06c
+    Hash: cf8c6edc6ad13392025c5d141044d4ac
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -31,22 +31,22 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 65
   Script: {instanceID: 0}
-- Class: 74
-  Script: {instanceID: 0}
 - Class: 81
   Script: {instanceID: 0}
 - Class: 89
-  Script: {instanceID: 0}
-- Class: 90
-  Script: {instanceID: 0}
-- Class: 91
-  Script: {instanceID: 0}
-- Class: 95
   Script: {instanceID: 0}
 - Class: 104
   Script: {instanceID: 0}
 - Class: 108
   Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 163d81a411ac5fd4aac09a62be8d48cd, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 087263890019af645bbc1336dc9a5792, type: 3}
 - Class: 114
@@ -54,9 +54,11 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: e9b2a4dbcf7a46f469712ca63844d78a, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 5f1c67aea54863b44be40a809a09b7fd, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 72f903af3a813964ca8e9c96aa038f8a, type: 3}
+  Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
 - Class: 114
@@ -67,11 +69,7 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 136
   Script: {instanceID: 0}
-- Class: 137
-  Script: {instanceID: 0}
 - Class: 157
-  Script: {instanceID: 0}
-- Class: 195
   Script: {instanceID: 0}
 - Class: 196
   Script: {instanceID: 0}
@@ -81,6 +79,14 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 205
   Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
 - Class: 238
   Script: {instanceID: 0}
 - Class: 258
@@ -88,7 +94,8 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/AB_Resources/Sences/Level_One.unity
-- Assets/AB_Resources/Sences/UI.unity
 - Assets/AB_Resources/Sences/Test.unity
+- Assets/AB_Resources/Sences/UI.unity
 Dependencies:
-- F:/UnityGitHub/X-AOD/Assets/StreamingAssets/Windows/sences/level_one.ab
+- C:/Software/Fork/X-AOD/Assets/StreamingAssets/Windows/sences/level_one.ab
+- C:/Software/Fork/X-AOD/Assets/StreamingAssets/Windows/uiprefabs/uiprefabs.ab

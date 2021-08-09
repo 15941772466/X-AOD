@@ -1,32 +1,33 @@
 ManifestFileVersion: 0
-CRC: 1427500142
+CRC: 1537579761
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: myatlas/background.ab
-      Dependencies: {}
+      Name: uiprefabs/uiprefabs.ab
+      Dependencies:
+        Dependency_0: myatlas/packages.ab
+        Dependency_1: myatlas/background.ab
+        Dependency_2: myatlas/ui.ab
     Info_1:
       Name: myatlas/packages.ab
       Dependencies: {}
     Info_2:
-      Name: myatlas/ui.ab
+      Name: myatlas/background.ab
       Dependencies: {}
     Info_3:
-      Name: uiprefabs/uiprefabs.ab
-      Dependencies:
-        Dependency_0: myatlas/background.ab
-        Dependency_1: myatlas/packages.ab
-        Dependency_2: myatlas/ui.ab
-    Info_4:
-      Name: defensetowers/defensetowers.ab
-      Dependencies: {}
-    Info_5:
       Name: conf_resources/conf_resources.ab
       Dependencies: {}
-    Info_6:
-      Name: sences/level_one.ab
+    Info_4:
+      Name: myatlas/ui.ab
       Dependencies: {}
-    Info_7:
+    Info_5:
       Name: sences/sences.u3d
       Dependencies:
-        Dependency_0: sences/level_one.ab
+        Dependency_0: uiprefabs/uiprefabs.ab
+        Dependency_1: sences/level_one.ab
+    Info_6:
+      Name: gameprefabs/gameprefabs.ab
+      Dependencies: {}
+    Info_7:
+      Name: sences/level_one.ab
+      Dependencies: {}

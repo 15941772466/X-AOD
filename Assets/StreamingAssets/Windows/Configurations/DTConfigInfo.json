@@ -2,14 +2,20 @@
 "ConfigInfo":
 [
 
-{"Key":"DefenseA",
-"Value":"defensetowers|defensetowers/defensetowers.ab|DefenseA.prefab"},
+  {
+    "Key": "DefenseA",
+    "Value": "gameprefabs|gameprefabs/gameprefabs.ab|DefenseA.prefab"
+  },
 
 {"Key":"DefenseB",
-"Value":"defensetowers|defensetowers/defensetowers.ab|DefenseB.prefab"},
+"Value":"gameprefabs|gameprefabs/gameprefabs.ab|DefenseB.prefab"},
 
 {"Key":"DefenseC",
-"Value":"defensetowers|defensetowers/defensetowers.ab|DefenseC.prefab"}
+"Value":"gameprefabs|gameprefabs/gameprefabs.ab|DefenseC.prefab"},
 
+  {
+    "Key": "A_Enemy1",
+    "Value": "gameprefabs|gameprefabs/gameprefabs.ab|A_Enemy1.prefab"
+  }
 ]
 }

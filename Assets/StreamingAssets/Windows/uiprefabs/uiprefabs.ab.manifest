@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 800483084
+CRC: 865775042
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2b7171167529531d64fae77728917420
+    Hash: 108040ced4bd39cd0dbde6211a49e0cb
   TypeTreeHash:
     serializedVersion: 2
-    Hash: f6eb42a6997b2141335103bcfcb5610c
+    Hash: 613af9324f729e477f943bb3c14dd82b
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -24,17 +24,13 @@ ClassTypes:
 - Class: 81
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: e118851293e23f34ba0d23ad3511e316, type: 3}
 - Class: 114
@@ -51,6 +47,8 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: f55b0f150b578324584b957b7f56129e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
@@ -69,6 +67,8 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 38b82c5d67bf1a54f9791fe70979e6aa, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 124
@@ -96,6 +96,6 @@ Assets:
 - Assets/AB_Resources/UIPrefabs/MarketUIFrom.prefab
 - Assets/AB_Resources/UIPrefabs/DefenseListUIForm.prefab
 Dependencies:
-- F:/UnityGitHub/X-AOD/Assets/StreamingAssets/Windows/myatlas/background.ab
-- F:/UnityGitHub/X-AOD/Assets/StreamingAssets/Windows/myatlas/packages.ab
-- F:/UnityGitHub/X-AOD/Assets/StreamingAssets/Windows/myatlas/ui.ab
+- C:/Software/Fork/X-AOD/Assets/StreamingAssets/Windows/myatlas/background.ab
+- C:/Software/Fork/X-AOD/Assets/StreamingAssets/Windows/myatlas/packages.ab
+- C:/Software/Fork/X-AOD/Assets/StreamingAssets/Windows/myatlas/ui.ab
