@@ -7,11 +7,18 @@ local this=A_BuildManagerCtrl
 --炮塔列表
 local TurretUIList={}
 --被选中的炮塔
-local SelectedTurret="未选中"
+local SelectedTurret=nil
 --获取建造UI
 
+-- --调用C#的ABFW框架上的DefenseManager
+local DTManager=CS.PFW.DefenseManager
+local abDTObj=DTManager.GetInstance()
+--找到Canvas
+local  UIobj=CSU.GameObject.Find("DefenseListUIForm")
+
+
 function A_BuildManagerCtrl.GetInstance()
-	print("进入炮塔建造管理类")
+	print("拿到炮塔建造管理类实例")
     return this
 end
 
@@ -23,7 +30,9 @@ function A_BuildManagerCtrl.StartProcess()
     -- local ChildObjPanel=FightUIObj.transform:Find("FightUIPanel/TurretSwitch")
     -- print(ChildObjPanel)
     -- --调用添加监听函数
-    -- AddListener(ChildObjPanel)
+    print(UIobj)
+    --AddListener(UIobj)
+
 end
 
 

@@ -16,8 +16,8 @@ local ctrlList={}
 
 function A_CtrlMgr.Init()
     ---------------------------加载计时器脚本--------------------------------------------
-    gameObjectManager=CSU.GameObject.Find("A_GameManager")
-    CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaUIForm(gameObjectManager)
+    -- gameObjectManager=CSU.GameObject.Find("A_GameManager")
+    -- CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaUIForm(gameObjectManager)
 	--------------------------加载敌人生成管理脚本----------------------------------------
 	--需要根据关卡不同执行不同的敌人生成函数
 	print("加载敌人生成管理脚本")
