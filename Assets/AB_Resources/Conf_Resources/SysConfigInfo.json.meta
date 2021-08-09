@@ -1,8 +1,7 @@
 fileFormatVersion: 2
-guid: 5d03d95e692d66d469fead8fe7e0fc61
-timeCreated: 1558667022
-licenseType: Free
+guid: 04dd9baff289a914380575c44a2cd460
 TextScriptImporter:
+  externalObjects: {}
   userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  assetBundleName: conf_resources/conf_resources
+  assetBundleVariant: ab
