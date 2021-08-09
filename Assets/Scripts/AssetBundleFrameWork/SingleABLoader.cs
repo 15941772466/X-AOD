@@ -1,8 +1,5 @@
 ﻿/***
- *
- *   Title: "AssetBundle简单框架"项目
- *          框架主流程： 
- *          第2层： WWW 加载AssetBundle 
+ *          框架主流程：第2层： WWW 加载AssetBundle 
  *
  */
 using System;
@@ -68,9 +65,6 @@ namespace ABFW
         /// <summary>
         /// 加载（AB包内）资源
         /// </summary>
-        /// <param name="assetName"></param>
-        /// <param name="isCache"></param>
-        /// <returns></returns>
         public UnityEngine.Object LoadAsset(string assetName,bool isCache)
         {
             if (_AssetLoader!=null)
@@ -81,20 +75,6 @@ namespace ABFW
             return null;
         }
 
-        /// <summary>
-        /// 卸载（AB包中）资源
-        /// </summary>
-        /// <param name="asset"></param>
-        public void UnLoadAsset(UnityEngine.Object asset)
-        {
-            if (_AssetLoader != null)
-            {
-                _AssetLoader.UnLoadAsset(asset);
-            }
-            else {
-                Debug.LogError(GetType()+ "/UnLoadAsset()/参数 _AssetLoader==Null , 请检查！");
-            }
-        }
 
         /// <summary>
         /// 释放资源
@@ -126,20 +106,6 @@ namespace ABFW
             {
                 Debug.LogError(GetType() + "/DisposeALL()/参数 _AssetLoader==Null , 请检查！");
             }
-        }
-
-        /// <summary>
-        /// 查询当前AssetBundle包中所有的资源
-        /// </summary>
-        /// <returns></returns>
-        public string[] RetrivalAllAssetName()
-        {
-            if (_AssetLoader != null)
-            {
-                return _AssetLoader.RetriveAllAssetName();
-            }
-            Debug.LogError(GetType() + "/RetrivalAllAssetName()/参数 _AssetLoader==Null , 请检查！");
-            return null;
         }
     }
 }

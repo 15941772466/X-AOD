@@ -1,18 +1,10 @@
 ﻿/***
- *
- *   Title: "AssetBundle简单框架"项目
+
  *          框架主流程(第4层): 所有“场景”的AssetBundle 管理。
- *
- *   Description:
+
  *          功能： 
  *             1: 提取“Menifest 清单文件”，缓存本脚本。
- *             2：以“场景”为单位，管理整个项目中所有的AssetBundle 包。
- *
- *   Author: Liuguozhu
- *
- *   Date: 2017.10
- *
- *   Modify：  
+ *             2：以“场景”为单位，管理整个项目中所有的AssetBundle 包。 
  *
  */
 using System.Collections;
