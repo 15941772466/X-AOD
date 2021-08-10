@@ -1,4 +1,4 @@
---敌人生成的数据管理
+--游戏关卡的数据管理
 
 LevelSettings={}
 local this=LevelSettings
@@ -7,9 +7,12 @@ function LevelSettings.GetInstance()
     return this
 end
 
--------------------第一关敌人数据-------------------
-LevelSettings.levelOne_enemy={
-	WaveOne={count=4,type="A_Enemy1",speed=0.5},
-	WaveTwo={count=5,type="A_Enemy1",speed=1}
+-------------------第一关-------------------
+LevelSettings.Level_One={
+	WaveOne={count=4,type="A_Enemy1",speed=0.3},
+	WaveTwo={count=5,type="A_Enemy1",speed=0.5}
 }
+-- LevelSettings.levelOne_turret={
+--     ""
+-- }
 ------------------第二关敌人数据--------------------

@@ -1,6 +1,7 @@
 --Enemy1的控制类
 
-
+--获取怪物数据
+require("LevelSettings")
 --游戏结算脚本
 require("A_SettlementCtrl")
 

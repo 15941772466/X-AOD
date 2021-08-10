@@ -25,7 +25,6 @@ end
 
 --导入引入项目中所有的视图层脚本
 function TestProjectInit.ImportAllViews()
-    print("导入视图层脚本成功")
     --UI框架视图层
     for i = 1, #TViewNames do
         require(tostring(TViewNames[i]))
@@ -34,6 +33,7 @@ function TestProjectInit.ImportAllViews()
     for i=1, #A_ViewNames do
         require(tostring(A_ViewNames[i]))
     end
+    print("导入视图层脚本成功")
 end
 
 

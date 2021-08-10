@@ -1,11 +1,12 @@
 
 --怪物生成逻辑
 --获取怪物数据
+require("TestSysDefine")
 require("LevelSettings")
 --游戏结算脚本
 require("A_SettlementCtrl")
 --计时器脚本
-require("A_GameManager")
+-- require("A_GameManager")
 A_EnemySpawnerCtrl={}
 local this=A_EnemySpawnerCtrl
 
@@ -18,8 +19,8 @@ local abDTObj=DTManager.GetInstance()
 local levelData=LevelSettings.GetInstance()
 --敌人结算脚本的实例
 local settlementCtrl=A_SettlementCtrl.GetInstance()
---记载计时器脚本实例
-local timer=A_GameManager.GetInstance()
+-- --记载计时器脚本实例
+-- local timer=A_GameManager.GetInstance()
 --存放敌人实例
 local tempObj={}
 --敌人生成位置
@@ -32,8 +33,13 @@ function A_EnemySpawnerCtrl.GetInstance()
 end
 
 --------------------------------------敌人生成逻辑-------------------------------------------
-function A_EnemySpawnerCtrl.StartProcess(Level)
+function A_EnemySpawnerCtrl.Start(obj)
      --加载敌人List
+     -- local levelnameCom=CSU.GameObject.Find("LevelName")
+     -- local levelname=levelnameCom.Getchild(0)
+
+     print(obj.tag)
+     local Level=levelData[obj.tag]
      for i,wave in pairs(Level) do
         tempObj[wave.type]=abDTObj:PrefabAB(wave.type)
      end
@@ -52,6 +58,8 @@ function A_EnemySpawnerCtrl.enemySpawner(Level)
             local enemyObj=CS.UnityEngine.Object.Instantiate(tempObj[wave.type],EnemyPosition,CSU.Quaternion.identity)
             --附加脚本
             CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaUIForm(enemyObj)
+            local Eneagent = enemyObj:GetComponent(typeof(CSU.AI.NavMeshAgent))
+            Eneagent.speed=wave.speed
             EnemyCount=EnemyCount+1
             --等待生成间隔
             
@@ -60,9 +68,8 @@ function A_EnemySpawnerCtrl.enemySpawner(Level)
      end
 end
 
-function aaa()
-   print("2秒")
+
+function A_EnemySpawnerCtrl.Update()
+   print("生成方法")
 end
-
-
 

@@ -71,7 +71,7 @@ namespace LuaFramework
             luaStart = luaTable.GetInPath<BaseLuaUIForm.delLuaStart>(prefabName + ".Start");
             luaUpdate = luaTable.GetInPath<BaseLuaUIForm.delLuaUpdate>(prefabName + ".Update");
             luaDestroy = luaTable.GetInPath<BaseLuaUIForm.delLuaDestroy>(prefabName + ".OnDestroy");
-            Debug.LogError("luaAwake::" + luaAwake);
+            Debug.LogError("luaAwake::" + luaStart);
             //调用委托
             if (luaAwake != null)
             {

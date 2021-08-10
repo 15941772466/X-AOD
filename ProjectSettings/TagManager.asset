@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - _TagCanvas
+  - _TagUICamera
+  - _TestTagLogonUIFroms
+  - Level_One
   layers:
   - Default
   - TransparentFX

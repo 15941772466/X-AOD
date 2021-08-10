@@ -25,7 +25,7 @@ CtrlName={
 }
 --视图层脚本
 A_ViewNames={
-    "A_Enemy1"
+    "A_Enemy1","A_GameManager"
 }
 
 --引入Unity内置的类型

@@ -1,15 +1,8 @@
 ------虽然叫做GameManager，但是用来写计时器的
 
- A_GameManager={
-	timerTasks={};--延时任务
-	timerLoopTasks={};--延时循环任务
-	taskIndex=1;--任务编号
-}
-this=A_GameManager
 
-function A_GameManager.GetInstance()
-    return this
-end
+-- this=A_GameManager
+
 
 -- function A_GameManager.Update()
 --     local cor1 = coroutine.create(function()
@@ -17,81 +10,90 @@ end
 -- 	end);
 -- end
 --设置延时循环函数 id,初次延时,循环后间隔延时,循环时间,循环函数,结束时回调函数
-function A_GameManager:SetDelayLoopFunction(delayTime, delayTime1, loopTime, funcLoop,funcOnFinish)
-	if self.timerLoopTasks[self.taskIndex] == nil then
-		self.timerLoopTasks[self.taskIndex] = {};
-	end
-	self.timerLoopTasks[self.taskIndex].startTime=CS.UnityEngine.Time.time+delayTime;--触发时机
-	self.timerLoopTasks[self.taskIndex].loopDelay=delayTime1;--每次循环的间隔
-	self.timerLoopTasks[self.taskIndex].overTime=CS.UnityEngine.Time.time+loopTime+delayTime;--循环持续时间
-	self.timerLoopTasks[self.taskIndex].funcLoop=funcLoop;--循环函数
-	self.timerLoopTasks[self.taskIndex].funcOnFinish=funcOnFinish;--结束时回调函数
-	self.taskIndex=self.taskIndex+1;
-	return self.taskIndex-1;
-end
---延时函数 id，延时时间，触发方法
-function A_GameManager:SetDelayFunction(delayTime, func)
-	if self.timerTasks[self.taskIndex] == nil then
-		self.timerTasks[self.taskIndex] = {};
-	end
-	self.timerTasks[self.taskIndex].func = func;
-	self.timerTasks[self.taskIndex].startTime = CS.UnityEngine.Time.time + delayTime;
-	self.taskIndex=self.taskIndex+1;
-	return self.taskIndex-1;
-end
---更新	
-function A_GameManager.Update()
-	for k, v in pairs(self.timerTasks) do
-		--满足延时条件 触发
-		if v.startTime < CS.UnityEngine.Time.time then
-			if v.func~=nil then
-				v.func();--延时方法
-			end
-			self.timerTasks[k]=nil;--回收任务
-		end
-	end
-	for k,v in pairs(self.timerLoopTasks) do
-		--过期任务
-		if v.overTime < CS.UnityEngine.Time.time then
-			if v.funcOnFinish~=nil then
-				v.funcOnFinish();--循环方法结束回调
-			end
-			self.timerLoopTasks[k]=nil;--回收任务
-		--有效任务
-		else
-			--满足触发条件
-			if v.startTime < CS.UnityEngine.Time.time then
-				if v.funcLoop~=nil then
-					v.funcLoop();--循环方法
-				end
-				v.startTime=v.startTime+v.loopDelay;--设置下一次触发时间
-			end
-		end
-	end
-end
---撤销任务
-function A_GameManager:Remove(id)
-	for k,v in pairs(self.timerTasks) do
-		if k==id then
-			self.timerTasks[id]=nil;
-			return;
-		end
-	end
-	for k,v in pairs(self.timerLoopTasks) do
-		if k==id then
-			self.timerLoopTasks[id]=nil;
-			return;
-		end
-	end
-end
---清理
-function A_GameManager:Clear()
-	for k, v in pairs(self.timerTasks) do
-		self.timerTasks[k] = nil;
-	end
-	for k, v in pairs(self.timerLoopTasks) do
-		self.timerLoopTasks[k] = nil;
-	end
-	self.taskIndex=1;
+A_GameManager={
+	tempTime = 0,
+	
+	--事件池
+	TimerDict = {},
+	timerIndex = 1
+}
+this=A_GameManager
+function A_GameManager.GetInstance()
+    return this
 end
 
+
+--class为之前写的面向对象类	
+--TimeSystem = class()
+
+--单例
+-- TimeSystem.Instance = function()
+-- 	if (TimeSystem.m_instance == nil) then
+-- 		TimeSystem.m_instance = TimeSystem.new();
+-- 	end
+-- 	return TimeSystem.m_instance
+-- end
+
+
+--参数：时间间隔、循环几次、回调函数、回调对象、回调参数
+function A_GameManager.AddTimer(delta,loopTimes,callBack,obj,param)
+	if callBack==nil then
+		return
+	end
+	
+	this.TimerDict[this.timerIndex] = {leftTime = delta,delta = delta,loopTimes = loopTimes,callBack = callBack,obj = obj,param = param,timerIndex = this.timerIndex}
+	this.timerIndex = this.timerIndex + 1;
+	
+	return this.timerIndex - 1
+end
+
+function A_GameManager.RemoveTimer(timerIndex)
+	if timerIndex==nil then
+		return
+	end
+	this.TimerDict[timerIndex] = nil
+end
+
+--让这个函数被Unity的Update每帧调用
+--timeInterval：时间间隔
+--每帧都调用函数，但不是每帧都遍历一次字典，不然太耗性能
+--可以设置为0.1，一般延迟调用时间也不会太短
+function A_GameManager.Update(timeInterval)
+	
+	this.tempTime = this.tempTime + CS.UnityEngine.Time.deltaTime;
+	
+	if this.tempTime < timeInterval then
+		return
+	else
+		this.tempTime = 0
+	end
+	
+	--遍历字典，更新剩余时间，时间到了就执行函数
+	for k,v in pairs(this.TimerDict) do
+		v.leftTime = v.leftTime - timeInterval
+		
+		if v.leftTime <= 0 then
+			if v.obj ~= nil then
+				if v.callBack then
+					v.callBack(v.obj,v.param)
+				end
+			else
+				if v.callBack then
+					v.callBack(v.param)
+				end
+			end
+
+			v.loopTimes = v.loopTimes - 1
+			v.leftTime = v.delta
+			
+			if v.loopTimes <= 0 then
+				v.callBack = nil
+				this:RemoveTimer(v.timerIndex)
+			end
+		end
+	end
+end
+
+function A_GameManager.Clear()
+	this.TimerDict = {}
+end
