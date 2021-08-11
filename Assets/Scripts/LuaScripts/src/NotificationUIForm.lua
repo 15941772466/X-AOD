@@ -1,11 +1,13 @@
----
+
 --- 公告栏  UI窗体视图层脚本
----
----
+
 
 --定义字段
 NotificationUIForm={}
 local this=NotificationUIForm
+
+local UI_Manager=CS.SUIFW.UIManager
+local uiManager=UI_Manager.GetInstance()
 
 --公告标题
 local strNotiTitle="<color='#ff0000ff'>重要公告</color>"
@@ -16,15 +18,27 @@ local gameobject
 --说明:
 --输入参数： obj 表示UI窗体对象。
 function NotificationUIForm.Awake(obj)
+   print("------- NotificationUIForm.Awake  -----------")
    gameobject=obj
    transform=obj.transform
+   
 end
 
 function NotificationUIForm.Start(obj)
+    
     --查找与设置通知的标题 
     this.txtTitle=transform:Find("Txt_Title"):GetComponent("UnityEngine.UI.Text")
     this.txtTitle.text=strNotiTitle
     --查找与设置通知的内容
     this.txtContent=transform:Find("Scroll View/Viewport/Content/Text"):GetComponent("UnityEngine.UI.Text")
     this.txtContent.text=strNotiContent
+    --查找UI中按钮
+    this.ConfirmBtn=transform:Find("BtnConfirm"):GetComponent("UnityEngine.UI.Button")
+    this.ConfirmBtn.onClick:AddListener(this.ProcessConfirm)
 end
+
+function NotificationUIForm.ProcessConfirm()
+    uiManager:CloseUIForms("NotificationUIForm")
+end
+
+

@@ -23,7 +23,7 @@ namespace HotUpdateProcess
         public const string JSON_DEPLOY_PATH = "/Configurations"; //(StreamAsset 目录下)发布配置文件(Json)
         //定义拷贝lua文件的路径
         public const string LUA_EDITOR_PATH = "/Scripts/LuaScripts/src";  //lua文件编辑器
-        public const string LUA_EDITOR_FRAMEWORK_PATH = "/Scripts/LuaFramework/src";//Lua框架编辑器
+       
         //定义lua文件发布区域的路径
         public const string LUA_DEPLOY_PATH = "/LUA";
         //定义HTTP 服务器链接地址

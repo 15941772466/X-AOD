@@ -15,9 +15,8 @@ namespace PFW
         //缓存所有游戏预制体
         public Dictionary<string, UnityEngine.Object> _DicALLDTForms;
 
-        ////游戏预制体名称
-        //private string _DefenseName = string.Empty;
-
+        
+       
         //游戏预制体实例
         private UnityEngine.Object goPrefab = null;
 
@@ -47,6 +46,7 @@ namespace PFW
         }
         public void PreLoad()
         {
+            
         }
         private void DICgoPrefab(string preName)
         {

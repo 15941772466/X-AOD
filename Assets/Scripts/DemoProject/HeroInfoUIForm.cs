@@ -22,12 +22,6 @@ namespace DemoProject
 		    //窗体性质
             CurrentUIType.UIForms_Type = UIFormType.Fixed;  //固定在主窗体上面显示
 
-            RigisterButtonObjectEvent("BtnItem1",
-                () =>
-                {
-                    OpenUIForm(ProConst.LOGON_FROMS,true);
-                }
-                );
         }
 		
 	}
