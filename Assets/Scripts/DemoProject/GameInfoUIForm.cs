@@ -19,13 +19,7 @@ namespace DemoProject
             CurrentUIType.UIForms_Type = UIFormType.Fixed;  //固定在主窗体上面显示
             CurrentUIType.UIForms_ShowMode = UIFormShowMode.HideOther;   //隐藏其他窗体
 
-            RigisterButtonObjectEvent("BackGameHall",
-                () =>
-                {
-                   // AssetBundleMgr.GetInstance().level_oneNav.Unload(true);
-                
-                }
-                );
+           
         }
 
     }

@@ -1,14 +1,9 @@
 ﻿/***
- * 
- *    Title: "SUIFW" UI框架项目
- *           主题： 框架核心参数  
- *    Description: 
- *           功能：
+ *    UI框架
  *           1： 系统常量
  *           2： 全局性方法。
  *           3： 系统枚举类型
- *           4： 委托定义
- *                          
+ *           
  *   
  */
 using System.Collections;
@@ -18,17 +13,12 @@ using UnityEngine;
 namespace SUIFW
 {
 
-    /*  委托定义 （UI框架中，改造升级到与AB框架结合，需要本委托） */
+    /*  委托定义 （UI框架的委托） */
     public delegate void DelTaskComplete(UnityEngine.GameObject obj);
-    /*  委托定义 （防御塔使用的委托） */
+    /*  委托定义 （游戏预制体加载使用的委托） */
     public delegate void DTComplete(string preName);
 
-    #region 系统枚举类型
-
-    /// <summary>
-    /// UI窗体（位置）类型
-    /// </summary>
-    public enum UIFormType
+    public enum UIFormType   // UI窗体（位置）类型
     {
         //普通窗体
         Normal,   
@@ -38,10 +28,7 @@ namespace SUIFW
         PopUp
     }
 
-    /// <summary>
-    /// UI窗体的显示类型
-    /// </summary>
-    public enum UIFormShowMode
+    public enum UIFormShowMode  // UI窗体的显示类型
     {
         //普通
         Normal,
@@ -50,7 +37,7 @@ namespace SUIFW
         //隐藏其他
         HideOther
     }
-    #endregion
+  
 
     public class SysDefine : MonoBehaviour {
        
@@ -67,15 +54,6 @@ namespace SUIFW
         public const string SYS_FIXED_NODE = "Fixed";
         public const string SYS_POPUP_NODE = "PopUp";
         public const string SYS_SCRIPTMANAGER_NODE = "_ScriptMgr";
-        
-
-        /* 摄像机层深的常量 */
-
-        /* 全局性的方法 */
-        //Todo...
-
-        /* 委托的定义 */
-        //Todo....
 
     }
 }

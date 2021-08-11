@@ -1,9 +1,7 @@
 ﻿/***
  * 
- *    Title:  UI框架： AssetBunde 资源调用帮助脚本
- *                  
- *            主要功能：
- *                封装ABFW框架中关于资源调用API，帮助类。
+ *    UI框架： AssetBunde 资源调用帮助脚本
+ *    封装ABFW框架中关于资源调用API，帮助类。
  *   
  */
 using System.Collections;
@@ -47,37 +45,30 @@ namespace SUIFW
             return _Instance;
         }
 
-        /// <summary>
-        /// 调用AB框架ab包
-        /// </summary>
-        /// <param name="abPara"></param>
-        public void LoadAssetBundlePack(ABPara abPara)
+        
+       
+        
+        public void LoadAssetBundlePack(ABPara abPara)      // 调用AB框架ab包
         {
             //仅仅是加载相同AB包中的不同资源
             if ((abPara.ScenesName==_ScenesName)  && (abPara.AssetBundleName==_AssetBundleName))
             {
                 _AssetName = abPara.AssetName;
-                LoadABAssetComplete(""); //这里的参数没有实际作用。
+                LoadABAssetComplete(""); 
             }
             else {
-                //参数赋值
                 _ScenesName = abPara.ScenesName;
                 _AssetBundleName = abPara.AssetBundleName;
                 _AssetName = abPara.AssetName;
-                //调用ABFW 主API
-                StartCoroutine(AssetBundleMgr.GetInstance().LoadAssetBundlePack(_ScenesName, _AssetBundleName, LoadABAssetComplete));
+                StartCoroutine(AssetBundleMgr.GetInstance().LoadAssetBundlePack(_ScenesName, _AssetBundleName, LoadABAssetComplete));  // 下载AssetBundel 指定包
             }
         }
 
-        /// <summary>
-        /// （回调函数） 调用AB包中的资源
-        /// </summary>
-        /// <param name="abName">没有用到</param>
-        private void LoadABAssetComplete(string abName)
+        private void LoadABAssetComplete(string abName)      // （回调函数） 调用AB包中的资源
         {
             UnityEngine.Object tmpObj = null;
 
-            tmpObj=AssetBundleMgr.GetInstance().LoadAsset(_ScenesName, _AssetBundleName, _AssetName, false);
+            tmpObj=AssetBundleMgr.GetInstance().LoadAsset(_ScenesName, _AssetBundleName, _AssetName, true);  //加入缓存
             if (tmpObj!=null)
             {
                 _CloneUIPrefab = Instantiate(tmpObj);
@@ -85,11 +76,8 @@ namespace SUIFW
             }
             _IsLoadFinish = true;
         }
-        /// <summary>
-        /// 得到abName 对应的预制体（没有实例化）
-        /// </summary>
-        /// <returns></returns>
-        public UnityEngine.Object GetPrefab()
+        
+        public UnityEngine.Object GetPrefab()   // 得到abName 对应的预制体（没有实例化）
         {
             if (_DTPrefab != null)
             {
@@ -98,11 +86,8 @@ namespace SUIFW
             }
             return null;
         }
-        /// <summary>
-        /// 得到（克隆）的UI预设
-        /// </summary>
-        /// <returns></returns>
-        public UnityEngine.Object GetCloneUIPrefab()
+       
+        public UnityEngine.Object GetCloneUIPrefab()     // 得到（克隆）的UI预设
         {
             if (_CloneUIPrefab!=null)
             {

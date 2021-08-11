@@ -1,14 +1,4 @@
-﻿/***
- * 
- *    Title: "SUIFW" UI框架项目
- *           主题： UI管理器  
- *           功能： 是整个UI框架的核心，用户程序通过本脚本，来实现框架绝大多数的功能实现。
- *                  
- *    软件开发原则：
- *    1： “高内聚，低耦合”。
- *    2： 方法的“单一职责”
- *     
- */
+﻿//UI管理器  
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,20 +38,16 @@ namespace SUIFW
         private bool _IsUIRootNodeInitFinish = false;
 
 
-        /// <summary>
-        /// 得到实例
-        /// </summary>
-        /// <returns></returns>
-	    public static UIManager GetInstance()
-	    {
+        
+	    public static UIManager GetInstance()       // 得到实例
+        {
 	        if (_Instance==null)
 	        {
 	            _Instance = new GameObject("_UIManager").AddComponent<UIManager>();
 	        }
 	        return _Instance;
 	    }
-
-        //初始化核心数据，加载“UI窗体路径”到集合中。
+ 
 	    public void Awake()
 	    {
 	        //字段初始化
@@ -80,11 +66,8 @@ namespace SUIFW
             StartCoroutine(InitRootCanvasLoading(InitRootCanvas));
         }
 
-        /// <summary>
-        /// （回调函数）初始化Canvas预设上的各主要节点
-        /// </summary>
-        /// <param name="go"></param>
-        private void InitRootCanvas(UnityEngine.GameObject go)
+        #region 加载UI Canvas
+        private void InitRootCanvas(UnityEngine.GameObject go)  // （回调函数）初始化Canvas预设上的各主要节点
         {
             //得到UI根节点、全屏节点、固定节点、弹出节点
             _TraCanvasTransfrom = GameObject.FindGameObjectWithTag(SysDefine.SYS_TAG_CANVAS).transform;
@@ -100,28 +83,61 @@ namespace SUIFW
             //UI根窗体初始化完毕
             _IsUIRootNodeInitFinish = true;
         }
-
-        /// <summary>
-        /// 显示（打开）UI窗体  
-        /// 功能：
-        /// 1: 根据UI窗体的名称，加载到“所有UI窗体”缓存集合中
-        /// 2: 根据不同的UI窗体的“显示模式”，分别作不同的加载处理
-        /// 
-        /// 
-        /// 修改记录：
-        ///     本方法修改目的是让大量UI窗体可以直接打开相应的目标窗体。
-        ///     即 不受窗体位置(UIFormType)与窗体显示类型(UIFormShowMode)的限制。
-        /// 
-        /// 
-        /// </summary>
-        /// <param name="uiFormName">UI窗体预设的名称</param>
-        /// <param name="IsRedirection">是否直接转向目标窗体</param>
-        public IEnumerator ShowUIForm(string uiFormName, bool IsRedirection=false)
+        private IEnumerator InitRootCanvasLoading(DelTaskComplete taskComplete)         // 初始化加载（根UI窗体）Canvas预设
         {
-            BaseUIForm baseUIForms=null;                    //UI窗体
+            //UI 根窗体路径（参数）
+            string uiRootFormPaths = string.Empty;
 
-            //参数的检查
-            if (string.IsNullOrEmpty(uiFormName)) yield break;
+            //从UI预设路径集合中，查询UI根窗体的路径
+            _DicFormsPaths.TryGetValue(SysDefine.ROOT_UIFORM, out uiRootFormPaths);
+
+            //从路径(ab包参数)配置文件中，来合成需要的ab包参数
+            string[] strTempArray = uiRootFormPaths.Split('|');
+            ABPara abPara = new ABPara();
+            abPara.ScenesName = strTempArray[0];
+            abPara.AssetBundleName = strTempArray[1];
+            abPara.AssetName = strTempArray[2];
+
+            return LoadABAsset(abPara, taskComplete);
+        }
+
+        #endregion
+
+        public void ShowUIForms(string uiFormName, bool IsRedirection = false)          // 显示（打开）UI窗体  lua调用
+        {
+            StartCoroutine(ShowUIForm(uiFormName,IsRedirection));
+        }
+        public void CloseUIForms(string uiFormName)                 //关闭窗体 lua调用
+        { 
+            BaseUIForm baseUiForm;                          //窗体基类
+
+            _DicALLUIForms.TryGetValue(uiFormName,out baseUiForm);
+            if(baseUiForm==null ) return;
+            //根据窗体不同的显示类型，分别作不同的关闭处理
+            switch (baseUiForm.CurrentUIType.UIForms_ShowMode)
+	        {
+                case UIFormShowMode.Normal:
+                    //普通窗体的关闭
+                    ExitUIForms(uiFormName);
+                    break;
+                case UIFormShowMode.ReverseChange:
+                    //反向切换窗体的关闭
+                    PopUIFroms();
+                    break;
+                case UIFormShowMode.HideOther:
+                    //隐藏其他窗体关闭
+                    ExitUIFormsAndDisplayOther(uiFormName);
+                    break;
+
+		        default:
+                    break;
+	        }
+        }
+
+        #region 加载并打开
+        public IEnumerator ShowUIForm(string uiFormName, bool IsRedirection = false)  //打开UI窗体 
+        {
+            BaseUIForm baseUIForms = null;                    //UI窗体
 
             //等待UI根窗体初始化完毕
             while (!_IsUIRootNodeInitFinish)
@@ -131,9 +147,9 @@ namespace SUIFW
 
             //根据UI窗体的名称，加载到“所有UI窗体”缓存集合中
             LoadFormsToAllUIFormsCatch(uiFormName);//此时UI预设窗体(根据“位置模式”)已经加载到层级试图的相应位置了
-            
+
             //等待UI窗体父类对象被赋值
-            while (_BaseUIForm==null)
+            while (_BaseUIForm == null)
             {
                 yield return null; //等待
             }
@@ -167,110 +183,27 @@ namespace SUIFW
                         break;
                     default:
                         break;
-                }            
+                }
             }
             //UI窗体父类对象，置空处理，为下一次加载窗体服务
             _BaseUIForm = null;
         }//ShowUIForms()_end
-
-        /// <summary>
-        /// 显示（打开）UI窗体  
-        /// </summary>
-        /// <param name="uiFormName"></param>
-        /// <param name="IsRedirection"></param>
-        public void ShowUIForms(string uiFormName, bool IsRedirection = false)
+        private void LoadFormsToAllUIFormsCatch(string uiFormsName)         //检查“所有UI窗体”集合中，是否已经加载过，否则才加载。
         {
-            StartCoroutine(ShowUIForm(uiFormName,IsRedirection));
-        }
+            BaseUIForm baseUIResult = null;                 //加载的返回UI窗体基类
 
-        /// <summary>
-        /// 关闭（返回上一个）窗体
-        /// </summary>
-        /// <param name="uiFormName"></param>
-        public void CloseUIForms(string uiFormName)
-        { 
-            BaseUIForm baseUiForm;                          //窗体基类
-
-            //参数检查
-            if (string.IsNullOrEmpty(uiFormName)) return;
-            //“所有UI窗体”集合中，如果没有记录，则直接返回
-            _DicALLUIForms.TryGetValue(uiFormName,out baseUiForm);
-            if(baseUiForm==null ) return;
-            //根据窗体不同的显示类型，分别作不同的关闭处理
-            switch (baseUiForm.CurrentUIType.UIForms_ShowMode)
-	        {
-                case UIFormShowMode.Normal:
-                    //普通窗体的关闭
-                    ExitUIForms(uiFormName);
-                    break;
-                case UIFormShowMode.ReverseChange:
-                    //反向切换窗体的关闭
-                    PopUIFroms();
-                    break;
-                case UIFormShowMode.HideOther:
-                    //隐藏其他窗体关闭
-                    ExitUIFormsAndDisplayOther(uiFormName);
-                    break;
-
-		        default:
-                    break;
-	        }
-        }
-
-        #region 私有方法
-        /// <summary>
-        /// 初始化加载（根UI窗体）Canvas预设
-        /// </summary>
-        private IEnumerator InitRootCanvasLoading(DelTaskComplete taskComplete)
-	    {
-            //UI 根窗体路径（参数）
-            string uiRootFormPaths = string.Empty;
-
-            //从UI预设路径集合中，查询UI根窗体的路径
-            _DicFormsPaths.TryGetValue(SysDefine.ROOT_UIFORM,out uiRootFormPaths);
-
-            //从路径(ab包参数)配置文件中，来合成需要的ab包参数
-            string[] strTempArray = uiRootFormPaths.Split('|');
-            ABPara abPara = new ABPara();
-            abPara.ScenesName = strTempArray[0];
-            abPara.AssetBundleName = strTempArray[1];
-            abPara.AssetName = strTempArray[2];
-
-            return LoadABAsset(abPara, taskComplete);
-        }
-
-        /// <summary>
-        /// 根据UI窗体的名称，加载到“所有UI窗体”缓存集合中
-        /// 功能： 检查“所有UI窗体”集合中，是否已经加载过，否则才加载。
-        /// </summary>
-        /// <param name="uiFormsName">UI窗体（预设）的名称</param>
-        /// <returns></returns>
-	    private void LoadFormsToAllUIFormsCatch(string uiFormsName)
-	    {
-	        BaseUIForm baseUIResult = null;                 //加载的返回UI窗体基类
-
-	        _DicALLUIForms.TryGetValue(uiFormsName, out baseUIResult);
+            _DicALLUIForms.TryGetValue(uiFormsName, out baseUIResult);
             if (baseUIResult == null)
             {
-                //加载指定名称的“UI窗体”
-                LoadUIForm(uiFormsName);
+                LoadUIForm(uiFormsName);         //加载指定名称的“UI窗体”
             }
-            else {
-                //如果没有本语句，则ShowUIForm 会执行无限循环。
+            else
+            {
                 _BaseUIForm = baseUIResult;
             }
-	    }
+        }
 
-        /// <summary>
-        /// 加载指定名称的“UI窗体”，且使用“ABFW” 框架，升级改造为可以热更新的AB包的加载
-        /// 功能：
-        ///    1：根据“UI窗体名称”，加载预设克隆体。
-        ///    2：根据不同预设克隆体中带的脚本中不同的“位置信息”，加载到“根窗体”下不同的节点。
-        ///    3：隐藏刚创建的UI克隆体。
-        ///    4：把克隆体，加入到“所有UI窗体”（缓存）集合中。
-        /// </summary>
-        /// <param name="uiFormName">UI窗体名称</param>
-        private void LoadUIForm(string uiFormName)
+        private void LoadUIForm(string uiFormName)      // 加载指定名称的“UI窗体”
         {
             string strUIFormPaths = null;                   //UI窗体路径
 
@@ -280,25 +213,20 @@ namespace SUIFW
             if (!string.IsNullOrEmpty(strUIFormPaths))
             {
                 //从路径配置文件中，来合成需要的ab包参数
-                string[] strTempArray=strUIFormPaths.Split('|');
+                string[] strTempArray = strUIFormPaths.Split('|');
                 ABPara abPara = new ABPara();
                 abPara.ScenesName = strTempArray[0];
                 abPara.AssetBundleName = strTempArray[1];
                 abPara.AssetName = strTempArray[2];
 
-                //初始化加载（根UI窗体） Canvas 预设
+                //初始化加载Canvas 预设
                 StartCoroutine(LoadABAsset(abPara, LoadUIForm_Process));
             }
         }//Mehtod_end
 
-
-        /// <summary>
-        /// (需要注册的回调方法)加载指定名称的“UI窗体”
-        /// </summary>
-        /// <param name="goCloneUIPrefab">得到“UI预设”</param>
-        private void LoadUIForm_Process(UnityEngine.GameObject goCloneUIPrefab)
+        private void LoadUIForm_Process(UnityEngine.GameObject goCloneUIPrefab)  //加载指定名称的“UI窗体”
         {
-            string strUIFormPath = null;   //UI 窗体路径
+
             BaseUIForm baseUIForm = null;   //窗体基类
 
 
@@ -306,11 +234,7 @@ namespace SUIFW
             if (_TraCanvasTransfrom != null && goCloneUIPrefab != null)
             {
                 baseUIForm = goCloneUIPrefab.GetComponent<BaseUIForm>();
-                if (baseUIForm == null)
-                {
-                    Debug.Log("baseUiForm==null! ,请先确认窗体预设对象上是否加载了baseUIForm的子类脚本！ 参数 uiFormName=" + _UIFormName);
-                    return;
-                }
+
                 //把UI窗体父类对象，赋给字段，传递给上层方法。
                 _BaseUIForm = baseUIForm;
 
@@ -332,28 +256,19 @@ namespace SUIFW
                 //设置隐藏
                 goCloneUIPrefab.SetActive(false);
                 //把克隆体，加入到“所有UI窗体”（缓存）集合中。
-                if (!string.IsNullOrEmpty(_UIFormName))
-                {
-                    _DicALLUIForms.Add(_UIFormName, baseUIForm);
-                }
+                _DicALLUIForms.Add(_UIFormName, baseUIForm);
+
             }
             else
             {
                 Debug.Log("_TraCanvasTransfrom==null Or goCloneUIPrefabs==null!! ,Plese Check!, 参数uiFormName=" + _UIFormName);
             }
             //使用完毕，进行置空
-            _UIFormName = string.Empty;  
-            
+            _UIFormName = string.Empty;
+
         }
 
-
-        /// <summary>
-        /// 调用AB 包资源（通过ABLoadAssetHelper.cs 进行再次封装）
-        /// </summary>
-        /// <param name="abPara">AB包函数</param>
-        /// <param name="taskComplete">回调委托，传出数据</param>
-        /// <returns></returns>
-        private IEnumerator LoadABAsset(ABPara abPara, DelTaskComplete taskComplete)
+        private IEnumerator LoadABAsset(ABPara abPara, DelTaskComplete taskComplete)    // 调用AB 包资源（通过ABLoadAssetHelper.cs 进行再次封装）
         {
             //调用AB框架ab包
             ABLoadAssetHelper.GetInstance().LoadAssetBundlePack(abPara);
@@ -367,11 +282,8 @@ namespace SUIFW
             //委托调用
             taskComplete.Invoke(goCloneUIPrefab);
         }
-        /// <summary>
-        /// 把当前窗体加载到“当前窗体”集合中
-        /// </summary>
-        /// <param name="uiFormName">窗体预设的名称</param>
-        private void LoadUIToCurrentCache(string uiFormName)
+
+        private void LoadUIToCurrentCache(string uiFormName)        // 把当前窗体加载到“正在显示窗体”集合中
         {
             BaseUIForm baseUiForm;                          //UI窗体
             BaseUIForm baseUIFormFromAllCache;              //从“所有窗体集合”中得到的窗体
@@ -390,86 +302,42 @@ namespace SUIFW
                 {
                     _DicCurrentShowUIForms.Add(uiFormName, baseUIFormFromAllCache);
                     baseUIFormFromAllCache.Display();           //显示当前窗体
-                }  
+                }
             }
         }
- 
-        /// <summary>
-        /// UI窗体入栈
-        /// </summary>
-        /// <param name="uiFormName">窗体的名称</param>
-        private void PushUIFormToStack(string uiFormName)
-        { 
+
+
+        private void PushUIFormToStack(string uiFormName)           // UI窗体入栈
+        {
             BaseUIForm baseUIForm;                          //UI窗体
 
             //判断“栈”集合中，是否有其他的窗体，有则“冻结”处理。
-            if(_StaCurrentUIForms.Count>0)
+            if (_StaCurrentUIForms.Count > 0)
             {
-                BaseUIForm topUIForm=_StaCurrentUIForms.Peek();
+                BaseUIForm topUIForm = _StaCurrentUIForms.Peek();
                 //栈顶元素作冻结处理
                 topUIForm.Freeze();
             }
             //判断“UI所有窗体”集合是否有指定的UI窗体，有则处理。
             _DicALLUIForms.TryGetValue(uiFormName, out baseUIForm);
-            if (baseUIForm!=null)
+            if (baseUIForm != null)
             {
                 //当前窗口显示状态
                 baseUIForm.Display();
                 //把指定的UI窗体，入栈操作。
                 _StaCurrentUIForms.Push(baseUIForm);
-            }else{
+            }
+            else
+            {
                 Debug.Log("baseUIForm==null,Please Check, 参数 uiFormName=" + uiFormName);
             }
         }
 
-        /// <summary>
-        /// 退出指定UI窗体
-        /// </summary>
-        /// <param name="strUIFormName"></param>
-        private void ExitUIForms(string strUIFormName)
-        { 
-            BaseUIForm baseUIForm;                          //窗体基类
-
-            //"正在显示集合"中如果没有记录，则直接返回。
-            _DicCurrentShowUIForms.TryGetValue(strUIFormName, out baseUIForm);
-            if(baseUIForm==null) return ;
-            //指定窗体，标记为“隐藏状态”，且从"正在显示集合"中移除。
-            baseUIForm.Hiding();
-            _DicCurrentShowUIForms.Remove(strUIFormName);
-        }
-
-        //（“反向切换”属性）窗体的出栈逻辑
-        private void PopUIFroms()
-        { 
-            if(_StaCurrentUIForms.Count>=2)
-            {
-                //出栈处理
-                BaseUIForm topUIForms = _StaCurrentUIForms.Pop();
-                //做隐藏处理
-                topUIForms.Hiding();
-                //出栈后，下一个窗体做“重新显示”处理。
-                BaseUIForm nextUIForms = _StaCurrentUIForms.Peek();
-                nextUIForms.Redisplay();
-            }
-            else if (_StaCurrentUIForms.Count ==1)
-            {
-                //出栈处理
-                BaseUIForm topUIForms = _StaCurrentUIForms.Pop();
-                //做隐藏处理
-                topUIForms.Hiding();
-            }
-        }
-
-
-        /// <summary>
-        /// (“隐藏其他”属性)打开窗体，且隐藏其他窗体
-        /// </summary>
-        /// <param name="strUIName">打开的指定窗体名称</param>
-        private void EnterUIFormsAndHideOther(string strUIName)
+        private void EnterUIFormsAndHideOther(string strUIName)     // (“隐藏其他”属性)打开窗体，且隐藏其他窗体
         {
             BaseUIForm baseUIForm;                          //UI窗体基类
             BaseUIForm baseUIFormFromALL;                   //从集合中得到的UI窗体基类
-     
+
             //参数检查
             if (string.IsNullOrEmpty(strUIName)) return;
 
@@ -497,15 +365,47 @@ namespace SUIFW
                     _DicCurrentShowUIForms.Add(strUIName, baseUIFormFromALL);
                     //窗体显示
                     baseUIFormFromALL.Display();
-                }            
+                }
             }
-        }//EnterUIFormsAndHideOther()_end
+        }
+        #endregion
 
-        /// <summary>
-        /// (“隐藏其他”属性)关闭窗体，且显示其他窗体
-        /// </summary>
-        /// <param name="strUIName">打开的指定窗体名称</param>
-        private void ExitUIFormsAndDisplayOther(string strUIName)
+
+        #region 关闭窗体
+
+        private void ExitUIForms(string strUIFormName)   // 正常关闭UI窗体
+        {
+            BaseUIForm baseUIForm;                          //窗体基类
+
+            //"正在显示集合"中如果没有记录，则直接返回。
+            _DicCurrentShowUIForms.TryGetValue(strUIFormName, out baseUIForm);
+            if (baseUIForm == null) return;
+            //指定窗体，标记为“隐藏状态”，且从"正在显示集合"中移除。
+            baseUIForm.Hiding();
+            _DicCurrentShowUIForms.Remove(strUIFormName);
+        }
+        private void PopUIFroms()               //（“反向切换”属性）窗体的出栈逻辑
+        {
+            if (_StaCurrentUIForms.Count >= 2)
+            {
+                //出栈处理
+                BaseUIForm topUIForms = _StaCurrentUIForms.Pop();
+                //做隐藏处理
+                topUIForms.Hiding();
+                //出栈后，下一个窗体做“重新显示”处理。
+                BaseUIForm nextUIForms = _StaCurrentUIForms.Peek();
+                nextUIForms.Redisplay();
+            }
+            else if (_StaCurrentUIForms.Count == 1)
+            {
+                //出栈处理
+                BaseUIForm topUIForms = _StaCurrentUIForms.Pop();
+                //做隐藏处理
+                topUIForms.Hiding();
+            }
+        }
+        
+        private void ExitUIFormsAndDisplayOther(string strUIName)       // (“隐藏其他”属性)关闭窗体，且显示其他窗体
         {
             BaseUIForm baseUIForm;                          //UI窗体基类
 
@@ -531,13 +431,9 @@ namespace SUIFW
             }
         }
 
-        /// <summary>
-        /// 是否清空“栈集合”中得数据
-        /// </summary>
-        /// <returns></returns>
-        private bool ClearStackArray()
+        private bool ClearStackArray()  // 是否清空“栈集合”中得数据
         {
-            if (_StaCurrentUIForms != null && _StaCurrentUIForms.Count>=1)
+            if (_StaCurrentUIForms != null && _StaCurrentUIForms.Count >= 1)
             {
                 //清空栈集合
                 _StaCurrentUIForms.Clear();
@@ -546,33 +442,26 @@ namespace SUIFW
 
             return false;
         }
+        #endregion
 
-        /// <summary>
-        /// 初始化“UI窗体预设”路径数据
-        /// </summary>
-	    private void InitUIFormsPathData()
-	    {
+
+        #region 初始化“UI窗体预设”路径数据
+        private void InitUIFormsPathData()
+        {
             //json 再SA目录中路径信息
             string strJsonDeployPath = string.Empty;
 
             strJsonDeployPath = ABFW.PathTools.GetABOutPath() + HotUpdateProcess.HotUpdatePathTool.JSON_DEPLOY_PATH;
-            strJsonDeployPath = strJsonDeployPath + "/"+SysDefine.SYS_PATH_UIFORMS_CONFIG_INFO;
+            strJsonDeployPath = strJsonDeployPath + "/" + SysDefine.SYS_PATH_UIFORMS_CONFIG_INFO;
 
             IConfigManager configMgr = new ConfigManagerByJson(strJsonDeployPath);
-            if (configMgr!=null)
+            if (configMgr != null)
             {
                 _DicFormsPaths = configMgr.AppSetting;
             }
-	    }
-        
-	    #endregion
-        //public void wccc()
-        //{
-        //    foreach (var item in _DicFormsPaths)
-        //    {
-        //        Debug.LogWarning(item.Key + "---" + item.Value);
-        //    }
-            
-        //}
-    }//class_end
+        }
+        #endregion
+
+
+    }
 }

@@ -1,9 +1,7 @@
 ﻿/***
- *
  *   Title: "AssetBundle简单框架"项目
  *           辅助类： 
  *                读取AssetBundle 依赖关系清单文件。（Windows.Manifest）
- *
  */
 using System;
 using System.Collections;
@@ -30,10 +28,7 @@ namespace ABFW
             get { return _IsLoadFinish; }
         }
 
-
-
-        //构造函数
-        private ABManifestLoader()
+        private ABManifestLoader()  //构造函数
         {
             //确定清单文件WWW下载路径
             _StrManifestPath = PathTools.GetWWWPath() + "/" + PathTools.GetPlatformName();
@@ -42,11 +37,7 @@ namespace ABFW
             _IsLoadFinish = false;
         }
 
-        /// <summary>
-        /// 获取本类实例
-        /// </summary>
-        /// <returns></returns>
-        public static ABManifestLoader GetInstance()
+        public static ABManifestLoader GetInstance()        // 获取本类实例
         {
             if (_Instance==null)
             {
@@ -54,9 +45,8 @@ namespace ABFW
             }
             return _Instance;
         }
-
-        //加载Manifest 清单文件
-        public IEnumerator LoadMainifestFile()
+     
+        public IEnumerator LoadMainifestFile()       //加载Manifest 清单文件
         {
             using (WWW www=new WWW(_StrManifestPath))
             {
@@ -80,35 +70,7 @@ namespace ABFW
             }
         }
 
-        /// <summary>
-        /// 获取AssetBundleManifest系统类实例(最全的那个)
-        /// </summary>
-        /// <returns></returns>
-        public AssetBundleManifest GetABManifest()
-        {
-            if (_IsLoadFinish)
-            {
-                if (_ManifestObj != null)
-                {
-                    return _ManifestObj;
-                }
-                else
-                {
-                    Debug.Log(GetType() + "/GetABManifest()/_ManifestObj==null ! 请检查");
-                }
-            }
-            else {
-                Debug.Log(GetType() + "/GetABManifest()/_IsLoadFinish==false , Manifest没有加载完毕，请检查！");
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// 获取AssetBundleManifest（系统类) 指定包名称依赖项
-        /// </summary>
-        /// <param name="abName">AB包名称</param>
-        /// <returns></returns>
-        public string[] RetrivalDependce(string abName)
+        public string[] RetrivalDependce(string abName)             // 获取AssetBundleManifest（系统类) 指定包名称依赖项
         {
             if (_ManifestObj!=null && !string.IsNullOrEmpty(abName))
             {
@@ -116,18 +78,6 @@ namespace ABFW
             }
             return null;
         }
-
-
-        /// <释放本类资源summary>
-        /// 释放本类资源
-        /// </summary>
-        //public void Dispose()
-        //{
-        //    if (_ABReadManifest!=null)
-        //    {
-        //        _ABReadManifest.Unload(true);
-        //    }
-        //}
     }
 }
 

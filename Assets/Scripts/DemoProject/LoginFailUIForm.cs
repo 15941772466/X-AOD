@@ -17,9 +17,6 @@ namespace DemoProject
         {
             CurrentUIType.UIForms_Type = UIFormType.PopUp;  //弹出窗体   
             CurrentUIType.UIForms_ShowMode = UIFormShowMode.ReverseChange;
-
-            RigisterButtonObjectEvent("Back", () => CloseUIForm());
         }
-
     }
 }
