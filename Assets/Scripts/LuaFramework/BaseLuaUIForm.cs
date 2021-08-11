@@ -64,14 +64,14 @@ namespace LuaFramework
             if (prefabName.Contains("(Clone)"))
             {
                 prefabName = prefabName.Split(new string[] { "(Clone)" }, StringSplitOptions.RemoveEmptyEntries)[0];
-                Debug.LogError("prefabName::"+prefabName);
+                //Debug.LogError("prefabName::"+prefabName);
             }
             /* 查找指定路径下lua文件中的方法，映射为委托 */
             luaAwake = luaTable.GetInPath<BaseLuaUIForm.delLuaAwake>(prefabName + ".Awake");
             luaStart = luaTable.GetInPath<BaseLuaUIForm.delLuaStart>(prefabName + ".Start");
             luaUpdate = luaTable.GetInPath<BaseLuaUIForm.delLuaUpdate>(prefabName + ".Update");
             luaDestroy = luaTable.GetInPath<BaseLuaUIForm.delLuaDestroy>(prefabName + ".OnDestroy");
-            Debug.LogError("luaAwake::" + luaStart);
+            //Debug.LogError("luaAwake::" + luaAwake);
             //调用委托
             if (luaAwake != null)
             {
