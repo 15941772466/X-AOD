@@ -1,16 +1,6 @@
-﻿/***
- * 
- *    Title: "SUIFW" UI框架项目
- *           主题： “商城窗体”   
- *    Description: 
- *           功能：
- *                  
- *    Date: 2017
- *    Version: 0.1版本
- *    Modify Recoder: 
- *    
- *   
- */
+﻿
+// 防御塔列表窗体  
+
 using System.Collections;
 using System.Collections.Generic;
 using SUIFW;
@@ -27,10 +17,7 @@ namespace DemoProject
 		    //CurrentUIType.UIForm_LucencyType = UIFormLucenyType.Translucence;
 		    CurrentUIType.UIForms_ShowMode = UIFormShowMode.ReverseChange;
 
-            //注册按钮事件：退出
-            RigisterButtonObjectEvent("Btn_Close",
-                ()=> CloseUIForm()                
-                );
+
             //注册道具事件：神杖 
             RigisterButtonObjectEvent("BtnTicket",
                 () =>
@@ -38,7 +25,7 @@ namespace DemoProject
                     //打开子窗体
                     OpenUIForm(ProConst.PRO_DETAIL_UIFORM);
                     //传递数据
-                    string[] strArray = new string[] { "神杖详情", "神杖详细介绍。。。" };
+                    string[] strArray = new string[] { "A防御塔详情", "A防御塔详细介绍。。。" };
                     SendMessage("Props", "ticket", strArray);
                 }
                 );
@@ -50,7 +37,7 @@ namespace DemoProject
                     //打开子窗体
                     OpenUIForm(ProConst.PRO_DETAIL_UIFORM);
                     //传递数据
-                    string[] strArray = new string[] { "战靴详情", "战靴详细介绍。。。" };
+                    string[] strArray = new string[] { "B防御塔详情", "B防御塔详细介绍。。。" };
                     SendMessage("Props", "shoes", strArray);
                 }
                 );
@@ -62,7 +49,7 @@ namespace DemoProject
                     //打开子窗体
                     OpenUIForm(ProConst.PRO_DETAIL_UIFORM);
                     //传递数据
-                    string[] strArray = new string[] { "盔甲详情", "盔甲详细介绍。。。" };
+                    string[] strArray = new string[] { "C防御塔详情", "C防御塔详细介绍。。。" };
                     SendMessage("Props", "cloth", strArray);
                 }
                 );

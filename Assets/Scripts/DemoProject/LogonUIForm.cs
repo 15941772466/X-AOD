@@ -5,11 +5,6 @@
  *    Description: 
  *           功能： 
  *                  
- *    Date: 2017
- *    Version: 0.1版本
- *    Modify Recoder: 
- *    
- *   
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -33,9 +28,23 @@ namespace DemoProject
             /* 给按钮注册事件 */
             //RigisterButtonObjectEvent("Btn_OK", LogonSys);
             //Lamda表达式写法
-            RigisterButtonObjectEvent("Btn_OK", 
-                ()=>OpenUIForm(ProConst.SELECT_HERO_FORM)
-                );
+            //RigisterButtonObjectEvent("Btn_OK", 
+            //    ()=>OpenUIForm(ProConst.STORY_UIFORM)
+            //    );
+
+            //RigisterButtonObjectEvent("Btn_Res",
+            //    () => OpenUIForm(ProConst.RES_UIFORM)
+            //    );
+
+            //var t1 = UnityHelper.FindTheChildNode(this.transform.gameObject, "Inp_Name");
+            //var t2 = UnityHelper.FindTheChildNode(this.transform.gameObject, "Inp_PW");
+            //var t3 = UnityHelper.FindTheChildNode(this.transform.gameObject, "Btn_OK");
+            
+            
+            //Button btnok = t3.gameObject.GetComponent<Button>();
+            ////Login.LogIn(t1.Find("Text").GetComponent<Text>().text, t2.Find("Text").GetComponent<Text>().text);
+            //btnok.onClick.AddListener(() => LoginRes.Login.LogIn(t1.Find("Text").GetComponent<Text>().text, t2.Find("Text").GetComponent<Text>().text));
+            
 
         }
 

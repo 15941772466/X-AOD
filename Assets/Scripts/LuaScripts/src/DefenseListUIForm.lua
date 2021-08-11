@@ -27,7 +27,7 @@ function DefenseListUIForm.Awake(obj)
 end
 
 function DefenseListUIForm.InitView()
-    print("------------------------------------------------------------------");
+    print("-----------------DefenseListUIForm.InitView-----------------------");
     --查找UI中按钮
     this.BtnA=transform:Find("DefenseA")--返回transform
     this.BtnA=this.BtnA:GetComponent("UnityEngine.UI.Button") --返回Button类型

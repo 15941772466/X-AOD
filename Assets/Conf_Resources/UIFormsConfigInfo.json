@@ -9,8 +9,8 @@
 {"Key":"LogonUIForm",
 "Value":"uiprefabs|uiprefabs/uiprefabs.ab|LogonUIForm.prefab"},
 
-{"Key":"SelectHeroUIForm",
-"Value":"uiprefabs|uiprefabs/uiprefabs.ab|SelectHeroUIForm.prefab"},
+{"Key":"StoryUIForm",
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|StoryUIForm.prefab"},
 
 {"Key":"MainCityUIForm",
 "Value":"uiprefabs|uiprefabs/uiprefabs.ab|MainCityUIForm.prefab"},
@@ -31,7 +31,12 @@
 "Value":"uiprefabs|uiprefabs/uiprefabs.ab|GameInfoUIForm.prefab"},
 
 {"Key":"DefenseListUIForm",
-"Value":"uiprefabs|uiprefabs/uiprefabs.ab|DefenseListUIForm.prefab"}
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|DefenseListUIForm.prefab"},
 
+{"Key":"ResUIForm",
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|ResUIForm.prefab"},
+
+{"Key":"LoginFailUIForm",
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|LoginFailUIForm.prefab"}
 ]
 }

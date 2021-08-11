@@ -10,15 +10,14 @@ namespace PFW
     {
         private static DefenseManager _Instance = null;
 
-        //防御塔预设路径(参数1：防御塔预设名称，2：表示防御塔预设路径)
+        //游戏预制体路径(参数1：防御塔预设名称，2：表示防御塔预设路径)
         public Dictionary<string, string> _DicDefensesPaths;
-        //缓存所有防御塔
+        //缓存所有游戏预制体
         public Dictionary<string, UnityEngine.Object> _DicALLDTForms;
 
-        ////防御塔名称
-        //private string _DefenseName = string.Empty;
-
-        //防御塔实例
+        
+       
+        //游戏预制体实例
         private UnityEngine.Object goPrefab = null;
 
 
@@ -39,14 +38,15 @@ namespace PFW
         }
         void Start()
         {
-            //初始化“防御塔预设”路径数据
+            //初始化“游戏预制体预设”路径数据
             InitDefensesPathData();
             DontDestroyOnLoad(_Instance);
-            //把所有的防御塔都加载出来
+            //把所有的游戏预制体都加载出来
             StartCoroutine(InitRootCanvasLoading(_DicDefensesPaths, DICgoPrefab));
         }
         public void PreLoad()
         {
+            
         }
         private void DICgoPrefab(string preName)
         {
@@ -56,7 +56,7 @@ namespace PFW
         }
 
         /// <summary>
-        /// 初始化加载防御塔预设
+        /// 初始化加载游戏预制体
         /// </summary>
         private IEnumerator InitRootCanvasLoading(Dictionary<string,string> DTPaths, DTComplete taskComplete)
         {
@@ -85,9 +85,9 @@ namespace PFW
                 taskComplete.Invoke(pName);    
             }
         }
-        
+
         /// <summary>
-        /// 初始化“防御塔预设”路径数据
+        /// 初始化“游戏预制体”路径数据
         /// </summary>
         private void InitDefensesPathData()
         {
@@ -107,7 +107,7 @@ namespace PFW
                 Debug.Log(item.Key + "    " + item.Value);
             }
         }
-        public UnityEngine.GameObject PrefabAB(string DTname)    //通过名字作为key，返回防御塔
+        public UnityEngine.GameObject PrefabAB(string DTname)    //通过名字作为key，返回游戏预制体
         {
             UnityEngine.Object DefenseTower = null;
             _DicALLDTForms.TryGetValue(DTname, out DefenseTower);
@@ -116,7 +116,7 @@ namespace PFW
             return DTPre;
         }
 
-        public void ABDIC()    //查询所有防御塔
+        public void ABDIC()    //查询所有游戏预制体
         {
             foreach (var item in _DicALLDTForms)
             {

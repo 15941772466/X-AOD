@@ -23,8 +23,8 @@ namespace HotUpdateProcess
         /* 拷贝lua文件定义字段  */
         //定义lua编辑目录路径
         private static string _LuaDIRPath = Application.dataPath + HotUpdateProcess.HotUpdatePathTool.LUA_EDITOR_PATH;
-        //定义lua 框架编辑目录路径
-        private static string _LuaLuaEditorFrameworkPath = Application.dataPath + HotUpdateProcess.HotUpdatePathTool.LUA_EDITOR_FRAMEWORK_PATH;
+       
+      
         //定义lua发布目录路径
         private static string _CopyTargetDIR = PathTools.GetABOutPath() + HotUpdateProcess.HotUpdatePathTool.LUA_DEPLOY_PATH;
 
@@ -42,29 +42,9 @@ namespace HotUpdateProcess
         [MenuItem("HotUpdateProcess/CopyLuaFileToSA")]
         public static void CopyLuaFileTo()
         {
-           
-
-            ////定义目录与文件结构
-            //DirectoryInfo dirInfo = new DirectoryInfo(_LuaDIRPath);
-            //FileInfo[] files=dirInfo.GetFiles();
-
-            ////如果拷贝的目标路径不存在，则创建
-            //if (!Directory.Exists(_CopyTargetDIR))
-            //{
-            //    Directory.CreateDirectory(_CopyTargetDIR);
-            //}
-
-            ////开始循环拷贝文件
-            //foreach (FileInfo infoObj in files)
-            //{
-            //    File.Copy(infoObj.FullName, _CopyTargetDIR+"/"+ infoObj.Name,true);
-            //}
 
             //拷贝lua编辑器目录
             CopyLuaFileToSA();
-
-            //拷贝lua编辑器lua框架目录
-            CopyLuaFrameworkFileToSA();
             //Unity编辑器窗体刷新
             Debug.Log("CopyAssetFileToSA.cs/CopyLuaFileTo()/ lua文件已经拷贝的指定区域！");
             AssetDatabase.Refresh();
@@ -81,32 +61,13 @@ namespace HotUpdateProcess
             {
                 Directory.CreateDirectory(_CopyTargetDIR);
             }
-
             //开始循环拷贝文件
             foreach (FileInfo infoObj in files)
             {
                 File.Copy(infoObj.FullName, _CopyTargetDIR + "/" + infoObj.Name, true);
             }
         }
-        //拷贝lua编辑器lua框架目录  (luaframework)
-        private static void CopyLuaFrameworkFileToSA()
-        {
-            //定义目录与文件结构
-            DirectoryInfo dirInfo = new DirectoryInfo(_LuaLuaEditorFrameworkPath);
-            FileInfo[] files = dirInfo.GetFiles();
-
-            //如果拷贝的目标路径不存在，则创建
-            if (!Directory.Exists(_CopyTargetDIR))
-            {
-                Directory.CreateDirectory(_CopyTargetDIR);
-            }
-
-            //开始循环拷贝文件
-            foreach (FileInfo infoObj in files)
-            {
-                File.Copy(infoObj.FullName, _CopyTargetDIR + "/" + infoObj.Name, true);
-            }
-        }
+       
         /// <summary>
         /// 拷贝Json文件到StreamAsset 目录
         /// </summary>

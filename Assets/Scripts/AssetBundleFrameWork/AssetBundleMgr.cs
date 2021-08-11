@@ -22,6 +22,9 @@ namespace ABFW
         //AssetBundle （清单文件） 系统类
         private AssetBundleManifest _ManifestObj = null;
 
+        private static bool init = true;
+
+        public AssetBundle level_oneNav = null;
 
         private  AssetBundleMgr(){}
 
@@ -40,6 +43,17 @@ namespace ABFW
         {
             //加载Manifest清单文件
             StartCoroutine(ABManifestLoader.GetInstance().LoadMainifestFile());
+            //这块是在加载场景 ，放在软件最开始//
+            string path = ABFW.PathTools.GetABOutPath() + "/sences/";
+            if (init)
+            {
+                Debug.Log("path: " + path);
+                AssetBundle.LoadFromFile(path + ("sences.u3d").ToLower());
+                level_oneNav = AssetBundle.LoadFromFile(path + ("level_one.ab").ToLower());
+                init = false;
+            }
+            
+            print(init);
         }
 
 

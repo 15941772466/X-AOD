@@ -1,15 +1,10 @@
-﻿/***
- * 
- *    Title: "SUIFW" UI框架项目
- *           主题： 游戏中上端信息显示窗体
- *    Description: 
- *           功能： 
- *    
- *   
- */
+﻿
+// 游戏中上端信息显示窗体  
+
 using System.Collections;
 using System.Collections.Generic;
 using SUIFW;
+using ABFW;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,10 +22,8 @@ namespace DemoProject
             RigisterButtonObjectEvent("BackGameHall",
                 () =>
                 {
-                    OpenUIForm(ProConst.MAIN_CITY_UIFORM);
-                    OpenUIForm(ProConst.HERO_INFO_UIFORM);
-                    SceneManager.LoadScene("UI");    //sences.u3d  的ab已经加载完成 ，场景可直接转换
-
+                   // AssetBundleMgr.GetInstance().level_oneNav.Unload(true);
+                
                 }
                 );
         }
