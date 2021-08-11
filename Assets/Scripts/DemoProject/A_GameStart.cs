@@ -9,7 +9,13 @@ public class A_GameStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // A_LuaStart.GetInstance().DoString("require 'A_StartGame'");
+        // A_LuaStart.GetInstance().DoString("require 'A_StartGame'");
+        Invoke("Game_start", 2.0f);
+    }
+
+    void Game_start()
+    {
         LuaHelper.GetInstance().DoString("require 'A_StartGame'");
+        
     }
 }
