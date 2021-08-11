@@ -37,6 +37,10 @@
 "Value":"uiprefabs|uiprefabs/uiprefabs.ab|ResUIForm.prefab"},
 
 {"Key":"LoginFailUIForm",
-"Value":"uiprefabs|uiprefabs/uiprefabs.ab|LoginFailUIForm.prefab"}
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|LoginFailUIForm.prefab"},
+
+{"Key":"CommuUIForm",
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|CommuUIForm.prefab"}
+
 ]
 }

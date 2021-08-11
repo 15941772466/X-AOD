@@ -43,6 +43,10 @@ function MainCityUIForm.InitView()
     this.EmallBtn=transform:Find("BtnEmall")--返回transform
     this.EmallBtn=this.EmallBtn:GetComponent("UnityEngine.UI.Button") --返回Button类型
     this.EmallBtn.onClick:AddListener(this.ProcessEmallBtn)
+
+    this.CommuBtn=transform:Find("Btncommunication")--返回transform
+    this.CommuBtn=this.CommuBtn:GetComponent("UnityEngine.UI.Button") --返回Button类型
+    this.CommuBtn.onClick:AddListener(this.ProcessCommuBtn)
 end
 
 function MainCityUIForm.ProcessPlayNormal()
@@ -67,4 +71,10 @@ function MainCityUIForm.ProcessEmallBtn()
    
     print("执行到 ProcessEmallBtn")  
     uiManager:ShowUIForms("NotificationUIForm")
+end
+
+function MainCityUIForm.ProcessCommuBtn()
+   
+    print("执行到 ProcessCommuBtn")  
+    uiManager:ShowUIForms("CommuUIForm")
 end

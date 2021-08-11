@@ -5,7 +5,7 @@
 --项目中用到的视图层脚本名称（业务代码）
 ViewNames={
             "LogonUIForm","StoryUIForm","NotificationUIForm","PropDetailUIForm","HeroInfoUIForm","MainCityUIForm",
-            "LoginFailUIForm","ResUIForm","MarketUIFrom","PropDetailUIForm","GameInfoUIForm"
+            "LoginFailUIForm","ResUIForm","MarketUIFrom","PropDetailUIForm","GameInfoUIForm","CommuUIForm"
 }
 
 --引入Unity内置的类型
