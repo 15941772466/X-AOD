@@ -7,6 +7,11 @@ require("LevelSettings")
 require("A_SettlementCtrl")
 --计时器脚本
 -- require("A_GameManager")
+
+--敌人列表
+EnemyListSpawnered={}
+
+
 A_EnemySpawnerCtrl={}
 local this=A_EnemySpawnerCtrl
 
@@ -72,4 +77,8 @@ end
 function A_EnemySpawnerCtrl.Update()
    print("生成方法")
 end
+
+cube={
+   cube1="  "
+}
 
