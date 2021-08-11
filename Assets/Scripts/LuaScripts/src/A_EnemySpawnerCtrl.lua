@@ -1,33 +1,33 @@
+--敌人生成管理类
 
+----------------引用脚本-----------------------
 --怪物生成逻辑
---获取怪物数据
 require("TestSysDefine")
+--获取关卡数据
 require("A_LevelSettings")
 --游戏结算脚本
 require("A_SettlementCtrl")
---计时器脚本
--- require("A_GameManager")
 
---敌人列表
-EnemyListSpawnered={}
-
-
+--模拟类
 A_EnemySpawnerCtrl={}
 local this=A_EnemySpawnerCtrl
 
---现存敌人数量
-EnemyCount=0
+----------------关于敌人的数据等------------------
 --拿到敌人加载的cs脚本
 local DTManager=CS.PFW.DefenseManager
 local abDTObj=DTManager.GetInstance()
 --拿到敌人数据的实例
 local levelData=A_LevelSettings.GetInstance()
+--敌人列表
+EnemyListSpawnered={}
+--现存敌人数量
+EnemyCount=0
+--存放敌人预制体
+local tempObj={}
+
+
 --敌人结算脚本的实例
 local settlementCtrl=A_SettlementCtrl.GetInstance()
--- --记载计时器脚本实例
--- local timer=A_GameManager.GetInstance()
---存放敌人实例
-local tempObj={}
 --敌人生成位置
 local EnemyPosition=CSU.GameObject.Find("SatrtPosition").transform.position
 
@@ -39,10 +39,7 @@ end
 
 --------------------------------------敌人生成逻辑-------------------------------------------
 function A_EnemySpawnerCtrl.Start(obj)
-     --加载敌人List
-     -- local levelnameCom=CSU.GameObject.Find("LevelName")
-     -- local levelname=levelnameCom.Getchild(0)
-
+     --获取当前关卡
      local Level=levelData[obj.tag]
      --读取敌人种类进行加载
      for i,wave in pairs(Level.enemy) do
@@ -54,7 +51,7 @@ function A_EnemySpawnerCtrl.Start(obj)
      A_SettlementCtrl.Win()
 end
 
-
+--敌人生成
 function A_EnemySpawnerCtrl.enemySpawner(LevelDataEnemy)
       for i,wave in pairs(LevelDataEnemy) do
          print(wave.count)
