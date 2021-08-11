@@ -1,8 +1,4 @@
-﻿/***
- *  Title: "lua框架"项目 
- *          Lua 帮助类
- */
-
+﻿//lua读取自定义路径
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +10,7 @@ using ABFW;
 
 namespace LuaFramework
 {
-    public class LuaHelper 
+    public class LuaHelper      
     {
         //本类静态实例
         private static LuaHelper _Instance;
@@ -30,10 +26,6 @@ namespace LuaFramework
             _luaEnv.AddLoader(customLoader);
         }
 
-        /// <summary>
-        /// 得到帮助类实例
-        /// </summary>
-        /// <returns></returns>
         public static LuaHelper GetInstance()
         {
             if (_Instance==null)
@@ -42,11 +34,6 @@ namespace LuaFramework
             }
             return _Instance;
         }
-
-        /// <summary>
-        /// 得到lua环境
-        /// </summary>
-        /// <returns></returns>
         public LuaEnv GetLuaEnv()
         {
             if (_luaEnv!=null)
@@ -54,43 +41,17 @@ namespace LuaFramework
                 return _luaEnv;
             }
             else {
-                Debug.LogError(GetType()+ "/GetLuaEnv()/出现严重错误！   _luaEnv==null!!!   ");
+                Debug.LogError(GetType()+ "luaEnv=null! ");
                 return null;
             }
         }
 
-        /// <summary>
-        /// 执行lua代码
-        /// </summary>
-        /// <param name="chunk"></param>
-        /// <param name="chunkName"></param>
-        /// <param name="env"></param>
         public void DoString(string chunk, string chunkName = "chunk", LuaTable env = null)
         {
             _luaEnv.DoString(chunk, chunkName, env);
         }
 
-        /// <summary>
-        /// 调用lua中的方法
-        /// </summary>
-        /// <param name="luaScriptName">lua 脚本名称</param>
-        /// <param name="luaMethodName">lua 的方法</param>
-        /// <param name="args">可变 object 类型数组</param>
-        /// <returns>
-        /// 对象数组
-        /// </returns>
-        public object[] CallLuaFunction(string luaScriptName,string luaMethodName,params object[] args)
-        {
-            LuaTable  luaTab=_luaEnv.Global.Get<LuaTable>(luaScriptName);
-            LuaFunction luaFun = luaTab.Get<LuaFunction>(luaMethodName);
-            return luaFun.Call(args);
-        }
 
-        /// <summary>
-        /// 自定义调取lua文件内容
-        /// </summary>
-        /// <param name="fileName">lua文件名称</param>
-        /// <returns></returns>
         private byte[] customLoader(ref string fileName)
         {
             //获取lua所在目录
@@ -107,13 +68,7 @@ namespace LuaFramework
             }
         }
 
-        /// <summary>
-        /// 根据lua文件名称，递归取得lua内容信息,且放入缓存集合
-        /// </summary>
-        /// <param name="fileSysInfo">lua的文件信息</param>
-        /// <param name="fileName">查询的lua文件名称</param>
-        /// <returns></returns>
-        private byte[] ProcessDIR(FileSystemInfo fileSysInfo, string fileName)
+        private byte[] ProcessDIR(FileSystemInfo fileSysInfo, string fileName)      // 根据lua文件名称，递归取得lua内容信息,且放入缓存集合
         {
             DirectoryInfo dirInfo=fileSysInfo as DirectoryInfo;
             FileSystemInfo[] files=dirInfo.GetFileSystemInfos();
@@ -144,17 +99,7 @@ namespace LuaFramework
 
             }
             return null;
-        }//ProcessDIR_end
-
-        /// <summary>
-        /// 给指定对象，动态添加“BaseLuaUIForm”脚本
-        /// </summary>
-        /// <param name="go"></param>
-        public void AddBaseLuaUIForm(GameObject go)
-        {
-            go.AddComponent<BaseLuaUIForm>();
         }
-
 
 
     }//Class_end
