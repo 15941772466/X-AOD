@@ -2,7 +2,7 @@
 --怪物生成逻辑
 --获取怪物数据
 require("TestSysDefine")
-require("LevelSettings")
+require("A_LevelSettings")
 --游戏结算脚本
 require("A_SettlementCtrl")
 --计时器脚本
@@ -21,7 +21,7 @@ EnemyCount=0
 local DTManager=CS.PFW.DefenseManager
 local abDTObj=DTManager.GetInstance()
 --拿到敌人数据的实例
-local levelData=LevelSettings.GetInstance()
+local levelData=A_LevelSettings.GetInstance()
 --敌人结算脚本的实例
 local settlementCtrl=A_SettlementCtrl.GetInstance()
 -- --记载计时器脚本实例
@@ -43,20 +43,20 @@ function A_EnemySpawnerCtrl.Start(obj)
      -- local levelnameCom=CSU.GameObject.Find("LevelName")
      -- local levelname=levelnameCom.Getchild(0)
 
-     print(obj.tag)
      local Level=levelData[obj.tag]
-     for i,wave in pairs(Level) do
+     --读取敌人种类进行加载
+     for i,wave in pairs(Level.enemy) do
         tempObj[wave.type]=abDTObj:PrefabAB(wave.type)
      end
      --按波数生成敌人
-     this.enemySpawner(Level)
+     this.enemySpawner(Level.enemy)
      --成功加载完所有敌人并全部被消灭，游戏胜利
      A_SettlementCtrl.Win()
 end
 
 
-function A_EnemySpawnerCtrl.enemySpawner(Level)
-      for i,wave in pairs(Level) do
+function A_EnemySpawnerCtrl.enemySpawner(LevelDataEnemy)
+      for i,wave in pairs(LevelDataEnemy) do
          print(wave.count)
          for i=1,wave.count do
             --实例化
@@ -75,10 +75,6 @@ end
 
 
 function A_EnemySpawnerCtrl.Update()
-   print("生成方法")
+   
 end
-
-cube={
-   cube1="  "
-}
 
