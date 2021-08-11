@@ -102,10 +102,10 @@ namespace PFW
             {
                 _DicDefensesPaths = configMgr.AppSetting; 
             }
-            foreach (var item in _DicDefensesPaths)
-            {
-                Debug.Log(item.Key + "    " + item.Value);
-            }
+            //foreach (var item in _DicDefensesPaths)
+            //{
+            //    Debug.Log(item.Key + "    " + item.Value);
+            //}
         }
         public UnityEngine.GameObject PrefabAB(string DTname)    //通过名字作为key，返回游戏预制体
         {

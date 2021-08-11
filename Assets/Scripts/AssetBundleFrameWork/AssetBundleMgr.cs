@@ -4,7 +4,7 @@
 
  *          功能： 
  *             1: 提取“Menifest 清单文件”，缓存本脚本。
- *             2：以“场景”为单位，管理整个项目中所有的AssetBundle 包。 
+ *             2：以“根目录文件夹”为单位，管理整个项目中所有的AssetBundle 包。 
  *
  */
 using System.Collections;
@@ -19,14 +19,12 @@ namespace ABFW
         private static AssetBundleMgr _Instance;
         //场景集合
         private Dictionary<string, MultiABMgr> _DicAllScenes = new Dictionary<string, MultiABMgr>();
-        //AssetBundle （清单文件） 系统类
-        private AssetBundleManifest _ManifestObj = null;
-
+        //资源初始化
         private static bool init = true;
-
+        //第一关AB包
         public AssetBundle level_oneNav = null;
 
-        private  AssetBundleMgr(){}
+       
 
         //得到本类实例
         public static AssetBundleMgr GetInstance()
@@ -52,19 +50,9 @@ namespace ABFW
                 level_oneNav = AssetBundle.LoadFromFile(path + ("level_one.ab").ToLower());
                 init = false;
             }
-            
-            print(init);
         }
 
-
-        /// <summary>
-        /// 下载AssetBundel 指定包
-        /// </summary>
-        /// <param name="scenesName">场景名称</param>
-        /// <param name="abName">AssetBundle 包名称</param>
-        /// <param name="loadAllCompleteHandle">委托： 调用是否完成</param>
-        /// <returns></returns>
-        public IEnumerator LoadAssetBundlePack(string scenesName, string abName, DelLoadComplete loadAllCompleteHandle)
+        public IEnumerator LoadAssetBundlePack(string scenesName, string abName, DelLoadComplete loadAllCompleteHandle)   // 下载AssetBundel 指定包
         {
             //参数检查
             if (string.IsNullOrEmpty(scenesName) || string.IsNullOrEmpty(abName))
@@ -78,12 +66,6 @@ namespace ABFW
             {
                 yield return null;
             }
-            _ManifestObj = ABManifestLoader.GetInstance().GetABManifest();
-            if (_ManifestObj==null)
-            {
-                Debug.LogError(GetType() + "/LoadAssetBundlePack()/_ManifestObj is null ,请先确保加载Manifest清单文件！");
-                yield break;
-            }
 
             //把当前场景加入集合中。
             if (!_DicAllScenes.ContainsKey(scenesName))
@@ -94,36 +76,13 @@ namespace ABFW
 
             //调用下一层（“多包管理类”）
             MultiABMgr tmpMultiMgrObj = _DicAllScenes[scenesName];
-            if (tmpMultiMgrObj==null)
-            {
-                Debug.LogError(GetType() + "/LoadAssetBundlePack()/tmpMultiMgrObj is null ,请检查！");
-            }
+            
             //调用“多包管理类”的加载指定AB包。
             yield return tmpMultiMgrObj.LoadAssetBundeler(abName);
 
-        }//Method_end
-
-        /// <summary>
-        /// 下载AssetBundel 指定包
-        /// </summary>
-        /// <param name="scenesName">场景名称</param>
-        /// <param name="abName">AssetBundle 包名称</param>
-        /// <param name="loadAllCompleteHandle">委托： 调用是否完成</param>
-        public void LoadAssetBundlePackage(string scenesName, string abName, DelLoadComplete loadAllCompleteHandle)
-        {
-            StartCoroutine(LoadAssetBundlePack(scenesName, abName, loadAllCompleteHandle));
         }
 
-
-        /// <summary>
-        /// 加载(AB 包中)资源
-        /// </summary>
-        /// <param name="scenesName">场景名称</param>
-        /// <param name="abName">AssetBundle 包名称</param>
-        /// <param name="assetName">资源名称</param>
-        /// <param name="isCache">是否使用缓存</param>
-        /// <returns></returns>
-        public UnityEngine.Object LoadAsset(string scenesName, string abName, string assetName  ,bool isCache)
+        public UnityEngine.Object LoadAsset(string scenesName, string abName, string assetName ,bool isCache)    // 加载(AB 包中)资源
         {
             if (_DicAllScenes.ContainsKey(scenesName))
             {
@@ -133,12 +92,7 @@ namespace ABFW
             Debug.LogError(GetType()+ "/LoadAsset()/找不到场景名称，无法加载（AB包中）资源,请检查！  scenesName="+ scenesName);
             return null;
         }
-
-        /// <summary>
-        /// 释放资源。
-        /// </summary>
-        /// <param name="scenesName">场景名称</param>
-        public void DisposeAllAssets(string scenesName)
+        public void DisposeAllAssets(string scenesName)          // 释放资源。
         {
             if (_DicAllScenes.ContainsKey(scenesName))
             {

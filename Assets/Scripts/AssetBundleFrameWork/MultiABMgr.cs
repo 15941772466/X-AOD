@@ -1,11 +1,7 @@
 ﻿/***
- *           主流程（3层）：(一个场景中)多个AssetBundle 包管理
- *
- *   Description:
- *          功能： 
+ *           主流程（3层）：(一个根目录中)多个AssetBundle 包管理
  *              1： 获取AB包之间的依赖与引用关系。
  *              2： 管理AssetBundle包之间的自动连锁（递归）加载机制
- 
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -98,7 +94,7 @@ namespace ABFW
                 yield return _CurrentSinglgABLoader.LoadAssetBundle();
             }
 
-        }//Method_end
+        }
 
 
         /// <summary>
@@ -124,6 +120,7 @@ namespace ABFW
                 //开始加载依赖的包(这是一个递归调用)
                 yield return LoadAssetBundeler(abName);
             }
+           
         }
 
         /// <summary>

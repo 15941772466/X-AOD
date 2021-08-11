@@ -17,30 +17,18 @@ using UnityEngine;
 namespace SUIFW
 {
 	public interface IConfigManager  {
-
-        /// <summary>
-        /// 只读属性： 应用设置
-        /// 功能： 得到键值对集合数据
-        /// </summary>
-	    Dictionary<string, string> AppSetting { get; }
-
-        /// <summary>
-        /// 得到配置文件（AppSeting）最大的数量
-        /// </summary>
-        /// <returns></returns>
-	    int GetAppSettingMaxNumber();
-
+	    Dictionary<string, string> AppSetting { get; }   //只读属性
 	}
 
     [Serializable]
-    internal class KeyValuesInfo
+    class KeyValuesInfo
     {
         //配置信息
         public List<KeyValuesNode> ConfigInfo = null;
     }
 
     [Serializable]
-    internal class KeyValuesNode
+    class KeyValuesNode
     {
         //键
         public string Key = null;

@@ -1,22 +1,12 @@
 ﻿/***
  * 
- *    Title: "SUIFW" UI框架项目
- *           主题: UI窗体的父类
- *    Description: 
- *           功能：定义所有UI窗体的父类。
- *           定义四个生命周期
+ *          定义所有UI窗体的父类。
  *           
  *           1：Display 显示状态。
  *           2：Hiding 隐藏状态
  *           3：ReDisplay 再显示状态。
  *           4：Freeze 冻结状态。
- *           
- *                  
- *    Date: 2017
- *    Version: 0.1版本
- *    Modify Recoder: 
- *    
- *   
+
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -26,10 +16,10 @@ using UnityEngine;
 namespace SUIFW
 {
 	public class BaseUIForm : MonoBehaviour {
-        /*字段*/
+        
         private UIType _CurrentUIType=new UIType();
 
-        /* 属性*/
+       
         //当前UI窗体类型
 	    public UIType CurrentUIType
 	    {
@@ -91,51 +81,6 @@ namespace SUIFW
         #endregion
 
         #region 封装子类常用的方法
-
-        /// <summary>
-        /// 注册按钮事件
-        /// </summary>
-        /// <param name="buttonName">按钮节点名称</param>
-        /// <param name="delHandle">委托：需要注册的方法</param>
-	    protected void RigisterButtonObjectEvent(string buttonName,EventTriggerListener.VoidDelegate  delHandle)
-	    {
-            GameObject goButton = UnityHelper.FindTheChildNode(this.gameObject, buttonName).gameObject;
-            //给按钮注册事件方法
-            if (goButton != null)
-            {
-                EventTriggerListener.Get(goButton).onClick = delHandle;
-            }	    
-        }
-
-        /// <summary>
-        /// 打开UI窗体
-        /// </summary>
-        /// <param name="uiFormName">窗体名称</param>
-        /// <param name="IsRedirection">是否直接转向</param>
-	    protected void OpenUIForm(string uiFormName,bool IsRedirection=false)
-        {
-            UIManager.GetInstance().ShowUIForms(uiFormName,IsRedirection);
-        }
-
-        /// <summary>
-        /// 关闭当前UI窗体
-        /// </summary>
-	    protected void CloseUIForm()
-	    {
-	        string strUIFromName = string.Empty;            //处理后的UIFrom 名称
-	        int intPosition = -1;
-
-            strUIFromName=GetType().ToString();             //命名空间+类名
-            
-            intPosition=strUIFromName.IndexOf('.');
-            if (intPosition!=-1)
-            {
-                //剪切字符串中“.”之间的部分
-                strUIFromName = strUIFromName.Substring(intPosition + 1);
-            }
-
-            UIManager.GetInstance().CloseUIForms(strUIFromName);
-        }
 
         /// <summary>
         /// 发送消息

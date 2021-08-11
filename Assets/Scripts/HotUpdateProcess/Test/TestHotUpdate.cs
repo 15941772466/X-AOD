@@ -34,7 +34,6 @@ namespace HotUpdateProcess
             //加载登陆窗体
             UIManager.GetInstance().ShowUIForms(DemoProject.ProConst.LOGON_FROMS);
             DefenseManager.GetInstance().PreLoad();
-            Log.Write(GetType() + "/ReceiveInfoStartRuning()/项目热更新完毕，开始项目...");
         }
     }//Class_end
 }//namespace_end
