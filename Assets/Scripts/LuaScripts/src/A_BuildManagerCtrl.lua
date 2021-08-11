@@ -60,4 +60,10 @@ end
 -----------检测点击事件------------------------
 function A_BuildManagerCtrl.Update()
    print("建造方法")
+   if(CSU.Input.GetMouseButtonDown(0)) then
+      print("检测到鼠标点击")
+      local Ray=CSU.Camera.main.ScreenPointToRay(Input.mousePosition)
+      local hit=CSU.RaycastHit
+      
+   end
 end

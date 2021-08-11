@@ -9,8 +9,8 @@ end
 
 -------------------第一关-------------------
 LevelSettings.Level_One={
-	WaveOne={count=4,type="A_Enemy1",speed=0.3},
-	WaveTwo={count=5,type="A_Enemy1",speed=0.5}
+	WaveOne={count=4,type="A_Enemy1",speed=0.3,hp=150},
+	WaveTwo={count=5,type="A_Enemy1",speed=0.5,hp=200}
 }
 -- LevelSettings.levelOne_turret={
 --     ""
