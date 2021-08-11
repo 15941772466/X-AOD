@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 688.57825, y: 264.49515}
+  m_AnchoredPosition: {x: 1.2000122, y: -5}
+  m_SizeDelta: {x: 746.55554, y: 328.77066}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222668801573661736
 CanvasRenderer:
@@ -196,7 +196,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6545\u4E8B\u53D1\u751F\u5728\u5B89\u5E03\u96F7\u62C9\uFF08\u4FDD\u62A4\u4F1E\uFF09\u516C\u53F8\u7684\u751F\u7269\u5DE5\u7A0B\u5B9E\u9A8C\u5BA4\u2014\u2014\u201C\u8702\u5DE2\u201D\u91CC\uFF0C\u6570\u767E\u540D\u9057\u4F20\u5B66\u3001\u751F\u7269\u5DE5\u7A0B\u5B66\u4E13\u5BB6\u6B63\u5728\u8FDB\u884C\u4E00\u9879\u79D1\u5B66\u7814\u7A76\uFF0C\u4E00\u79CD\u75C5\u6BD2\u7A81\u7136\u7206\u53D1\u4E86\u5E76\u8FC5\u901F\u4F20\u64AD\u7740\uFF0C\u800C\u8D85\u7EA7\u8BA1\u7B97\u673A\u201C\u706B\u7130\u5973\u7687\u201D\u4E3A\u4E86\u63A7\u5236\u75C5\u6BD2\u4E0D\u8BA9\u5176\u5916\u6CC4\u5230\u5730\u9762\u4E0A\uFF0C\u5C06\u8702\u5DE2\u5168\u90E8\u5C01\u95ED\uFF0C\u75C5\u6BD2\u5F88\u5FEB\u611F\u67D3\u4E86\u6240\u6709\u7684\u5DE5\u4F5C\u4EBA\u5458\u3002\r\n\u4EE5\u827E\u4E3D\u4E1D\u3001\u745E\u6069\u548C\u9A6C\u7279\u4E3A\u9996\u7684\u4E00\u4E2A\u6551\u63F4\u5C0F\u7EC4\u63A5\u5230\u547D\u4EE4\u540E\u6765\u5230\u4E86\u8702\u5DE2\uFF0C\u4ED6\u4EEC\u5FC5\u987B\u5E26\u9886\u7740\u7279\u9063\u961F\u5458\u4EEC\u5C06\u8FD9\u79CD\u5DF2\u6BC1\u706D\u4E86\u8702\u5DE2\u6240\u6709\u4EBA\u5458\u7684\u75C5\u6BD2\u9694\u79BB\u8D77\u6765\u3002\u7136\u800C\uFF0C\u961F\u5458\u4EEC\u5F88\u5FEB\u53D1\u73B0\u8FD9\u4E9B\u5DE5\u4F5C\u4EBA\u5458\u4EEC\u5E76\u4E0D\u662F\u771F\u6B63\u5730\u6B7B\u53BB\u4E86\u3002\u4ED6\u4EEC\u73B0\u5728\u5DF2\u6210\u4E3A\u5F98\u5F8A\u5728\u8702\u5DE2\u5185\u6050\u6016\u7684\u4E27\u5C38\u3002\u4EBA\u4EEC\u4E00\u4F46\u88AB\u4ED6\u4EEC\u54AC\u4F24\u6216\u88AB\u6293\u4F24\u5C31\u4F1A\u53D7\u5230\u611F\u67D3\uFF0C\u751A\u81F3\u7ACB\u5373\u53D8\u6210\u4E27\u5C38\u3002\r\n\u9762\u5BF9\u7740\u51E0\u4E4E\u65E0\u6CD5\u63A7\u5236\u7684\u5C40\u9762\uFF0C\u51E0\u767E\u4E2A\u56DB\u5904\u8D70\u52A8\u6781\u5177\u653B\u51FB\u6027\u7684\u4E27\u5C38\uFF0C\u548C\u66F4\u795E\u79D8\u7684\u9669\u6076\u529B\u91CF\uFF0C\u6551\u63F4\u5C0F\u7EC4\u7684\u961F\u5458\u600E\u6837\u624D\u80FD\u8131\u79BB\u56F0\u5883\u5E76\u963B\u6B62\u75C5\u6BD2\u7EE7\u7EED\u6269\u6563\u5462\uFF1F"
+  m_Text: 
 --- !u!1 &1792563934081386
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 114568387368051786}
   - component: {fileID: 7597645147218701968}
   m_Layer: 5
-  m_Name: SelectHeroUIForm
+  m_Name: StoryUIForm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 4711436120778754576}
   - component: {fileID: 4711436120778754577}
   m_Layer: 5
-  m_Name: Scroll View (1)
+  m_Name: ScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4711436122531027525}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99985
+  m_Size: 0.99775076
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1163,7 +1163,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000019253634}
+  m_AnchoredPosition: {x: 0, y: 0.000000716534}
   m_SizeDelta: {x: 0, y: 338.79846}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &4711436121911335395

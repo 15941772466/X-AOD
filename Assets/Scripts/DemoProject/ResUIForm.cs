@@ -1,9 +1,6 @@
-﻿/***
- * 
- *    Title: "SUIFW" UI框架项目
- *           主题： 注册窗体   
- *                  
- */
+﻿
+//注册窗体   
+
 using System.Collections;
 using System.Collections.Generic;
 using SUIFW;
@@ -18,13 +15,16 @@ namespace DemoProject
 
         public void Awake()
         {
-            var t1 = UnityHelper.FindTheChildNode(this.transform.gameObject, "InputField (1)");//id
-            var t2 = UnityHelper.FindTheChildNode(this.transform.gameObject, "InputField");//name
-            var t3 = UnityHelper.FindTheChildNode(this.transform.gameObject, "InputField (2)");//pas
-            var t4 = UnityHelper.FindTheChildNode(this.transform.gameObject, "Button");
-            Button btnreg = t4.gameObject.GetComponent<Button>();
-            //Login.LogIn(t1.Find("Text").GetComponent<Text>().text, t2.Find("Text").GetComponent<Text>().text);
-            btnreg.onClick.AddListener(() => Savegame.SaveGame(t1.Find("Text").GetComponent<Text>().text, t2.Find("Text").GetComponent<Text>().text, t3.Find("Text").GetComponent<Text>().text, 0, null));
+            CurrentUIType.UIForms_Type = UIFormType.PopUp;  //弹出窗体   
+            CurrentUIType.UIForms_ShowMode = UIFormShowMode.ReverseChange;
+
+            //var t1 = UnityHelper.FindTheChildNode(this.transform.gameObject, "InputID");//id
+            //var t2 = UnityHelper.FindTheChildNode(this.transform.gameObject, "InputName");//name
+            //var t3 = UnityHelper.FindTheChildNode(this.transform.gameObject, "InputPaw");//pas
+            //var t4 = UnityHelper.FindTheChildNode(this.transform.gameObject, "ResButton");
+            //Button btnreg = t4.gameObject.GetComponent<Button>();
+            ////Login.LogIn(t1.Find("Text").GetComponent<Text>().text, t2.Find("Text").GetComponent<Text>().text);
+            //btnreg.onClick.AddListener(() => LoginRes.Savegame.SaveGame(t1.Find("Text").GetComponent<Text>().text, t2.Find("Text").GetComponent<Text>().text, t3.Find("Text").GetComponent<Text>().text, 0, null));
 
 
         }

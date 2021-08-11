@@ -158,19 +158,6 @@ namespace SUIFW
 	    {
             MessageCenter.AddMsgListener(messagType, handler);
 	    }
-
-        /// <summary>
-        /// 显示语言
-        /// </summary>
-        /// <param name="id"></param>
-	    public string Show(string id)
-        {
-            string strResult = string.Empty;
-
-            strResult = LauguageMgr.GetInstance().ShowText(id);
-            return strResult;
-        }
-
 	    #endregion
 
     }

@@ -1,16 +1,6 @@
-﻿/***
- * 
- *    Title: "SUIFW" UI框架项目
- *           主题： 道具详细信息窗体 
- *    Description: 
- *           功能： 显示各种道具信息
- *                  
- *    Date: 2017
- *    Version: 0.1版本
- *    Modify Recoder: 
- *    
- *   
- */
+﻿                 
+//防御塔详细信息窗体  
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mime;
@@ -30,10 +20,6 @@ namespace DemoProject
 		    CurrentUIType.UIForms_Type = UIFormType.PopUp;
 		    CurrentUIType.UIForms_ShowMode = UIFormShowMode.ReverseChange;
 
-            /* 按钮的注册  */
-            RigisterButtonObjectEvent("BtnClose",
-                ()=>CloseUIForm()
-                );
 
             /*  接受信息   */
             ReceiveMessage("Props", 

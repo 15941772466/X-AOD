@@ -1,14 +1,8 @@
 ﻿/***
  * 
  *    Title: "SUIFW" UI框架项目
- *           主题： xxx    
- *    Description: 
- *           功能： yyy
+
  *                  
- *    Date: 2017
- *    Version: 0.1版本
- *    Modify Recoder: 
- *    
  *   
  */
 using System.Collections;
@@ -23,7 +17,9 @@ namespace DemoProject
         public void ReceiveInfoStartRuning()
         {
             UIManager.GetInstance().ShowUIForms(ProConst.LOGON_FROMS);
-           // DefenseManager.GetInstance().PreLoad();
+            //DefenseManager.GetInstance().PreLoad();
+            
+            
         }
 	}
 }

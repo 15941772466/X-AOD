@@ -15,7 +15,7 @@ namespace DemoProject
 	    public const string LOGON_FROMS = "LogonUIForm";
         public const string MAIN_CITY_UIFORM = "MainCityUIForm";
 	    public const string HERO_INFO_UIFORM = "HeroInfoUIForm";
-        public const string SELECT_HERO_FORM = "SelectHeroUIForm";
+        public const string STORY_UIFORM = "StoryUIForm";
 	    public const string PRO_DETAIL_UIFORM = "PropDetailUIForm";
         public const string MARKET_UIFORM = "MarketUIFrom";
 		public const string GAME_INFO_UIFORM = "GameInfoUIForm";
