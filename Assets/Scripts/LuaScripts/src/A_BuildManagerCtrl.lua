@@ -1,79 +1,101 @@
 --建造管理类
-require("TestSysDefine")
 
+----------------引用脚本-----------------------
+require("TestSysDefine")
+require("A_LevelSettings")
+
+--模拟类
 A_BuildManagerCtrl={}
 local this=A_BuildManagerCtrl
+
+--调用DefenseManager脚本
+local DTManager=CS.PFW.DefenseManager
+local abDTObj=DTManager.GetInstance()
+--调用游戏工具类
+local tool=GameTool.GetInstance()
+-------------------建造信息----------------------------
+--获取关卡信息
+local levelData=A_LevelSettings.GetInstance()
 --地面列表
 GroundData={}
 --炮塔列表
 local TurretUIList={}
+local GroundDatatmp={}
+--监听函数列表
+local ListenerList={}
 --被选中的炮塔
 local SelectedTurret=nil
---获取建造UI
--- --调用C#的ABFW框架上的DefenseManager
-local DTManager=CS.PFW.DefenseManager
-local abDTObj=DTManager.GetInstance()
+
 --找到Canvas
 local  UIobj=CSU.GameObject.Find("DefenseListUIForm(Clone)")
-local list=UIobj.transform:Find("TurretList")
 
---一些本地变量
--- local ray=CSU.Ray
+--初始化监听函数
+ListenerList["DefenseA"]=function () SelectedTurret="DefenseA" print(SelectedTurret) end
+ListenerList["DefenseB"]=function () SelectedTurret="DefenseB" print(SelectedTurret) end
+ListenerList["DefenseC"]=function () SelectedTurret="DefenseC" print(SelectedTurret) end
+ListenerList["DefenseD"]=function () SelectedTurret="DefenseD" print(SelectedTurret) end
+
 function A_BuildManagerCtrl.Awake()
    --记录地面信息
-   --ReadGround()
+   ReadGround()
 end
 
-function A_BuildManagerCtrl.Start()
+function A_BuildManagerCtrl.Start(obj)
     print("开始处理建造逻辑")    
+    local Level=levelData[obj.tag]
     --调用添加监听函数 
-    AddListener(list)
+    AddListener(Level.turret)
 
 end
-
-
 
 --初始化所有地面位置为无炮塔，未升级
 function ReadGround()
-   local  ground=CSU.GameObject.Find("CubeManager")
-   for i,child in pairs(ground) do
-       GroundData[child.name]={preturret=nil,preturrettype=nil,isUpgraded=false}
+   local ground=CSU.GameObject.Find("CubeManager")
+   GroundDatatmp=tool:GetChildName(ground,GroundDatatmp)
+   for i,child in pairs(GroundDatatmp) do
+      GroundData[child]={preturret=nil,preturrettype=nil,isUpgraded=false}
    end
 end
+
 
 --根据实际UI中炮塔的数量与类型添加监听事件
-function AddListener(UIobj)
+function AddListener(levelDataTurret)
+
    --存入所有炮塔的Button
-   for i,child in pairs(UIobj) do
-    -- this.BtnA=transform:Find("DefenseA")--返回transform
-    -- this.BtnA=this.BtnA:GetComponent("UnityEngine.UI.Button") --返回Button类型
-    -- this.BtnA.onClick:AddListener(this.ProcessBtnA)
-          TurretUIList[i]=child:GetComponent("CSU.UI.Button")
-          print(TurretUIList[i])
+   for i,child in pairs(levelDataTurret) do
+      TurretUIList[i]=UIobj.transform:Find(child)
+      TurretUIList[i]=TurretUIList[i]:GetComponent("UnityEngine.UI.Button") 
    end
+
    --添加事件监听
    for i,listner in pairs(TurretUIList) do
-      TurretUIList[i].onClick:AddListener(ListenerProcess(i))
+      print(listner)
+      listner.onClick:AddListener(ListenerList[listner.name])
    end
 end
 
-function ListenerProcess(i)
-   SelectedTurret=TurretUIList[i].name
-   print(SelectedTurret)
-end
+
 
 -----------检测点击事件------------------------
 function A_BuildManagerCtrl.Update()
-   print("建造方法")
+   --如果检测到鼠标点击且未点击到UI，执行炮塔建造
+   local isover=tool:IsOverGameObject()
+   --鼠标点击
    if(CSU.Input.GetMouseButtonDown(0)) then
-      print("检测到鼠标点击")
-      --打出从摄像机到鼠标点击位置的射线
-      local ray=CSU.Camera.main:ScreenPointToRay(CSU.Input.mousePosition)
-      print(ray)
-      --存储碰撞信息
-      local hit=CSU.RaycastHit
-      --是否与地图产生碰撞
-      local isCollider=CSU.Physics.Raycast(ray, 1000, CSU.LayerMask.GetMask("Ground"))
-      print(isCollider)
+      --不在UI上
+      if(isover==false) then
+        --是否与地图产生碰撞
+        local isCollider=tool:isCollider()
+        --存储碰撞信息
+        local HitInfro=tool:HitInfro()
+        
+        --如果点击了砖块
+        if(isCollider==true) then
+            print("点击到砖块")
+            --找到点击的砖块名字
+            local cubeName=HitInfro.collider.gameObject.name
+            print(cubeName)
+        end
+      end
    end
 end

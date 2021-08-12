@@ -22,7 +22,7 @@ function DefenseListUIForm.Awake(obj)
     print("------- DefenseListUIForm.Awake  -----------");
     transform=obj.transform
     --初始化面板，查找“开始按钮”
-   this.InitView()
+   --this.InitView()
 
 end
 

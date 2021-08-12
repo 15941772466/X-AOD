@@ -32,3 +32,5 @@ A_ViewNames={
 WWW=CS.UnityEngine.WWW
 GameObject=CS.UnityEngine.GameObject
 CSU=CS.UnityEngine
+--游戏场景CS工具类
+GameTool=CS.GameTools.A_GameHelper
