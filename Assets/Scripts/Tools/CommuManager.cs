@@ -8,7 +8,7 @@ namespace Communication
     {
         //本类静态实例
         private static CommuManager _Instance;
-        public string cur_name ="a";
+        public static string cur_name ="a";
         public string cur_content = "a";
         string showContent = " ";
 
@@ -22,8 +22,10 @@ namespace Communication
         }
         public void SendMes(string content)
         {
-            cur_name = "b";
-            cur_content = content;   
+            Client1.SendMessage(cur_name, content);
+            //cur_name = "b";
+            cur_content = content;
+            Debug.Log("sssssssssssss");
             //服务器操作
             //...
 
@@ -39,7 +41,7 @@ namespace Communication
         }
         public string ShowText()
         {
-            
+            Debug.Log("showContent: " + showContent);
             return showContent;
         }
     }
