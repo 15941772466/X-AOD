@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using Google.Protobuf;
 using XProgect;
+using Communication;
 
 namespace LoginRes
 {

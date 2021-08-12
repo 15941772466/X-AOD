@@ -704,6 +704,7 @@ GameObject:
   - component: {fileID: 2730056035190445729}
   - component: {fileID: 438528541011974833}
   - component: {fileID: 6406802113286862980}
+  - component: {fileID: 8621177744676334635}
   m_Layer: 5
   m_Name: CommuUIForm
   m_TagString: Untagged
@@ -753,6 +754,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cd46ad74c7e67249a03fc1df228eaa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8621177744676334635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730056035190445728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c418cbfb97f374197c84885bef7dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2730056035224190767
