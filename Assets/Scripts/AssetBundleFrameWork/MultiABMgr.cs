@@ -130,13 +130,13 @@ namespace ABFW
         /// <param name="assetName">资源名称</param>
         /// <param name="isCache">是否使用（资源）缓存</param>
         /// <returns></returns>
-        public UnityEngine.Object LoadAsset(string abName, string assetName, bool isCache)
+        public UnityEngine.Object LoadAsset(string abName, string assetName)
         {
             foreach (string item_abName in _DicSingleABLoaderCache.Keys)
             {
                 if (abName == item_abName)
                 {
-                    return _DicSingleABLoaderCache[item_abName].LoadAsset(assetName, isCache);
+                    return _DicSingleABLoaderCache[item_abName].LoadAsset(assetName);
                 }
             }
             Debug.LogError(GetType()+ "/LoadAsset()/找不到AsetBunder包，无法加载资源，请检查！ abName="+ abName+ " assetName="+ assetName);
@@ -153,7 +153,7 @@ namespace ABFW
                 //逐一释放所有加载过的AssetBundel 包中的资源
                 foreach (SingleABLoader item_sABLoader in _DicSingleABLoaderCache.Values)
                 {
-                    item_sABLoader.DisposeALL();
+                    item_sABLoader.DisposeTrue();
                 }
             }
             finally

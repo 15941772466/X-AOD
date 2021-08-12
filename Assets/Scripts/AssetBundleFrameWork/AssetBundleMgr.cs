@@ -13,7 +13,8 @@ using UnityEngine;
 
 namespace ABFW
 {
-	public class AssetBundleMgr:MonoBehaviour
+    public delegate void DelLoadComplete(string abName);
+    public class AssetBundleMgr:MonoBehaviour
 	{
         //本类实例
         private static AssetBundleMgr _Instance;
@@ -24,7 +25,6 @@ namespace ABFW
         //第一关AB包
         public AssetBundle level_oneNav = null;
 
-       
 
         //得到本类实例
         public static AssetBundleMgr GetInstance()
@@ -54,12 +54,6 @@ namespace ABFW
 
         public IEnumerator LoadAssetBundlePack(string scenesName, string abName, DelLoadComplete loadAllCompleteHandle)   // 下载AssetBundel 指定包
         {
-            //参数检查
-            if (string.IsNullOrEmpty(scenesName) || string.IsNullOrEmpty(abName))
-            {
-                Debug.LogError(GetType()+ "/LoadAssetBundlePack()/ScenesName Or abName is null ,请检查！");
-                yield break;
-            }
 
             //等待Manifest清单文件加载完成
             while (!ABManifestLoader.GetInstance().IsLoadFinish)
@@ -82,12 +76,12 @@ namespace ABFW
 
         }
 
-        public UnityEngine.Object LoadAsset(string scenesName, string abName, string assetName ,bool isCache)    // 加载(AB 包中)资源
+        public UnityEngine.Object LoadAsset(string scenesName, string abName, string assetName)    // 加载(AB 包中)资源
         {
             if (_DicAllScenes.ContainsKey(scenesName))
             {
                 MultiABMgr multObj = _DicAllScenes[scenesName];
-                return multObj.LoadAsset(abName, assetName, isCache);
+                return multObj.LoadAsset(abName, assetName);
             }
             Debug.LogError(GetType()+ "/LoadAsset()/找不到场景名称，无法加载（AB包中）资源,请检查！  scenesName="+ scenesName);
             return null;

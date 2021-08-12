@@ -9,23 +9,23 @@ using UnityEngine;
 
 namespace ABFW
 {
-	public class SingleABLoader: System.IDisposable
+	public class SingleABLoader             //: System.IDisposable
 	{
-        //引用类： 资源加载类
-        private AssetLoader _AssetLoader;
+        
         //委托：
         private DelLoadComplete _LoadCompleteHandle;
         //AssetBundle 名称
         private string _ABName;
         //AssetBundle 下载路径
         private string _ABDownLoadPath;
-
-
-
+        //缓存容器集合
+        private Hashtable _Ht;
+        //当前Assetbundle 
+        private AssetBundle _CurrentAssetBundle;
         //构造函数
         public SingleABLoader(string abName,DelLoadComplete loadComplete)
         {
-            _AssetLoader = null;
+            _Ht = new Hashtable();
             _ABName = abName;
             //委托初始化
             _LoadCompleteHandle = loadComplete;
@@ -46,8 +46,8 @@ namespace ABFW
                     AssetBundle abObj = www.assetBundle;
                     if (abObj!=null)
                     {
-                        //实例化引用类
-                        _AssetLoader = new AssetLoader(abObj);
+                        //得到AB包
+                        _CurrentAssetBundle=abObj;
                         //AssetBundle 下载完毕，调用委托
                         if (_LoadCompleteHandle!=null)
                         {
@@ -61,52 +61,28 @@ namespace ABFW
                 }
             }//using_end            
         }
-
-        /// <summary>
-        /// 加载（AB包内）资源
-        /// </summary>
-        public UnityEngine.Object LoadAsset(string assetName,bool isCache)
+        public UnityEngine.Object LoadAsset(string assetName)
         {
-            if (_AssetLoader!=null)
+            if (_Ht.Contains(assetName))
             {
-                return _AssetLoader.LoadAsset(assetName,isCache);
+                return _Ht[assetName] as UnityEngine.Object;
             }
-            Debug.LogError(GetType()+ "/LoadAsset()/ 参数_AssetLoader==null  ,请检查！");
-            return null;
+            //正式加载
+            UnityEngine.Object tmpTResource = _CurrentAssetBundle.LoadAsset<UnityEngine.Object>(assetName);
+            if (tmpTResource != null)
+            {
+                _Ht.Add(assetName, tmpTResource);
+            }
+
+            return tmpTResource;
         }
 
 
-        /// <summary>
-        /// 释放资源
-        /// </summary>
-        public void Dispose()
+        public void DisposeTrue()  // 释放当前AssetBundle资源包,且卸载所有资源
         {
-            if (_AssetLoader != null)
-            {
-                _AssetLoader.Dispose();
-                _AssetLoader = null;
-            }
-            else
-            {
-                Debug.LogError(GetType() + "/Dispose()/参数 _AssetLoader==Null , 请检查！");
-            }
+            _CurrentAssetBundle.Unload(true);
         }
 
-        /// <summary>
-        /// 释放当前AssetBundle资源包,且卸载所有资源
-        /// </summary>
-        public void DisposeALL()
-        {
-            if (_AssetLoader != null)
-            {
-                _AssetLoader.DisposeALL();
-                _AssetLoader = null;
-            }
-            else
-            {
-                Debug.LogError(GetType() + "/DisposeALL()/参数 _AssetLoader==Null , 请检查！");
-            }
-        }
     }
 }
 

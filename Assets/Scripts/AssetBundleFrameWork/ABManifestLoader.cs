@@ -1,8 +1,6 @@
-﻿/***
- *   Title: "AssetBundle简单框架"项目
- *           辅助类： 
- *                读取AssetBundle 依赖关系清单文件。（Windows.Manifest）
- */
+﻿ 
+//  读取AssetBundle 依赖关系清单文件。（Windows.Manifest）
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,7 +48,7 @@ namespace ABFW
         {
             using (WWW www=new WWW(_StrManifestPath))
             {
-                yield return www;
+                yield return www;                      //yiled return 后面可以跟一个WWW类,当下载完成该WWW类的时候,继续向下面的代码执行
                 if (www.progress >= 1)
                 {
                     //加载完成，获取AssetBundle 实例
@@ -59,7 +57,7 @@ namespace ABFW
                     {
                         _ABReadManifest = abObj;
                         //读取清单文件资源。（读取到系统类的实例中。）
-                        _ManifestObj = _ABReadManifest.LoadAsset(ABDefine.ASSETBUNDLE_MANIFEST) as AssetBundleManifest; 
+                        _ManifestObj = _ABReadManifest.LoadAsset("AssetBundleManifest") as AssetBundleManifest; 
                         //本次加载与读取清单文件完毕。
                         _IsLoadFinish = true;
                     }

@@ -20,10 +20,7 @@ namespace ABFW
 
         public ABRelation(string abName)   // 构造函数
         {
-            if (!string.IsNullOrEmpty(abName))
-            {
-                _ABName = abName;
-            }
+            _ABName = abName;
             _LisAllDependenceAB = new List<string>();
             _lisAllReferenceAB = new List<string>();
         }

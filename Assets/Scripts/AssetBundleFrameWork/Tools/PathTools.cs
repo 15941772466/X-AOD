@@ -1,14 +1,6 @@
-﻿/***
- *
- *   Title: "AssetBundle简单框架"项目
- *          路径工具类
- *
- *   Description:
- *          功能： 
- *          包含本框架中所有的路径常量、路径方法
- *
- *
- */
+﻿
+//所有的路径常量、路径方法
+ 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,39 +9,19 @@ namespace ABFW
 {
 	public class PathTools
 	{
-        /* 路径常量 */
-        public const string AB_RESOURCES = "AB_Resources";
-
-        /* 路径方法 */
-        /// <summary>
-        /// 得到AB资源的输入目录
-        /// </summary>
-        /// <returns></returns>
         public static string GetABResourcesPath()
         {
-            return Application.dataPath + "/"+ AB_RESOURCES;
+            return Application.dataPath + "/"+ "AB_Resources";
         }
 
-        /// <summary>
-        /// 获取AB输出路径
-        /// 算法：
-        ///     1： 平台(PC/移动端)路径。
-        ///     2： 平台的名称
-        /// </summary>
         public static string GetABOutPath()    
         {
             return GetPlatformPath() + "/" + GetPlatformName();
         }
 
-        /// <summary>
-        /// 获取平台的路径
-        /// </summary>
-        /// <returns></returns>
         private static string GetPlatformPath()
         {
             string strReturnPlatformPath = string.Empty;
-
-
             switch (Application.platform)
             {
                 case RuntimePlatform.WindowsPlayer:
@@ -63,18 +35,12 @@ namespace ABFW
                 default:
                     break;
             }
-
             return strReturnPlatformPath;
         }
 
-        /// <summary>
-        /// 获取平台的名称
-        /// </summary>
-        /// <returns></returns>
         public static string GetPlatformName()
         {
             string strReturnPlatformName = string.Empty;
-
             switch (Application.platform)
             {
                 case RuntimePlatform.WindowsPlayer:
@@ -90,16 +56,10 @@ namespace ABFW
                 default:
                     break;
             }
-
             return strReturnPlatformName;
         }
 
-
-        /// <summary>
-        /// 获取WWW协议下载（AB包）路径
-        /// </summary>
-        /// <returns></returns>
-        public static string GetWWWPath()
+        public static string GetWWWPath()  // 获取WWW协议下载（AB包）路径
         {
             //返回路径字符串
             string strReturnWWWPath = string.Empty;

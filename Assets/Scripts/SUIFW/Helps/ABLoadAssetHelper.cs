@@ -45,9 +45,6 @@ namespace SUIFW
             return _Instance;
         }
 
-        
-       
-        
         public void LoadAssetBundlePack(ABPara abPara)      // 调用AB框架ab包
         {
             //仅仅是加载相同AB包中的不同资源
@@ -68,7 +65,7 @@ namespace SUIFW
         {
             UnityEngine.Object tmpObj = null;
 
-            tmpObj=AssetBundleMgr.GetInstance().LoadAsset(_ScenesName, _AssetBundleName, _AssetName, true);  //加入缓存
+            tmpObj=AssetBundleMgr.GetInstance().LoadAsset(_ScenesName, _AssetBundleName, _AssetName);  //加入缓存
             if (tmpObj!=null)
             {
                 _CloneUIPrefab = Instantiate(tmpObj);

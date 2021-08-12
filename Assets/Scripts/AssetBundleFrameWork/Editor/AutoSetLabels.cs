@@ -2,13 +2,6 @@
  *   Title: "AssetBundle简单框架"项目
  *           自动给资源文件添加标记
  *
- *   Description:
- *          开发思路：
- *              1： 定义需要打包资源的文件夹根目录。
- *              2： 遍历每个“场景”文件夹（目录）
- *                  2.1: 遍历本场景目录下所有的目录或者文件。
- *                     如果是目录，则继续“递归”访问里面的文件，直到定位到文件。
- *                  2.2: 找到文件，则使用AssetImporter类，标记“包名”与“后缀名”。
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -22,9 +15,6 @@ namespace ABFW
 	public class AutoSetLabels
 	{
 
-        /// <summary>
-        /// 设置AB包名
-        /// </summary>
         [MenuItem("AssetBundelTools/Set AB Label")]
         public static void SetABLabel()
         {
