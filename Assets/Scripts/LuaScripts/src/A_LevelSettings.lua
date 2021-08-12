@@ -15,6 +15,14 @@ A_LevelSettings.Level_One={
 	},
 	turret={
 		"DefenseB","DefenseC"
+	},
+	turretcost={
+        ["DefenseB"]=80,
+        ["DefenseC"]=90
+	},
+	wave={
+        waveCount=5,
+        waveRate=0.5
 	}
 }
 ------------------第二关敌人数据--------------------
