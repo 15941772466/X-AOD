@@ -11,6 +11,8 @@ require("A_SettlementCtrl")
 --模拟类
 A_EnemySpawnerCtrl={}
 local this=A_EnemySpawnerCtrl
+--调用游戏工具类
+local tool=GameTool.GetInstance()
 
 ----------------关于敌人的数据等------------------
 --拿到敌人加载的cs脚本
@@ -25,7 +27,8 @@ EnemyCount=0
 --存放敌人预制体
 local tempObj={}
 
-
+--关卡信息
+local Level
 --敌人结算脚本的实例
 local settlementCtrl=A_SettlementCtrl.GetInstance()
 --敌人生成位置
@@ -40,7 +43,7 @@ end
 --------------------------------------敌人生成逻辑-------------------------------------------
 function A_EnemySpawnerCtrl.Start(obj)
      --获取当前关卡
-     local Level=levelData[obj.tag]
+     Level=levelData[obj.tag]
      --读取敌人种类进行加载
      for i,wave in pairs(Level.enemy) do
         tempObj[wave.type]=abDTObj:PrefabAB(wave.type)
@@ -64,7 +67,8 @@ function A_EnemySpawnerCtrl.enemySpawner(LevelDataEnemy)
             Eneagent.speed=wave.speed
             EnemyCount=EnemyCount+1
             --等待生成间隔
-            
+            -- tool:StartSpawnEnemyRate(Level.wave.waveCount)
+            -- tool:ClosetSpawnEnemyRate()
          end
          --等待上一波敌人全部被消灭
      end
