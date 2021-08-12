@@ -15,14 +15,13 @@ namespace ABFW
         private string _ABName;
         //本包所有的依赖包集合
         private List<string> _LisAllDependenceAB;
-        //本包所有的引用包集合
-        private List<string> _lisAllReferenceAB;
+       
 
         public ABRelation(string abName)   // 构造函数
         {
             _ABName = abName;
             _LisAllDependenceAB = new List<string>();
-            _lisAllReferenceAB = new List<string>();
+            
         }
    
         public void AddDependence(string abName)  // 增加依赖关系
@@ -33,13 +32,6 @@ namespace ABFW
             }
         }
         
-        public void AddReference(string abName)  // 增加引用关系
-        {
-            if (!_lisAllReferenceAB.Contains(abName))
-            {
-                _lisAllReferenceAB.Add(abName);
-            }
-        }
        
     }
 }

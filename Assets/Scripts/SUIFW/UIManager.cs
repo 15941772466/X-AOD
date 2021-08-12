@@ -271,7 +271,7 @@ namespace SUIFW
         private IEnumerator LoadABAsset(ABPara abPara, DelTaskComplete taskComplete)    // 调用AB 包资源（通过ABLoadAssetHelper.cs 进行再次封装）
         {
             //调用AB框架ab包
-            ABLoadAssetHelper.GetInstance().LoadAssetBundlePack(abPara);
+            ABLoadAssetHelper.GetInstance().LoadAssetBundleUIPack(abPara);
             //AB包是否调用完成
             while (!ABLoadAssetHelper.GetInstance().IsLoadFinish)
             {

@@ -77,10 +77,9 @@ namespace PFW
                     yield return null;
                 }
                 goPrefab = ABLoadAssetHelper.GetInstance().GetPrefab();
-                //print(goPrefab.name);
+                
                 string pName = goPrefab.name;
-                UnityEngine.GameObject goCloneUIPrefab = (UnityEngine.GameObject)ABLoadAssetHelper.GetInstance().GetCloneUIPrefab();
-                Destroy(goCloneUIPrefab);
+                
                 //委托调用
                 taskComplete.Invoke(pName);    
             }
@@ -102,10 +101,7 @@ namespace PFW
             {
                 _DicDefensesPaths = configMgr.AppSetting; 
             }
-            //foreach (var item in _DicDefensesPaths)
-            //{
-            //    Debug.Log(item.Key + "    " + item.Value);
-            //}
+
         }
         public UnityEngine.GameObject PrefabAB(string DTname)    //通过名字作为key，返回游戏预制体
         {
