@@ -6,7 +6,7 @@
 --加载敌人生成控制类
 require("A_EnemySpawnerCtrl")
 require("A_BuildManagerCtrl") 
-require("LevelSettings")
+require("A_LevelSettings")
 
 
 A_CtrlMgr={}

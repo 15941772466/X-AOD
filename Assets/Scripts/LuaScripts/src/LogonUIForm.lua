@@ -46,15 +46,15 @@ function LogonUIForm.ProcessOKBtn()
     this.txtInp_ID=transform:Find("BG/Inp_ID/Text"):GetComponent("UnityEngine.UI.Text")
     --密码
     this.Inp_PW=transform:Find("BG/Inp_PW/Text"):GetComponent("UnityEngine.UI.Text")
-    
+    uiManager:ShowUIForms("StoryUIForm")
     print(this.txtInp_ID.text)
-    --判断打开窗体
-    if CS.LoginRes.Login.LogIn(this.txtInp_ID.text,this.Inp_PW.text) then
-        uiManager:ShowUIForms("StoryUIForm")
-    else 
-        print("登录失败lua")
-        uiManager:ShowUIForms("LoginFailUIForm")  
-    end
+    -- --判断打开窗体
+    -- if CS.LoginRes.Login.LogIn(this.txtInp_ID.text,this.Inp_PW.text) then
+    --     uiManager:ShowUIForms("StoryUIForm")
+    -- else 
+    --     print("登录失败lua")
+    --     uiManager:ShowUIForms("LoginFailUIForm")  
+    -- end
 end
 
 
