@@ -81,21 +81,21 @@ function A_BuildManagerCtrl.Update()
    --如果检测到鼠标点击且未点击到UI，执行炮塔建造
    local isover=tool:IsOverGameObject()
    --鼠标点击
-   if(CSU.Input.GetMouseButtonDown(0)) then
+   if(CSU.Input.GetMouseButtonDown(0) and isover==false) then
       --不在UI上
-      if(isover==false) then
+      --if(isover==false) then
         --是否与地图产生碰撞
         local isCollider=tool:isCollider()
         --存储碰撞信息
         local HitInfro=tool:HitInfro()
         
         --如果点击了砖块
-        if(isCollider==true) then
+        if(isCollider==true and HitInfro.collider.gameObject.layer==8) then
             print("点击到砖块")
             --找到点击的砖块名字
             local cubeName=HitInfro.collider.gameObject.name
             print(cubeName)
         end
-      end
+      --end
    end
 end

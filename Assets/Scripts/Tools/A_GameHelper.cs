@@ -39,14 +39,16 @@ namespace GameTools {
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Debug.Log(ray);
-            bool iscollider = Physics.Raycast(ray,1000, LayerMask.GetMask("Ground"));
+            bool iscollider = Physics.Raycast(ray, 1000);
             return iscollider;
         }
         public RaycastHit HitInfro()
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(ray, out hit,1000, LayerMask.GetMask("Ground"));
+            Physics.Raycast(ray, out hit, 1000);
+            Debug.Log(hit.collider.gameObject.name);
+            Debug.Log(hit.collider.gameObject.layer.GetHashCode());
             return hit;
         }
     }
