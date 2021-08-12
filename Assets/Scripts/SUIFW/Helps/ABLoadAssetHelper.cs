@@ -27,7 +27,7 @@ namespace SUIFW
         //克隆出来的UI预设
         private UnityEngine.Object _CloneUIPrefab = null;
         //不克隆的防御塔预设
-        private UnityEngine.Object _DTPrefab = null;
+        private UnityEngine.Object _GamePrefab = null;
         /*  属性 */
         public bool IsLoadFinish
         {
@@ -44,16 +44,57 @@ namespace SUIFW
             }
             return _Instance;
         }
-
-        public void LoadAssetBundlePack(ABPara abPara)      // 调用AB框架ab包
+        
+        #region 加载UI   UImanager调用
+        public void LoadAssetBundleUIPack(ABPara abPara)      // UI 调用AB框架 加载ab包 然后回调加载资源
         {
             //仅仅是加载相同AB包中的不同资源
             if ((abPara.ScenesName==_ScenesName)  && (abPara.AssetBundleName==_AssetBundleName))
             {
                 _AssetName = abPara.AssetName;
-                LoadABAssetComplete(""); 
+                LoadABAssetUIComplete(""); 
             }
             else {
+                _ScenesName = abPara.ScenesName;
+                _AssetBundleName = abPara.AssetBundleName;
+                _AssetName = abPara.AssetName;
+                StartCoroutine(AssetBundleMgr.GetInstance().LoadAssetBundlePack(_ScenesName, _AssetBundleName, LoadABAssetUIComplete));  // 下载AssetBundel 指定包
+            }
+        }
+
+        private void LoadABAssetUIComplete(string abName)      // （回调函数） 调用AB包中的UI资源
+        {
+            UnityEngine.Object tmpObj = null;
+            tmpObj=AssetBundleMgr.GetInstance().LoadAsset(_ScenesName, _AssetBundleName, _AssetName);  
+            if (tmpObj!=null)
+            {
+                _CloneUIPrefab = Instantiate(tmpObj); 
+            }
+            _IsLoadFinish = true;
+        }
+
+        public UnityEngine.Object GetCloneUIPrefab()     //   UI    得到克隆预设
+        {
+            if (_CloneUIPrefab!=null)
+            {
+                _IsLoadFinish = false;
+                return _CloneUIPrefab;
+            }
+            return null;
+        }
+        #endregion
+
+        #region 加载预制体    DefenseManager调用
+        public void LoadAssetBundlePack(ABPara abPara)      // 调用AB框架预制体ab包
+        {
+            //仅仅是加载相同AB包中的不同资源
+            if ((abPara.ScenesName == _ScenesName) && (abPara.AssetBundleName == _AssetBundleName))
+            {
+                _AssetName = abPara.AssetName;
+                LoadABAssetComplete("");
+            }
+            else
+            {
                 _ScenesName = abPara.ScenesName;
                 _AssetBundleName = abPara.AssetBundleName;
                 _AssetName = abPara.AssetName;
@@ -61,39 +102,26 @@ namespace SUIFW
             }
         }
 
-        private void LoadABAssetComplete(string abName)      // （回调函数） 调用AB包中的资源
+        private void LoadABAssetComplete(string abName)      // （回调函数） 调用AB包中的预制体资源
         {
             UnityEngine.Object tmpObj = null;
-
-            tmpObj=AssetBundleMgr.GetInstance().LoadAsset(_ScenesName, _AssetBundleName, _AssetName);  //加入缓存
-            if (tmpObj!=null)
+            tmpObj = AssetBundleMgr.GetInstance().LoadAsset(_ScenesName, _AssetBundleName, _AssetName);  
+            if (tmpObj != null)
             {
-                _CloneUIPrefab = Instantiate(tmpObj);
-                _DTPrefab = tmpObj;
+                _GamePrefab = tmpObj;
             }
             _IsLoadFinish = true;
         }
+        public UnityEngine.Object GetPrefab()            // 得到预制体对应的预制体
+        {
+            if (_GamePrefab != null)
+            {
+                _IsLoadFinish = false;
+                return _GamePrefab;
+            }
+            return null;
+        }
         
-        public UnityEngine.Object GetPrefab()   // 得到abName 对应的预制体（没有实例化）
-        {
-            if (_DTPrefab != null)
-            {
-                _IsLoadFinish = false;
-                return _DTPrefab;
-            }
-            return null;
-        }
-       
-        public UnityEngine.Object GetCloneUIPrefab()     // 得到（克隆）的UI预设
-        {
-            if (_CloneUIPrefab!=null)
-            {
-                _IsLoadFinish = false;
-                return _CloneUIPrefab;
-            }
-
-            return null;
-        }
-
-    }//Class_end
-}//namespace_end
+        #endregion
+    }
+}

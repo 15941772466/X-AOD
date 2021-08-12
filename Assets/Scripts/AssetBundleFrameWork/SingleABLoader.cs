@@ -1,6 +1,7 @@
 ﻿/***
- *          框架主流程：第2层： WWW 加载AssetBundle 
- *
+ *          框架主流程：第1层： WWW 加载AssetBundle 
+ *          SingleABLoader(string abName,DelLoadComplete loadComplete)
+ *          单个AB包，加载 并存储
  */
 using System;
 using System.Collections;
@@ -11,7 +12,6 @@ namespace ABFW
 {
 	public class SingleABLoader             //: System.IDisposable
 	{
-        
         //委托：
         private DelLoadComplete _LoadCompleteHandle;
         //AssetBundle 名称
@@ -32,18 +32,15 @@ namespace ABFW
             //AB包下载路径（初始化）
             _ABDownLoadPath = PathTools.GetWWWPath() + "/" + _ABName;            
         }
-
-        //加载AssetBundle 资源包
-        public IEnumerator LoadAssetBundle()
+        public IEnumerator LoadAssetBundle()          //加载AssetBundle 资源包
         {
             using (WWW www=new WWW(_ABDownLoadPath))
             {
                 yield return www;
                 //WWW下载AB包完成
                 if (www.progress>=1)
-                {
-                    //获取AssetBundle的实例
-                    AssetBundle abObj = www.assetBundle;
+                {               
+                    AssetBundle abObj = www.assetBundle;         //获取AssetBundle的实例
                     if (abObj!=null)
                     {
                         //得到AB包
@@ -53,15 +50,14 @@ namespace ABFW
                         {
                             _LoadCompleteHandle(_ABName);
                         }
-
                     }
                     else {
                         Debug.LogError(GetType()+ "/LoadAssetBundle()/WWW 下载出错，请检查！ AssetBundle URL: "+ _ABDownLoadPath+" 错误信息： "+www.error);
                     }
                 }
             }//using_end            
-        }
-        public UnityEngine.Object LoadAsset(string assetName)
+        }    
+        public UnityEngine.Object LoadAsset(string assetName)   // 加载资源（回调）
         {
             if (_Ht.Contains(assetName))
             {
@@ -73,7 +69,6 @@ namespace ABFW
             {
                 _Ht.Add(assetName, tmpTResource);
             }
-
             return tmpTResource;
         }
 

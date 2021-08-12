@@ -23,8 +23,7 @@ namespace Communication
         public void SendMes(string content)
         {
             cur_name = "b";
-            cur_content = content;
-            Debug.Log("sssssssssssss");
+            cur_content = content;   
             //服务器操作
             //...
 
@@ -40,7 +39,7 @@ namespace Communication
         }
         public string ShowText()
         {
-            Debug.Log("showContent: " + showContent);
+            
             return showContent;
         }
     }

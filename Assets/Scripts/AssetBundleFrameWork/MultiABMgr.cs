@@ -13,10 +13,8 @@ namespace ABFW
 	{
         //（下层）引用类： "单个AB包加载实现类"
         private SingleABLoader _CurrentSinglgABLoader;
-        //“AB包实现类”缓存集合（作用： 缓存AB包，防止重复加载，即： “AB包缓存集合”）
+        //AB包缓存集合
         private Dictionary<string, SingleABLoader> _DicSingleABLoaderCache;
-        //当前场景(调试使用)
-        private string _CurrentScenesName;
         //当前AssetBundle 名称
         private string _CurrentABName;
         //AB包与对应依赖关系集合
@@ -24,47 +22,27 @@ namespace ABFW
         //委托： 所有AB包加载完成。
         private DelLoadComplete _LoadAllABPackageCompleteHandel;
 
-
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="scenesName">根目录文件名称</param>
-        /// <param name="abName">AB包名称</param>
-        /// <param name="loadAllABPackCompleteHandle">（委托）是否调用完成</param>
-        public MultiABMgr(string scenesName,string abName,DelLoadComplete loadAllABPackCompleteHandle)
+        public MultiABMgr(string abName,DelLoadComplete loadAllABPackCompleteHandle)    // 构造函数
         {
-            _CurrentScenesName = scenesName;
             _CurrentABName = abName;
             _DicSingleABLoaderCache = new Dictionary<string, SingleABLoader>();
             _DicABRelation = new Dictionary<string, ABRelation>();
-            //委托
             _LoadAllABPackageCompleteHandel = loadAllABPackCompleteHandle;
         }
-
-        /// <summary>
-        /// 完成指定AB包调用
-        /// </summary>
-        /// <param name="abName">AB包名称</param>
-        private void CompleteLoadAB(string abName)
+        private void CompleteLoadAB(string abName)      // 完成指定AB包调用
         {
             Debug.Log(GetType() + "/当前完成abName: " + abName + " 包的加载");
-            if (abName.Equals(_CurrentABName))
+            //Debug.LogError(abName+ "   "+_CurrentABName);
+            if (abName.Equals(_CurrentABName))    //对根目录第一个加载的AB包进行实例化
             {
+               // Debug.LogError(abName);
                 if (_LoadAllABPackageCompleteHandel!=null)
                 {
                     _LoadAllABPackageCompleteHandel(abName);
                 }
             }
         }
-
-
-        /// <summary>
-        /// 加载AB包
-        /// </summary>
-        /// <param name="abName">AssetBundle 名称</param>
-        /// <returns></returns>
-        public IEnumerator LoadAssetBundeler(string abName)
+        public IEnumerator LoadAssetBundeler(string abName)     // 加载AB包以及依赖项AB包
         {
             //AB包关系的建立
             if (!_DicABRelation.ContainsKey(abName))
@@ -80,8 +58,8 @@ namespace ABFW
             {
                 //添加“依赖”项
                 tmpABRelationObj.AddDependence(item_Depence);
-                //添加“引用”项    （递归调用）
-                yield return LoadReference(item_Depence, abName);
+                //加载依赖项的“依赖”项    （递归调用）
+                yield return LoadReference(item_Depence);
             }
             //真正加载AB包
             if (_DicSingleABLoaderCache.ContainsKey(abName))
@@ -93,44 +71,18 @@ namespace ABFW
                 _DicSingleABLoaderCache.Add(abName, _CurrentSinglgABLoader);
                 yield return _CurrentSinglgABLoader.LoadAssetBundle();
             }
-
         }
-
-
-        /// <summary>
-        /// 加载引用AB包
-        /// </summary>
-        /// <param name="abName">AB包名称（被依赖项）</param>
-        /// <param name="refABName">被引用AB包名称</param>
-        /// <returns></returns>
-        private IEnumerator LoadReference(string abName,string refABName)
-        {
-            //AB包已经加载
+        private IEnumerator LoadReference(string abName)       // 加载依赖项的“依赖”项
+        {   
             if (_DicABRelation.ContainsKey(abName))
             {
-                ABRelation tmpABRelationObj = _DicABRelation[abName];
-                //添加AB包引用关系（被依赖）
-                tmpABRelationObj.AddReference(refABName);
+                 //AB包已经加载完毕    
             }
             else {
-                ABRelation tmpABRelationObj = new ABRelation(abName);
-                tmpABRelationObj.AddReference(refABName);
-                _DicABRelation.Add(abName, tmpABRelationObj);
-
-                //开始加载依赖的包(这是一个递归调用)
-                yield return LoadAssetBundeler(abName);
+                yield return LoadAssetBundeler(abName); //递归加载
             }
-           
         }
-
-        /// <summary>
-        /// 加载（AB包中）资源
-        /// </summary>
-        /// <param name="abName">AssetBunlde 名称</param>
-        /// <param name="assetName">资源名称</param>
-        /// <param name="isCache">是否使用（资源）缓存</param>
-        /// <returns></returns>
-        public UnityEngine.Object LoadAsset(string abName, string assetName)
+        public UnityEngine.Object LoadAsset(string abName, string assetName)   // 加载（AB包中）资源  （回调）
         {
             foreach (string item_abName in _DicSingleABLoaderCache.Keys)
             {
@@ -142,11 +94,7 @@ namespace ABFW
             Debug.LogError(GetType()+ "/LoadAsset()/找不到AsetBunder包，无法加载资源，请检查！ abName="+ abName+ " assetName="+ assetName);
             return null;
         }
-
-        /// <summary>
-        /// 释放本场景中所有的资源
-        /// </summary>
-        public void DisposeAllAsset()
+        public void DisposeAllAsset()           // 释放本根目录中所有的资源
         {
             try
             {
@@ -165,18 +113,12 @@ namespace ABFW
                 _DicABRelation.Clear();
                 _DicABRelation = null;
                 _CurrentABName = null;
-                _CurrentScenesName = null;
+                
                 _LoadAllABPackageCompleteHandel = null;
-
-                //卸载没有使用到的资源
-                // Resources.UnloadUnusedAssets();
                 //强制垃圾收集
                 System.GC.Collect();
             }
-
         }
-
-
     }
 }
 
