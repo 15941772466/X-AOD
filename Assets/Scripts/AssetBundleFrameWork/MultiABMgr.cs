@@ -44,7 +44,7 @@ namespace ABFW
         }
         public IEnumerator LoadAssetBundeler(string abName)     // 加载AB包以及依赖项AB包
         {
-            //AB包关系的建立
+            //AB包关系的建立--  加载预制体包，主包是预制体，有两个材质包依赖，且有相同贴图依赖，这时第二个材质包，不需要继续分析了
             if (!_DicABRelation.ContainsKey(abName))
             {
                 ABRelation abRelationObj = new ABRelation(abName);
@@ -72,27 +72,20 @@ namespace ABFW
                 yield return _CurrentSinglgABLoader.LoadAssetBundle();
             }
         }
-        private IEnumerator LoadReference(string abName)       // 加载依赖项的“依赖”项
+        private IEnumerator LoadReference(string Depence_abName)       // 加载依赖项的“依赖”项
         {   
-            if (_DicABRelation.ContainsKey(abName))
+            if (_DicABRelation.ContainsKey(Depence_abName))
             {
                  //AB包已经加载完毕    
             }
             else {
-                yield return LoadAssetBundeler(abName); //递归加载
+                yield return LoadAssetBundeler(Depence_abName); //递归加载
             }
         }
-        public UnityEngine.Object LoadAsset(string abName, string assetName)   // 加载（AB包中）资源  （回调）
+        public UnityEngine.Object LoadAsset(string abName, string assetName)   // 获取资源  （回调）
         {
-            foreach (string item_abName in _DicSingleABLoaderCache.Keys)
-            {
-                if (abName == item_abName)
-                {
-                    return _DicSingleABLoaderCache[item_abName].LoadAsset(assetName);
-                }
-            }
-            Debug.LogError(GetType()+ "/LoadAsset()/找不到AsetBunder包，无法加载资源，请检查！ abName="+ abName+ " assetName="+ assetName);
-            return null;
+            return _DicSingleABLoaderCache[abName].LoadAsset(assetName);
+            
         }
         public void DisposeAllAsset()           // 释放本根目录中所有的资源
         {

@@ -45,6 +45,7 @@ namespace ABFW
                     {
                         //得到AB包
                         _CurrentAssetBundle=abObj;
+                        _CurrentAssetBundle.LoadAllAssets();
                         //AssetBundle 下载完毕，调用委托
                         if (_LoadCompleteHandle!=null)
                         {

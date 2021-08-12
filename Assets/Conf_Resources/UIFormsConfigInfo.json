@@ -1,8 +1,6 @@
 ﻿{
 "ConfigInfo":
 [
-{"Key":"本配置文件说明： 这是关于UI预设窗体名称与AssetBundle包名称参数，对应关系的配置文件"},
-
 {"Key":"RootUIForm",
 "Value":"uiprefabs|uiprefabs/uiprefabs.ab|Canvas.prefab"},
 

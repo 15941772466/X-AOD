@@ -10,22 +10,20 @@ namespace PFW
     {
         private static DefenseManager _Instance = null;
 
-        //游戏预制体路径(参数1：防御塔预设名称，2：表示防御塔预设路径)
+        //游戏预制体路径(key：防御塔预设名称，value：表示防御塔预设路径)
         public Dictionary<string, string> _DicDefensesPaths;
         //缓存所有游戏预制体
         public Dictionary<string, UnityEngine.Object> _DicALLDTForms;
-
-        
-       
         //游戏预制体实例
         private UnityEngine.Object goPrefab = null;
 
 
-        public static DefenseManager GetInstance()
+        public static DefenseManager GetInstance()   //LUA DefenseListUIForm 调用
         {
             if (_Instance == null)
             {
                 _Instance = new GameObject("_DefenseManager").AddComponent<DefenseManager>();
+                DontDestroyOnLoad(_Instance);
             }
             return _Instance;
         }
@@ -34,39 +32,25 @@ namespace PFW
             //字段初始化
             _DicALLDTForms = new Dictionary<string, UnityEngine.Object>();
             _DicDefensesPaths = new Dictionary<string, string>();
-
+            
         }
         void Start()
         {
             //初始化“游戏预制体预设”路径数据
             InitDefensesPathData();
-            DontDestroyOnLoad(_Instance);
             //把所有的游戏预制体都加载出来
             StartCoroutine(InitRootCanvasLoading(_DicDefensesPaths, DICgoPrefab));
-        }
-        public void PreLoad()
-        {
             
-        }
-        private void DICgoPrefab(string preName)
-        {
-            _DicALLDTForms.Add(preName, goPrefab);
-            
-            Debug.Log("preName : " + preName);
         }
 
-        /// <summary>
-        /// 初始化加载游戏预制体
-        /// </summary>
-        private IEnumerator InitRootCanvasLoading(Dictionary<string,string> DTPaths, DTComplete taskComplete)
+        private IEnumerator InitRootCanvasLoading(Dictionary<string,string> DTPaths, DTComplete taskComplete)// 从JSON读好的路径，初始化加载游戏预制体
         {
             foreach (var item in DTPaths)
             {
-                //Debug.LogError(item.Value);
                 //从路径(ab包参数)配置文件中，来合成需要的ab包参数
                 string[] strTempArray = item.Value.Split('|');
                 ABPara abPara = new ABPara();
-                abPara.ScenesName = strTempArray[0];
+                abPara.RootFileName = strTempArray[0];
                 abPara.AssetBundleName = strTempArray[1];
                 abPara.AssetName = strTempArray[2];
                 //调用AB框架ab包
@@ -84,26 +68,28 @@ namespace PFW
                 taskComplete.Invoke(pName);    
             }
         }
-
-        /// <summary>
-        /// 初始化“游戏预制体”路径数据
-        /// </summary>
-        private void InitDefensesPathData()
+        private void DICgoPrefab(string preName)            //委托 回调函数
         {
-            //json 再SA目录中路径信息
+            _DicALLDTForms.Add(preName, goPrefab);
+
+            Debug.Log("preName : " + preName);
+        }
+     
+        private void InitDefensesPathData()         // 初始化“游戏预制体”路径数据
+        {
+            
             string strJsonDeployPath = string.Empty;
-
             strJsonDeployPath = ABFW.PathTools.GetABOutPath() + HotUpdateProcess.HotUpdatePathTool.JSON_DEPLOY_PATH;
-            strJsonDeployPath = strJsonDeployPath + "/" + SysDefine.SYS_PATH_DT_CONFIG_INFO;
+            strJsonDeployPath = strJsonDeployPath + "/" + SysDefine.SYS_PATH_DT_CONFIG_INFO;                    //json 路径
 
-            IConfigManager configMgr = new ConfigManagerByJson(strJsonDeployPath);
+            ConfigManagerByJson configMgr = new ConfigManagerByJson(strJsonDeployPath);   //调用Json 配置文件管理器 new时自动读好文件，并可读
             if (configMgr != null)
             {
-                _DicDefensesPaths = configMgr.AppSetting; 
+                _DicDefensesPaths = configMgr.JsonConfig;   
             }
 
         }
-        public UnityEngine.GameObject PrefabAB(string DTname)    //通过名字作为key，返回游戏预制体
+        public UnityEngine.GameObject PrefabAB(string DTname)    // lua 调用  通过名字作为key，返回游戏预制体
         {
             UnityEngine.Object DefenseTower = null;
             _DicALLDTForms.TryGetValue(DTname, out DefenseTower);
@@ -112,7 +98,7 @@ namespace PFW
             return DTPre;
         }
 
-        public void ABDIC()    //查询所有游戏预制体
+        public void checkABDIC()    //查询所有游戏预制体
         {
             foreach (var item in _DicALLDTForms)
             {

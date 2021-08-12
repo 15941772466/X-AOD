@@ -154,9 +154,6 @@ namespace LuaFramework
         {
             go.AddComponent<BaseLuaUIForm>();
         }
-
-
-
     }//Class_end
 }
 
