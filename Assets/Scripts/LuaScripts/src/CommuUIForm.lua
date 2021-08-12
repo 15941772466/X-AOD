@@ -30,6 +30,12 @@ function CommuUIForm.Start(obj)
     this.InitView()
 end
 
+function CommuUIForm.Update(obj)
+    --showContent = CS.Communication.CommuManager.GetInstance():ShowText()
+    --print("lua"..showContent)
+    --transform:Find("Panel/Show/Text"):GetComponent("UnityEngine.UI.Text").text = showContent
+    transform:Find("Panel/Show/Text"):GetComponent("UnityEngine.UI.Text").text =CS.Communication.CommuManager.showContent
+end
 function CommuUIForm.InitView()
     --查找UI中按钮
     this.SendBtn=transform:Find("Panel/Send")--返回transform
@@ -39,8 +45,6 @@ function CommuUIForm.InitView()
     this.CloseBtn=transform:Find("Panel/Close")--返回transform
     this.CloseBtn=this.CloseBtn:GetComponent("UnityEngine.UI.Button") --返回Button类型
     this.CloseBtn.onClick:AddListener(this.ProcessClose)
-
-
 end
 
 function CommuUIForm.ProcessSendBtn()
@@ -50,8 +54,7 @@ function CommuUIForm.ProcessSendBtn()
     print(content)
     --cs
     CS.Communication.CommuManager.GetInstance():SendMes(content)
-    local showContent = CS.Communication.CommuManager.GetInstance():ShowText()
-    transform:Find("Panel/Show/Text"):GetComponent("UnityEngine.UI.Text").text = showContent
+    
 end
 
 

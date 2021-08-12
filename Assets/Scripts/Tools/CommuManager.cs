@@ -10,7 +10,7 @@ namespace Communication
         private static CommuManager _Instance;
         public static string cur_name ="a";
         public string cur_content = "a";
-        string showContent = " ";
+        public static string showContent = " ";
 
         public static CommuManager GetInstance()
         {
@@ -25,7 +25,7 @@ namespace Communication
             Client1.SendMessage(cur_name, content);
             //cur_name = "b";
             cur_content = content;
-            Debug.Log("sssssssssssss");
+            //Debug.Log("sssssssssssss");
             //服务器操作
             //...
 
@@ -33,7 +33,7 @@ namespace Communication
            Show(cur_name, cur_content);
         }
 
-        public string Show(string aname, string content)
+        public static string Show(string aname, string content)
         {
             showContent = showContent+ "\n" + aname + ": " + content;
             Debug.Log("showContent: "+ showContent);
@@ -41,7 +41,7 @@ namespace Communication
         }
         public string ShowText()
         {
-            Debug.Log("showContent: " + showContent);
+            //Debug.Log("showContent: " + showContent);
             return showContent;
         }
     }
