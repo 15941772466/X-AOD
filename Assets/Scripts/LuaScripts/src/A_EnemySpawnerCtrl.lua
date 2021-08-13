@@ -8,6 +8,8 @@ require("A_LevelSettings")
 --游戏结算脚本
 require("A_SettlementCtrl")
 
+
+
 --模拟类
 A_EnemySpawnerCtrl={}
 local this=A_EnemySpawnerCtrl
@@ -34,13 +36,15 @@ local settlementCtrl=A_SettlementCtrl.GetInstance()
 --敌人生成位置
 local EnemyPosition=CSU.GameObject.Find("SatrtPosition").transform.position
 
-
 function A_EnemySpawnerCtrl.GetInstance()
 	print("进入敌人生成管理类")
     return this
 end
 
 --------------------------------------敌人生成逻辑-------------------------------------------
+function A_EnemySpawnerCtrl.Awake(obj)
+
+end
 function A_EnemySpawnerCtrl.Start(obj)
      --获取当前关卡
      Level=levelData[obj.tag]
@@ -67,8 +71,8 @@ function A_EnemySpawnerCtrl.enemySpawner(LevelDataEnemy)
             Eneagent.speed=wave.speed
             EnemyCount=EnemyCount+1
             --等待生成间隔
-            -- tool:StartSpawnEnemyRate(Level.wave.waveCount)
-            -- tool:ClosetSpawnEnemyRate()
+            
+
          end
          --等待上一波敌人全部被消灭
      end

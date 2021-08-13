@@ -16,6 +16,5 @@ public class A_GameStart : MonoBehaviour
     void Game_start()
     {
         LuaHelper.GetInstance().DoString("require 'A_StartGame'");
-        
     }
 }
