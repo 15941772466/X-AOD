@@ -72,7 +72,12 @@ namespace GameTools {
         {
             StopCoroutine(coroutine1);
         }
-        //波次敌人生成间隔
-
+        
+        //炮塔位置上调
+        public Vector3 UpPosition(ref Vector3 position)
+        {
+            position.y = 0.2f;
+            return position;
+        }
     }
 }
