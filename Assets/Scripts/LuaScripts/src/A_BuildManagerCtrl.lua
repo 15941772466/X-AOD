@@ -137,9 +137,8 @@ function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
    --加载炮塔预制体
    local tmpObj=abDTObj:PrefabAB(SelectedTurret)
    print(position)
-
    --生成并记录
    GroundData[cubeName].preturret=CSU.GameObject.Instantiate(tmpObj)
-   GroundData[cubeName].preturret.transform.position=position
+   GroundData[cubeName].preturret.transform.position=tool:UpPosition(position)
    GroundData[cubeName].preturrettype=SelectedTurret
 end
