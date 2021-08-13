@@ -20,7 +20,6 @@ namespace ABFW
             {
                 Directory.CreateDirectory(strABOutPathDIR);
             }
-            
             BuildPipeline.BuildAssetBundles(strABOutPathDIR, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows64);
         }
 

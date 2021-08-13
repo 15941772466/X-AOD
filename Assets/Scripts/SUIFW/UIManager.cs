@@ -94,7 +94,7 @@ namespace SUIFW
             //从路径(ab包参数)配置文件中，来合成需要的ab包参数
             string[] strTempArray = uiRootFormPaths.Split('|');
             ABPara abPara = new ABPara();
-            abPara.ScenesName = strTempArray[0];
+            abPara.RootFileName = strTempArray[0];
             abPara.AssetBundleName = strTempArray[1];
             abPara.AssetName = strTempArray[2];
 
@@ -215,14 +215,14 @@ namespace SUIFW
                 //从路径配置文件中，来合成需要的ab包参数
                 string[] strTempArray = strUIFormPaths.Split('|');
                 ABPara abPara = new ABPara();
-                abPara.ScenesName = strTempArray[0];
+                abPara.RootFileName = strTempArray[0];
                 abPara.AssetBundleName = strTempArray[1];
                 abPara.AssetName = strTempArray[2];
 
                 //初始化加载Canvas 预设
                 StartCoroutine(LoadABAsset(abPara, LoadUIForm_Process));
             }
-        }//Mehtod_end
+        }
 
         private void LoadUIForm_Process(UnityEngine.GameObject goCloneUIPrefab)  //加载指定名称的“UI窗体”
         {
@@ -454,10 +454,10 @@ namespace SUIFW
             strJsonDeployPath = ABFW.PathTools.GetABOutPath() + HotUpdateProcess.HotUpdatePathTool.JSON_DEPLOY_PATH;
             strJsonDeployPath = strJsonDeployPath + "/" + SysDefine.SYS_PATH_UIFORMS_CONFIG_INFO;
 
-            IConfigManager configMgr = new ConfigManagerByJson(strJsonDeployPath);
+            ConfigManagerByJson configMgr = new ConfigManagerByJson(strJsonDeployPath);
             if (configMgr != null)
             {
-                _DicFormsPaths = configMgr.AppSetting;
+                _DicFormsPaths = configMgr.JsonConfig;
             }
         }
         #endregion

@@ -18,7 +18,7 @@ namespace ABFW
 	{
         //本类实例
         private static AssetBundleMgr _Instance;
-        //场景集合
+        //根目录集合
         private Dictionary<string, MultiABMgr> _DicAllRoots = new Dictionary<string, MultiABMgr>();
         //资源初始化
         private static bool init = true;
@@ -47,8 +47,7 @@ namespace ABFW
 
         public IEnumerator LoadAssetBundlePack(string RootDicName, string abName, DelLoadComplete loadAllCompleteHandle)   // 下载AssetBundel 指定包
         {
-            //等待Manifest清单文件加载完成
-            while (!ABManifestLoader.GetInstance().IsLoadFinish)
+            while (!ABManifestLoader.GetInstance().IsLoadFinish) //等待Manifest清单文件加载完成
             {
                 yield return null;
             }
@@ -75,7 +74,13 @@ namespace ABFW
             Debug.LogError(GetType()+ "/LoadAsset()/找不到场景名称，无法加载（AB包中）资源,请检查！  scenesName="+ scenesName);
             return null;
         }
-        public void DisposeAllAssets(string scenesName)          // 释放资源。
+        public void OtherAB()
+        {
+            string path = ABFW.PathTools.GetABOutPath() + "/sences/";
+            AssetBundle.LoadFromFile(path + ("sences.u3d").ToLower());
+            level_oneNav = AssetBundle.LoadFromFile(path + ("level_one.ab").ToLower());
+        }
+        public void DisposeAllAssets(string scenesName)          // 释放资源
         {
             if (_DicAllRoots.ContainsKey(scenesName))
             {
@@ -85,20 +90,8 @@ namespace ABFW
             else {
                 Debug.LogError(GetType() + "/DisposeAllAssets()/找不到场景名称，无法释放资源，请检查！  scenesName=" + scenesName);
             }
-        }
-
-        public void OtherAB()
-        {
-            string path = ABFW.PathTools.GetABOutPath() + "/sences/";
-            if (init)
-            {
-                Debug.Log("path: " + path);
-                AssetBundle.LoadFromFile(path + ("sences.u3d").ToLower());
-                level_oneNav = AssetBundle.LoadFromFile(path + ("level_one.ab").ToLower());
-                init = false;
-            }
-        }
-    }//Class_end
+        }  
+    }
 }
 
 

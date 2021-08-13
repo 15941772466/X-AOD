@@ -12,6 +12,15 @@ using UnityEngine;
 
 namespace SUIFW
 {
+    public struct ABPara       // AB包的参数结构
+    {
+        //AB包所属根目录名称
+        public string RootFileName;
+        //AB包名称
+        public string AssetBundleName;
+        //资源的名称
+        public string AssetName;
+    }
 
     /*  委托定义 （UI框架的委托） */
     public delegate void DelTaskComplete(UnityEngine.GameObject obj);

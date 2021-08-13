@@ -20,9 +20,9 @@ namespace LoginRes
                 message.MergeFrom(read);
                 if (password == message.Password)
                 {
-                    Client1.SendLoginInfo(message.Name,Client1.GetIPV4());
-                    Client1.awake();
-                    Communication.CommuManager.cur_name = message.Name;
+                    //Client1.SendLoginInfo(message.Name,Client1.GetIPV4());
+                    //Client1.awake();
+                    //Communication.CommuManager.cur_name = message.Name;
                     print("登录成功");
                     return true;
                 }
