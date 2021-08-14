@@ -54,7 +54,7 @@ namespace ABFW
             yield return tmpMultiMgrObj.LoadAssetBundeler(abName);
         }
 
-        public UnityEngine.Object LoadAsset(string scenesName, string abName, string assetName)    // 加载资源   (回调)
+        public Object LoadAsset(string scenesName, string abName, string assetName)    // 加载资源   (回调)
         {
             if (_DicAllRoots.ContainsKey(scenesName))
             {

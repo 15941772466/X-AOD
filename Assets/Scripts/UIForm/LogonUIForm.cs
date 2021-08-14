@@ -15,7 +15,7 @@ namespace DemoProject
         public void Awake()
         {
             base.CurrentUIType.UIForms_Type = UIFormType.Normal;
-            base.CurrentUIType.UIForms_ShowMode = UIFormShowMode.Normal;
+            base.CurrentUIType.UIForms_ShowMode = UIFormShowMode.HideOther;
             
         }
 

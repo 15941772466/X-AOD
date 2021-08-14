@@ -42,5 +42,5 @@ function GameInfoUIForm.ProcessBackHallBtn()
    --打开窗体
    uiManager:ShowUIForms("MainCityUIForm")
    uiManager:ShowUIForms("HeroInfoUIForm")
-   CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_One");
+   CS.UnityEngine.SceneManagement.SceneManager.LoadScene("GameHall");
 end

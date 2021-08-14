@@ -38,7 +38,16 @@
 "Value":"uiprefabs|uiprefabs/uiprefabs.ab|LoginFailUIForm.prefab"},
 
 {"Key":"CommuUIForm",
-"Value":"uiprefabs|uiprefabs/uiprefabs.ab|CommuUIForm.prefab"}
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|CommuUIForm.prefab"},
+
+{"Key":"LevelsUIForm",
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|LevelsUIForm.prefab"},
+
+{"Key":"VictoryUIForm",
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|VictoryUIForm.prefab"},
+
+{"Key":"DefeatUIForm",
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|DefeatUIForm.prefab"}
 
 ]
 }

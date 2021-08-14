@@ -33,10 +33,9 @@ namespace ABFW
         private void CompleteLoadAB(string abName)      // 完成指定AB包调用
         {
             Debug.Log(GetType() + "/当前完成abName: " + abName + " 包的加载");
-            //Debug.LogError(abName+ "   "+_CurrentABName);
+
             if (abName.Equals(_CurrentABName))    //对根目录第一个加载的AB包进行实例化
             {
-               // Debug.LogError(abName);
                 if (_LoadAllABPackageCompleteHandel!=null)
                 {
                     _LoadAllABPackageCompleteHandel(abName);
@@ -52,6 +51,7 @@ namespace ABFW
                 _DicABRelation.Add(abName, abRelationObj);
             }
             ABRelation tmpABRelationObj = _DicABRelation[abName];
+            //把即将加载的包存起来
 
             //得到指定AB包所有的依赖关系（查询Manifest清单文件）
             string[] strDependeceArray = ABManifestLoader.GetInstance().RetrivalDependce(abName);
@@ -69,6 +69,8 @@ namespace ABFW
                     yield return LoadAssetBundeler(item_Depence);
                 }          
             }
+            //加载此包的依赖包
+
             //真正加载AB包
             if (_DicSingleABLoaderCache.ContainsKey(abName))
             {
