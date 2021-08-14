@@ -348,7 +348,52 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp15(object p0)
+		public void __Gen_Delegate_Imp15(UnityEngine.GameObject p0, int p1)
+		{
+#if THREAD_SAFE || HOTFIX_ENABLE
+            lock (luaEnv.luaEnvLock)
+            {
+#endif
+                RealStatePtr L = luaEnv.rawL;
+                int errFunc = LuaAPI.pcall_prepare(L, errorFuncRef, luaReference);
+                ObjectTranslator translator = luaEnv.translator;
+                translator.Push(L, p0);
+                LuaAPI.xlua_pushinteger(L, p1);
+                
+                PCall(L, 2, 0, errFunc);
+                
+                
+                
+                LuaAPI.lua_settop(L, errFunc - 1);
+                
+#if THREAD_SAFE || HOTFIX_ENABLE
+            }
+#endif
+		}
+        
+		public void __Gen_Delegate_Imp16(UnityEngine.Collider p0)
+		{
+#if THREAD_SAFE || HOTFIX_ENABLE
+            lock (luaEnv.luaEnvLock)
+            {
+#endif
+                RealStatePtr L = luaEnv.rawL;
+                int errFunc = LuaAPI.pcall_prepare(L, errorFuncRef, luaReference);
+                ObjectTranslator translator = luaEnv.translator;
+                translator.Push(L, p0);
+                
+                PCall(L, 1, 0, errFunc);
+                
+                
+                
+                LuaAPI.lua_settop(L, errFunc - 1);
+                
+#if THREAD_SAFE || HOTFIX_ENABLE
+            }
+#endif
+		}
+        
+		public void __Gen_Delegate_Imp17(object p0)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -370,7 +415,7 @@ namespace XLua
 #endif
 		}
         
-		public int __Gen_Delegate_Imp16(object p0, int p1, int p2)
+		public int __Gen_Delegate_Imp18(object p0, int p1, int p2)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -394,7 +439,7 @@ namespace XLua
 #endif
 		}
         
-		public UnityEngine.Vector3 __Gen_Delegate_Imp17(object p0, UnityEngine.Vector3 p1, UnityEngine.Vector3 p2)
+		public UnityEngine.Vector3 __Gen_Delegate_Imp19(object p0, UnityEngine.Vector3 p1, UnityEngine.Vector3 p2)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -418,7 +463,7 @@ namespace XLua
 #endif
 		}
         
-		public int __Gen_Delegate_Imp18(object p0, int p1, out double p2, ref string p3)
+		public int __Gen_Delegate_Imp20(object p0, int p1, out double p2, ref string p3)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -444,7 +489,7 @@ namespace XLua
 #endif
 		}
         
-		public int __Gen_Delegate_Imp19(object p0, int p1, out double p2, ref string p3, object p4)
+		public int __Gen_Delegate_Imp21(object p0, int p1, out double p2, ref string p3, object p4)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -471,7 +516,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp20(object p0, int p1)
+		public void __Gen_Delegate_Imp22(object p0, int p1)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -494,7 +539,7 @@ namespace XLua
 #endif
 		}
         
-		public string __Gen_Delegate_Imp21(object p0)
+		public string __Gen_Delegate_Imp23(object p0)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -516,7 +561,7 @@ namespace XLua
 #endif
 		}
         
-		public UnityEngine.GameObject __Gen_Delegate_Imp22(XLuaTest.StructTest p0, int p1, object p2)
+		public UnityEngine.GameObject __Gen_Delegate_Imp24(XLuaTest.StructTest p0, int p1, object p2)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -540,7 +585,7 @@ namespace XLua
 #endif
 		}
         
-		public string __Gen_Delegate_Imp23(XLuaTest.StructTest p0)
+		public string __Gen_Delegate_Imp25(XLuaTest.StructTest p0)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -562,7 +607,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp24(XLuaTest.StructTest p0, object p1)
+		public void __Gen_Delegate_Imp26(XLuaTest.StructTest p0, object p1)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -585,7 +630,7 @@ namespace XLua
 #endif
 		}
         
-		public int __Gen_Delegate_Imp25(object p0)
+		public int __Gen_Delegate_Imp27(object p0)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -607,7 +652,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp26(object p0, object p1)
+		public void __Gen_Delegate_Imp28(object p0, object p1)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -630,7 +675,7 @@ namespace XLua
 #endif
 		}
         
-		public int __Gen_Delegate_Imp27(object p0, object p1)
+		public int __Gen_Delegate_Imp29(object p0, object p1)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -653,7 +698,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp28(object p0, object p1, int p2)
+		public void __Gen_Delegate_Imp30(object p0, object p1, int p2)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -677,7 +722,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp29(int p0, int p1)
+		public void __Gen_Delegate_Imp31(int p0, int p1)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -700,7 +745,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp30(object p0, int p1, int p2)
+		public void __Gen_Delegate_Imp32(object p0, int p1, int p2)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -808,6 +853,66 @@ namespace XLua
 			    return new XLuaTest.InvokeLua.CalcNew(__Gen_Delegate_Imp13);
 			}
 		
+		    if (type == typeof(LuaFramework.BeseLuaEnemy.delLuaStart))
+			{
+			    return new LuaFramework.BeseLuaEnemy.delLuaStart(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BeseLuaEnemy.delLuaAwake))
+			{
+			    return new LuaFramework.BeseLuaEnemy.delLuaAwake(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BeseLuaEnemy.delLuaUpdate))
+			{
+			    return new LuaFramework.BeseLuaEnemy.delLuaUpdate(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BeseLuaEnemy.delLuaDestroy))
+			{
+			    return new LuaFramework.BeseLuaEnemy.delLuaDestroy(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BaseLuaEnemy.delLuaStart))
+			{
+			    return new LuaFramework.BaseLuaEnemy.delLuaStart(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BaseLuaEnemy.delLuaAwake))
+			{
+			    return new LuaFramework.BaseLuaEnemy.delLuaAwake(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BaseLuaEnemy.delLuaUpdate))
+			{
+			    return new LuaFramework.BaseLuaEnemy.delLuaUpdate(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BaseLuaEnemy.delLuaDestroy))
+			{
+			    return new LuaFramework.BaseLuaEnemy.delLuaDestroy(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BaseLuaTurret.delLuaStart))
+			{
+			    return new LuaFramework.BaseLuaTurret.delLuaStart(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BaseLuaTurret.delLuaAwake))
+			{
+			    return new LuaFramework.BaseLuaTurret.delLuaAwake(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BaseLuaTurret.delLuaUpdate))
+			{
+			    return new LuaFramework.BaseLuaTurret.delLuaUpdate(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BaseLuaTurret.delLuaDestroy))
+			{
+			    return new LuaFramework.BaseLuaTurret.delLuaDestroy(__Gen_Delegate_Imp14);
+			}
+		
 		    if (type == typeof(LuaFramework.BaseLuaUIForm.delLuaStart))
 			{
 			    return new LuaFramework.BaseLuaUIForm.delLuaStart(__Gen_Delegate_Imp14);
@@ -826,6 +931,21 @@ namespace XLua
 		    if (type == typeof(LuaFramework.BaseLuaUIForm.delLuaDestroy))
 			{
 			    return new LuaFramework.BaseLuaUIForm.delLuaDestroy(__Gen_Delegate_Imp14);
+			}
+		
+		    if (type == typeof(LuaFramework.BaseLuaEnemy.delTakeDamage))
+			{
+			    return new LuaFramework.BaseLuaEnemy.delTakeDamage(__Gen_Delegate_Imp15);
+			}
+		
+		    if (type == typeof(LuaFramework.BaseLuaTurret.delOnTriggerEnter))
+			{
+			    return new LuaFramework.BaseLuaTurret.delOnTriggerEnter(__Gen_Delegate_Imp16);
+			}
+		
+		    if (type == typeof(LuaFramework.BaseLuaTurret.delOnTriggerExit))
+			{
+			    return new LuaFramework.BaseLuaTurret.delOnTriggerExit(__Gen_Delegate_Imp16);
 			}
 		
 		    return null;

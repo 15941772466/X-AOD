@@ -8,6 +8,8 @@ require("A_LevelSettings")
 --游戏结算脚本
 require("A_SettlementCtrl")
 
+
+
 --模拟类
 A_EnemySpawnerCtrl={}
 local this=A_EnemySpawnerCtrl
@@ -26,6 +28,8 @@ EnemyListSpawnered={}
 EnemyCount=0
 --存放敌人预制体
 local tempObj={}
+--存放敌人血条UI
+local tempSlider
 
 --关卡信息
 local Level
@@ -33,14 +37,16 @@ local Level
 local settlementCtrl=A_SettlementCtrl.GetInstance()
 --敌人生成位置
 local EnemyPosition=CSU.GameObject.Find("SatrtPosition").transform.position
-
-
+local Barrel2=CSU.GameObject.Find("Barrel2").transform.position
 function A_EnemySpawnerCtrl.GetInstance()
 	print("进入敌人生成管理类")
     return this
 end
 
 --------------------------------------敌人生成逻辑-------------------------------------------
+function A_EnemySpawnerCtrl.Awake(obj)
+
+end
 function A_EnemySpawnerCtrl.Start(obj)
      --获取当前关卡
      Level=levelData[obj.tag]
@@ -48,6 +54,8 @@ function A_EnemySpawnerCtrl.Start(obj)
      for i,wave in pairs(Level.enemy) do
         tempObj[wave.type]=abDTObj:PrefabAB(wave.type)
      end
+     tempSlider=abDTObj:PrefabAB("Hp")
+     print(tempSlider.name)
      --按波数生成敌人
      this.enemySpawner(Level.enemy)
      --成功加载完所有敌人并全部被消灭，游戏胜利
@@ -56,22 +64,29 @@ end
 
 --敌人生成
 function A_EnemySpawnerCtrl.enemySpawner(LevelDataEnemy)
-      for i,wave in pairs(LevelDataEnemy) do
-         print(wave.count)
-         for i=1,wave.count do
-            --实例化
-            local enemyObj=CS.UnityEngine.Object.Instantiate(tempObj[wave.type],EnemyPosition,CSU.Quaternion.identity)
-            --附加脚本
-            CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaUIForm(enemyObj)
-            local Eneagent = enemyObj:GetComponent(typeof(CSU.AI.NavMeshAgent))
-            Eneagent.speed=wave.speed
-            EnemyCount=EnemyCount+1
-            --等待生成间隔
-            -- tool:StartSpawnEnemyRate(Level.wave.waveCount)
-            -- tool:ClosetSpawnEnemyRate()
-         end
-         --等待上一波敌人全部被消灭
-     end
+   local enemyObj=CSU.Object.Instantiate(tempObj["A_Enemy1"],EnemyPosition,CSU.Quaternion.identity)
+   local enemySlider=CSU.Object.Instantiate(tempSlider,EnemyPosition,CSU.Quaternion.identity)
+   --附加脚本
+   CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaEnemy(enemyObj)
+     --  for i,wave in pairs(LevelDataEnemy) do
+     --     print(wave.count)
+     --     for i=1,wave.count do
+     --        --实例化
+     --        local enemyObj=CSU.Object.Instantiate(tempObj[wave.type],EnemyPosition,CSU.Quaternion.identity)
+     --        --local enemySlider=CSU.Object.Instantiate(tempSlider,EnemyPosition,CSU.Quaternion.identity)
+     --        --附加脚本
+     --        CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaEnemy(enemyObj)
+     --        --local EnemyScript=enemyObj:GetComponent("BaseLuaEnemy")
+     --        --EnemyScript:GetSliderUI(enemySlider)
+     --        local Eneagent = enemyObj:GetComponent(typeof(CSU.AI.NavMeshAgent))
+     --        Eneagent.speed=wave.speed
+     --        EnemyCount=EnemyCount+1
+     --        --等待生成间隔
+            
+
+     --     end
+     --     --等待上一波敌人全部被消灭
+     -- end
 end
 
 

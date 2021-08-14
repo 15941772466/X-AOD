@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace GameTools {
-    public class A_GameHelper:MonoBehaviour
+    public class A_GameHelper : MonoBehaviour
     {
         public Slider slider;
         //设置单例
@@ -18,10 +18,7 @@ namespace GameTools {
             }
             return _Instance;
         }
-        //敌人生成间隔协程
-        private Coroutine coroutine1;
-        //波次间隔协程
-        private Coroutine coroutine2;
+
 
         //遍历物体所有子物体的名字
         public List<string> GetChildName(GameObject obj, List<string> namelist)
@@ -58,16 +55,7 @@ namespace GameTools {
             return hit;
         }
 
-        //同波敌人生成间隔
-        IEnumerator SpawnEnemyRate(int second)
-        {
-            yield return new WaitForSeconds(second);
-            yield break;
-        }
-        public void WaitForSecond(int second)
-        {
-            StartCoroutine(SpawnEnemyRate(second));
-        }
+
 
         //炮塔位置上调
         public Vector3 UpPosition(ref Vector3 position)
@@ -75,6 +63,15 @@ namespace GameTools {
             position.y = 0.2f;
             return position;
         }
+
+        //炮塔指向
+        public void LookAt(Transform Head, Vector3 target)
+        {
+            Head.LookAt(target);
+        }
+
+
+
 
         //---------------------------------------敌人管理---------------------------------
 
@@ -85,13 +82,10 @@ namespace GameTools {
         }
 
         public float time = 2f;
-        
+
         //更新血条
-        public void UpdateHp(GameObject obj, float damage,float Hp,float TotalHp)
+        public void UpdateHp(GameObject obj, float damage, float Hp, float TotalHp)
         {
-            time -= Time.deltaTime;
-            if (time <= 0)
-                time = 2f;
             if (Hp < 0)
             {
                 return;
@@ -103,16 +97,6 @@ namespace GameTools {
             Debug.Log(slider.value);
             Hp -= damage;
             slider.value = (float)Hp / TotalHp;
-        }
-
-        public void fun(float time)
-        {
-            while (true)
-            {
-                time -= Time.deltaTime;
-                if (time <= 0)
-                    break;
-            }
         }
     }
 }

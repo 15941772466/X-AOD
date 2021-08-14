@@ -101,12 +101,11 @@ function A_BuildManagerCtrl.Update()
 
             --如果此砖块上无炮塔，且已经选择了一个炮塔
             if(GroundData[cubeName].preturret==nil and SelectedTurret~=nil) then
-               print("选择的炮塔："..SelectedTurret.."   价格："..Level.turretcost[SelectedTurret])
-               -- print(Level.turretcost[SelectedTurret])
+               print("选择的炮塔："..SelectedTurret.."   价格："..Level.turretAttributes[SelectedTurret].cost)
                --检测金币余额
-               if(Money>=Level.turretcost[SelectedTurret]) then
+               if(Money>=Level.turretAttributes[SelectedTurret].cost) then
                   --扣钱qwq
-                  this.ChanageMoney(Level.turretcost[SelectedTurret])
+                  this.ChanageMoney(Level.turretAttributes[SelectedTurret].cost)
                   --建造炮塔
                   this.BuildTurret(SelectedTurret,cubeName) 
                else 
@@ -139,6 +138,10 @@ function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
    print(position)
    --生成并记录
    GroundData[cubeName].preturret=CSU.GameObject.Instantiate(tmpObj)
+   --添加生命周期映射
+   CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaTurret(GroundData[cubeName].preturret)
+   --位置上移
    GroundData[cubeName].preturret.transform.position=tool:UpPosition(position)
+   --当前cube上的炮塔类型
    GroundData[cubeName].preturrettype=SelectedTurret
 end
