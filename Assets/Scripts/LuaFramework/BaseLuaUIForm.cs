@@ -23,7 +23,6 @@ namespace LuaFramework
 {
     public class BaseLuaUIForm : MonoBehaviour
     {
-
         //定义委托
         [CSharpCallLua]
         public delegate void delLuaStart(GameObject go);
@@ -86,7 +85,7 @@ namespace LuaFramework
         void Start()
         {
             //调用委托
-            if (luaStart!=null)
+            if (luaStart != null)
             {
                 luaStart(gameObject);
             }
