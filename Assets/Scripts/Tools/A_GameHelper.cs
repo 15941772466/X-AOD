@@ -69,9 +69,17 @@ namespace GameTools {
         {
             Head.LookAt(target);
         }
+        //子弹位移
+        public  void Translate(GameObject bullet,float speed)
+        {
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
 
-
-
+        public float UpdateTimer(float timer)
+        {
+            timer += Time.deltaTime;
+            return timer;
+        }
 
         //---------------------------------------敌人管理---------------------------------
 

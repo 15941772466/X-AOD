@@ -3,6 +3,7 @@
 ----------------引用脚本-----------------------
 require("TestSysDefine")
 require("A_LevelSettings")
+require("TurretManager")
 
 --模拟类
 A_BuildManagerCtrl={}
@@ -34,11 +35,14 @@ local cubeName
 --找到Canvas
 local  UIobj=CSU.GameObject.Find("DefenseListUIForm(Clone)")
 
+local index = 0
+
+
 --初始化监听函数
-ListenerList["DefenseA"]=function () SelectedTurret="DefenseA" print(SelectedTurret) end
-ListenerList["DefenseB"]=function () SelectedTurret="DefenseB" print(SelectedTurret) end
-ListenerList["DefenseC"]=function () SelectedTurret="DefenseC" print(SelectedTurret) end
-ListenerList["DefenseD"]=function () SelectedTurret="DefenseD" print(SelectedTurret) end
+ListenerList["DefenseA"]=function () SelectedTurret="DefenseA" end
+ListenerList["DefenseB"]=function () SelectedTurret="DefenseB" end
+ListenerList["DefenseC"]=function () SelectedTurret="DefenseC" end
+ListenerList["DefenseD"]=function () SelectedTurret="DefenseD" end
 
 function A_BuildManagerCtrl.Awake()
    --记录地面信息
@@ -59,6 +63,7 @@ function ReadGround()
    local ground=CSU.GameObject.Find("CubeManager")
    GroundDatatmp=tool:GetChildName(ground,GroundDatatmp)
    for i,child in pairs(GroundDatatmp) do
+     
       GroundData[child]={preturret=nil,preturrettype=nil,isUpgraded=false}
    end
 end
@@ -93,8 +98,6 @@ function A_BuildManagerCtrl.Update()
         local isCollider=tool:isCollider()
         --存储碰撞信息
         local HitInfro=tool:HitInfro()
-        print(isCollider)
-        print(HitInfro.collider.gameObject)
         --如果点击了砖块
         if(isCollider==true and HitInfro.collider.gameObject.layer==8) then
             --找到点击的砖块名字
@@ -103,7 +106,7 @@ function A_BuildManagerCtrl.Update()
 
             --如果此砖块上无炮塔，且已经选择了一个炮塔
             if(GroundData[cubeName].preturret==nil and SelectedTurret~=nil) then
-               print("选择的炮塔："..SelectedTurret.."   价格："..Level.turretAttributes[SelectedTurret].cost)
+               
                --检测金币余额
                if(Money>=Level.turretAttributes[SelectedTurret].cost) then
                   --扣钱qwq
@@ -114,6 +117,7 @@ function A_BuildManagerCtrl.Update()
                   --没钱了你
                   print("没钱了！！")
                end
+               print("选择的炮塔："..SelectedTurret.."   价格："..Level.turretAttributes[SelectedTurret].cost.."剩余金币"..Money)
             --已经有炮塔
             elseif(GroundData[cubeName].preturret~=nil) then
 
@@ -125,25 +129,30 @@ end
 --金币更改
 function A_BuildManagerCtrl.ChanageMoney(changeMoney)
    Money=Money-changeMoney
-   print(Money)
 end
 
 --炮塔建造
 function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
-   print("开始建造")
    --找到选中的地面
    local cube =CSU.GameObject.Find(cubeName)
    --获取炮塔要生成的位置
    local position=cube.transform.position
    --加载炮塔预制体
    local tmpObj=abDTObj:PrefabAB(SelectedTurret)
-   print(position)
    --生成并记录
    GroundData[cubeName].preturret=CSU.GameObject.Instantiate(tmpObj)
-   --添加生命周期映射
-   CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaTurret(GroundData[cubeName].preturret)
-   --位置上移
+   --炮塔上移
    GroundData[cubeName].preturret.transform.position=tool:UpPosition(position)
    --当前cube上的炮塔类型
    GroundData[cubeName].preturrettype=SelectedTurret
+   --实例化炮塔类
+   local TurretObj=Turret:New(GroundData[cubeName].preturret)
+   index = index + 1
+   --存入炮塔列表
+   TurretManager.DefenseList[index] = TurretObj
+   
+
 end
+
+
+

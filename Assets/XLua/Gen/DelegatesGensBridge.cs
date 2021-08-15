@@ -371,7 +371,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp16(UnityEngine.Collider p0)
+		public void __Gen_Delegate_Imp16(UnityEngine.Transform p0)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -858,24 +858,24 @@ namespace XLua
 			    return new BaseLuaEnemy.delLuaDestroy(__Gen_Delegate_Imp11);
 			}
 		
-		    if (type == typeof(LuaFramework.BaseLuaTurret.delLuaStart))
+		    if (type == typeof(LuaFramework.BaseLuaBulletA.delLuaStart))
 			{
-			    return new LuaFramework.BaseLuaTurret.delLuaStart(__Gen_Delegate_Imp11);
+			    return new LuaFramework.BaseLuaBulletA.delLuaStart(__Gen_Delegate_Imp11);
 			}
 		
-		    if (type == typeof(LuaFramework.BaseLuaTurret.delLuaAwake))
+		    if (type == typeof(LuaFramework.BaseLuaBulletA.delLuaAwake))
 			{
-			    return new LuaFramework.BaseLuaTurret.delLuaAwake(__Gen_Delegate_Imp11);
+			    return new LuaFramework.BaseLuaBulletA.delLuaAwake(__Gen_Delegate_Imp11);
 			}
 		
-		    if (type == typeof(LuaFramework.BaseLuaTurret.delLuaUpdate))
+		    if (type == typeof(LuaFramework.BaseLuaBulletA.delLuaUpdate))
 			{
-			    return new LuaFramework.BaseLuaTurret.delLuaUpdate(__Gen_Delegate_Imp11);
+			    return new LuaFramework.BaseLuaBulletA.delLuaUpdate(__Gen_Delegate_Imp11);
 			}
 		
-		    if (type == typeof(LuaFramework.BaseLuaTurret.delLuaDestroy))
+		    if (type == typeof(LuaFramework.BaseLuaBulletA.delLuaDestroy))
 			{
-			    return new LuaFramework.BaseLuaTurret.delLuaDestroy(__Gen_Delegate_Imp11);
+			    return new LuaFramework.BaseLuaBulletA.delLuaDestroy(__Gen_Delegate_Imp11);
 			}
 		
 		    if (type == typeof(LuaFramework.BaseLuaUIForm.delLuaStart))
@@ -918,14 +918,9 @@ namespace XLua
 			    return new XLuaTest.InvokeLua.CalcNew(__Gen_Delegate_Imp15);
 			}
 		
-		    if (type == typeof(LuaFramework.BaseLuaTurret.delOnTriggerEnter))
+		    if (type == typeof(LuaFramework.BaseLuaBulletA.delluaGetarget))
 			{
-			    return new LuaFramework.BaseLuaTurret.delOnTriggerEnter(__Gen_Delegate_Imp16);
-			}
-		
-		    if (type == typeof(LuaFramework.BaseLuaTurret.delOnTriggerExit))
-			{
-			    return new LuaFramework.BaseLuaTurret.delOnTriggerExit(__Gen_Delegate_Imp16);
+			    return new LuaFramework.BaseLuaBulletA.delluaGetarget(__Gen_Delegate_Imp16);
 			}
 		
 		    return null;

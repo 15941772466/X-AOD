@@ -55,7 +55,6 @@ function A_EnemySpawnerCtrl.Start(obj)
         tempObj[wave.type]=abDTObj:PrefabAB(wave.type)
      end
      tempSlider=abDTObj:PrefabAB("Hp")
-     print(tempSlider.name)
      --按波数生成敌人
      this.enemySpawner(Level.enemy)
      --成功加载完所有敌人并全部被消灭，游戏胜利
@@ -66,7 +65,7 @@ end
 function A_EnemySpawnerCtrl.enemySpawner(LevelDataEnemy)
   
    for i,wave in pairs(LevelDataEnemy) do
-      print(wave.count)
+      -- print(wave.count)
       for i=1,wave.count do
          --实例化
          local enemyObj=CSU.Object.Instantiate(tempObj[wave.type],EnemyPosition,CSU.Quaternion.identity)

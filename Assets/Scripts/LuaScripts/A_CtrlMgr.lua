@@ -30,7 +30,7 @@ function A_CtrlMgr.Init()
 	CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaUIForm(enemyspawner)
 	-- local EneObj=A_EnemySpawnerCtrl.GetInstance() --得到敌人生成管理类的实例
 	-- EneObj.StartProcess(LevelSettings.levelOne_enemy)
-
+    
 
 end
 

@@ -128,6 +128,10 @@ namespace LuaFramework
         {
             go.AddComponent<BaseLuaTurret>();
         }
+        public void AddBaseLuaDeABullet(GameObject go)  //lua 调用 动态添加“BaseLuaBulletA”脚本
+        {
+            go.AddComponent<BaseLuaBulletA>();
+        }
     }//Class_end
 }
 
