@@ -119,6 +119,15 @@ namespace LuaFramework
         {
             go.AddComponent<BaseLuaUIForm>();
         }
+
+        public void AddBaseLuaEnemy(GameObject go)  //lua 调用 动态添加“BaseLuaEnemy”脚本
+        {
+            go.AddComponent<BaseLuaEnemy>();
+        }
+        public void AddBaseLuaTurret(GameObject go)  //lua 调用 动态添加“BaseLuaTurret”脚本
+        {
+            go.AddComponent<BaseLuaTurret>();
+        }
     }//Class_end
 }
 

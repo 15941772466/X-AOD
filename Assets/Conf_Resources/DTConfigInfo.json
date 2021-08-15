@@ -17,9 +17,17 @@
         "Value": "gameprefabs|gameprefabs/gameprefabs.ab|DefenseC.prefab"
     },
 
-    {
-        "Key": "A_Enemy1",
-        "Value": "gameprefabs|gameprefabs/gameprefabs.ab|A_Enemy1.prefab"
-    }
+  {
+    "Key": "A_Enemy1",
+    "Value": "gameprefabs|gameprefabs/gameprefabs.ab|A_Enemy1.prefab"
+  },
+  {
+    "Key": "Hp",
+    "Value": "gameprefabs|gameprefabs/gameprefabs.ab|Hp.prefab"
+  },
+  {
+    "Key": "DeABullet",
+    "Value": "gameprefabs|gameprefabs/gameprefabs.ab|DeABullet.prefab"
+  }
 ]
 }
