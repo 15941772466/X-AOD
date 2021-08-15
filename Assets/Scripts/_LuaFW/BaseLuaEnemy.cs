@@ -17,11 +17,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using XLua;
+using LuaFramework;
 
-
-namespace LuaFramework
-{
-    public class BaseLuaEnemy : MonoBehaviour
+public class BaseLuaEnemy : MonoBehaviour
     {
         public Canvas SliderUI = new Canvas();
 
@@ -135,4 +133,3 @@ namespace LuaFramework
         }
 
     }//Class_end
-}//namespace_end

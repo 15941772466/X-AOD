@@ -57,7 +57,7 @@ end
 
 
 function DefenseA.Attack()
-   print("Biu~")
+   --print("Biu~")
 end
 
 function DefenseA.UpdateListCount()
