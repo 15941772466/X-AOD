@@ -50,15 +50,8 @@ function MainCityUIForm.InitView()
 end
 
 function MainCityUIForm.ProcessPlayNormal()
-   
-    print("执行到 ProcessPlayNormal")  --开始游戏
-    --解场景包
-    
-    luaHelper:DoString("require 'TestStartGame'")
-    uiManager:ShowUIForms("GameInfoUIForm")
-    uiManager:ShowUIForms("DefenseListUIForm")
-
-    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_One");
+    uiManager:ShowUIForms("LevelsUIForm")
+    uiManager:CloseUIForms("HeroInfoUIForm")
 end
 
 function MainCityUIForm.ProcessMarket()

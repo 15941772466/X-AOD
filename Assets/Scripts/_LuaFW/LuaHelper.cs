@@ -115,8 +115,6 @@ namespace LuaFramework
             }
             return null;
         }//ProcessDIR_end
-
-       
         public void AddBaseLuaUIForm(GameObject go)  //lua 调用 动态添加“BaseLuaUIForm”脚本
         {
             go.AddComponent<BaseLuaUIForm>();

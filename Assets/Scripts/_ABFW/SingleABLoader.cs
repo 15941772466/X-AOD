@@ -23,7 +23,7 @@ namespace ABFW
         //当前Assetbundle 
         private AssetBundle _CurrentAssetBundle;
         //Assetbundle 集合
-        private Dictionary<string,AssetBundle> AssetBundles;
+        private Dictionary<string,AssetBundle> AssetBundles;//用于判断是否加载当前AB包
         //构造函数
         public SingleABLoader(string abName,DelLoadComplete loadComplete)
         {
@@ -33,11 +33,11 @@ namespace ABFW
             //委托初始化
             _LoadCompleteHandle = loadComplete;
             //AB包下载路径（初始化）
-            _ABDownLoadPath = PathTools.GetWWWPath() + "/" + _ABName;            
+            _ABDownLoadPath = PathTools.GetWWWPath() + "/" + _ABName;
         }
         public IEnumerator LoadAssetBundle()          //加载AssetBundle 资源包
         {
-            using (WWW www=new WWW(_ABDownLoadPath))
+            using (WWW www=new WWW(_ABDownLoadPath))    //加载本地路径
             {
                 yield return www;
                 //WWW下载AB包完成
@@ -50,7 +50,7 @@ namespace ABFW
                     }
                     else
                     {
-                        abObj = www.assetBundle;         //获取AssetBundle的实例
+                        abObj = www.assetBundle;//获取AssetBundle的实例
                         abObj.LoadAllAssets();
                         AssetBundles.Add(_ABDownLoadPath, abObj);
                     }
