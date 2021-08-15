@@ -40,11 +40,9 @@ function DefenseA.Update()
    if(ListCount>0 and EnemyList[1]~=nil) then
    	  --找到目标敌人
       local targetPosition=EnemyList[1].transform.position
-      print(targetPosition)
       --固定y轴
       targetPosition.y=Head.position.y
       --朝向敌人
-      print("看着他")
       tool:LookAt(Head,targetPosition)
    end
    --如果附近有敌人且冷却时间已过
@@ -59,7 +57,7 @@ end
 
 
 function DefenseA.Attack()
-   --print("Biu~")
+   print("Biu~")
 end
 
 function DefenseA.UpdateListCount()
@@ -76,11 +74,17 @@ end
 function DefenseA.OnTriggerEnter(collider)
    table.insert(EnemyList,collider.gameObject)
    ListCount=ListCount+1
-   print("进入视野"..ListCount)
+   --print("进入视野"..ListCount)
 end
 --推出视野，删除
 function DefenseA.OnTriggerExit(collider)
-   EnemyList[collider.gameObject]=nil
+   --EnemyList[collider.gameObject]=nil
+   for k,v in pairs(EnemyList) do
+      if(v==collider.gameObject) then
+         table.remove(EnemyList,k)
+         break
+      end
+   end
    ListCount=ListCount-1
-   print("退出视野"..ListCount)
+   --print("退出视野"..ListCount)
 end

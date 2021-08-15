@@ -64,29 +64,26 @@ end
 
 --敌人生成
 function A_EnemySpawnerCtrl.enemySpawner(LevelDataEnemy)
-   local enemyObj=CSU.Object.Instantiate(tempObj["A_Enemy1"],EnemyPosition,CSU.Quaternion.identity)
-   local enemySlider=CSU.Object.Instantiate(tempSlider,EnemyPosition,CSU.Quaternion.identity)
-   --附加脚本
-   CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaEnemy(enemyObj)
-     --  for i,wave in pairs(LevelDataEnemy) do
-     --     print(wave.count)
-     --     for i=1,wave.count do
-     --        --实例化
-     --        local enemyObj=CSU.Object.Instantiate(tempObj[wave.type],EnemyPosition,CSU.Quaternion.identity)
-     --        --local enemySlider=CSU.Object.Instantiate(tempSlider,EnemyPosition,CSU.Quaternion.identity)
-     --        --附加脚本
-     --        CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaEnemy(enemyObj)
-     --        --local EnemyScript=enemyObj:GetComponent("BaseLuaEnemy")
-     --        --EnemyScript:GetSliderUI(enemySlider)
-     --        local Eneagent = enemyObj:GetComponent(typeof(CSU.AI.NavMeshAgent))
-     --        Eneagent.speed=wave.speed
-     --        EnemyCount=EnemyCount+1
-     --        --等待生成间隔
-            
+  
+   for i,wave in pairs(LevelDataEnemy) do
+      print(wave.count)
+      for i=1,wave.count do
+         --实例化
+         local enemyObj=CSU.Object.Instantiate(tempObj[wave.type],EnemyPosition,CSU.Quaternion.identity)
+         --local enemySlider=CSU.Object.Instantiate(tempSlider,EnemyPosition,CSU.Quaternion.identity)
+         --附加脚本
+         CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaEnemy(enemyObj)
+         --local EnemyScript=enemyObj:GetComponent("BaseLuaEnemy")
+         --EnemyScript:GetSliderUI(enemySlider)
+         local Eneagent = enemyObj:GetComponent(typeof(CSU.AI.NavMeshAgent))
+         Eneagent.speed=wave.speed
+         EnemyCount=EnemyCount+1
+         --等待生成间隔
+         
 
-     --     end
-     --     --等待上一波敌人全部被消灭
-     -- end
+      end
+      --等待上一波敌人全部被消灭
+  end
 end
 
 
