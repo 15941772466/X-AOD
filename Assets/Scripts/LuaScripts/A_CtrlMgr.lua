@@ -15,10 +15,7 @@ local this=A_CtrlMgr
 local ctrlList={}
 
 function A_CtrlMgr.Init()
-    ---------------------------加载计时器脚本--------------------------------------------
-    -- local gameObjectManager=CSU.GameObject.Find("A_GameManager")
-    -- print(gameObjectManager.name)
-    -- CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaUIForm(gameObjectManager)
+
 
     --------------------------加载建造管理脚本-------------------------------------------
 	print("加载炮塔生成管理脚本")

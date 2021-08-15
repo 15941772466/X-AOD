@@ -10,16 +10,19 @@ end
 -------------------第一关-------------------
 A_LevelSettings.Level_One={
 	enemy={
-		WaveOne={count=4,type="A_Enemy1",speed=0.3,hp=150},
-	    WaveTwo={count=5,type="A_Enemy1",speed=0.5,hp=200}
+		WaveOne={count=4,type="A_Enemy1",speed=0.3},
+	    WaveTwo={count=5,type="A_Enemy1",speed=0.5}
 	},
 	turret={
 		"DefenseA","DefenseB","DefenseC"
 	},
-	turretcost={
-		["DefenseA"]=70,
-        ["DefenseB"]=80,
-        ["DefenseC"]=90
+	turretAttributes={
+		["DefenseA"]={cost=70,damage=15},
+        ["DefenseB"]={cost=80,damage=20},
+        ["DefenseC"]={cost=90,damage=25}
+	},
+	enemyAttributes={
+		["A_Enemy1"]={Hp=150}
 	},
 	waveCount=5
 }
