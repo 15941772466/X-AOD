@@ -10,7 +10,7 @@ using UnityEngine;
 using XLua;
 using System.IO;
 using ABFW;
-
+using HotUpdateProcess;
 
 namespace LuaFramework
 {
@@ -63,8 +63,18 @@ namespace LuaFramework
         /// <returns></returns>
         private byte[] customLoader(ref string fileName)
         {
-            //获取lua所在目录
-            string luaPath = PathTools.GetABOutPath() + HotUpdateProcess.HotUpdatePathTool.LUA_DEPLOY_PATH;
+            string luaPath = string.Empty;
+            if (!UpdateResourcesFileFromServer.Local)
+            {
+                //发布区
+                luaPath = PathTools.GetABOutPath() + HotUpdatePathTool.LUA_DEPLOY_PATH;
+            }
+            else
+            {
+                //编辑区
+                luaPath = Application.dataPath + HotUpdatePathTool.LUA_EDITOR_PATH;
+            }
+      
 
             //缓存判断处理： 根据lua文件路径，获取lua的内容
             if (_DicLuaFileArray.ContainsKey(fileName))
