@@ -14,7 +14,7 @@ local gameobject
 
 
 -- 故事背景内容
-local Content="<b>X博士：</b>\r\n　　故事发生在安布雷拉（保护伞）公司的生物工程实验室——“蜂巢”里。\r\n\n　　数百名遗传学、生物工程学专家正在进行一项科学研究，一种病毒突然爆发了并迅速传播着，病毒很快感染了所有的工作人\r\n\n　　面对着几乎无法控制的局面，几百个四处走动极具攻击性的丧尸，和更神秘的险恶力量，作为救援小组的队员，你怎样才能脱离困境并阻止病毒继续扩散呢？\r\n\n　　　　　　　　　　X-AOD项目组 2021年8月11日"
+local Content="\n<b>X博士：</b>\r\n　　故事发生在安布雷拉（保护伞）公司的生物工程实验室——“蜂巢”里。\r\n\n　　数百名遗传学、生物工程学专家正在进行一项科学研究，一种病毒突然爆发了并迅速传播着，病毒很快感染了所有的工作人\r\n\n　　面对着几乎无法控制的局面，几百个四处走动极具攻击性的丧尸，和更神秘的险恶力量，作为救援小组的队员，你怎样才能脱离困境并阻止病毒继续扩散呢？\r\n\n　　　　　　　　　　X-AOD项目组 2021年8月11日"
 
 
 --得到实例
@@ -32,7 +32,7 @@ end
 
 function StoryUIForm.Start(obj)
    --查找与设置通知的标题 
-    this.txtContent=transform:Find("ScrollView/Viewport/Content/Text"):GetComponent("UnityEngine.UI.Text")
+    this.txtContent=transform:Find("ScrollView/Content/Text"):GetComponent("UnityEngine.UI.Text")
     this.txtContent.text=Content
     this.InitView()
 end
