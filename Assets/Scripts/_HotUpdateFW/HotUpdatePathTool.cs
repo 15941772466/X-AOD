@@ -24,8 +24,6 @@ namespace HotUpdateProcess
         
         public const string RECEIVE_INFO_START_RUNING = "ReceiveInfoStartRuning"; //接受方法常量
 
-
-
     }
 }
 

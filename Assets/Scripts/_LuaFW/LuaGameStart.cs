@@ -17,6 +17,5 @@ namespace LuaFramework
         {
             LuaHelper.GetInstance().DoString("require 'StartGame'");
         }
-     
     }//Class_end
 }//namespace_end

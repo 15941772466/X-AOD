@@ -9,8 +9,6 @@ namespace DemoProject
 {
     public class LogonUIForm : BaseUIForm
     {
-        public Text TxtLogonName;                           //登陆名称
-        public Text TxtLogonNameByBtn;                      //登陆名称(Button)
 
         public void Awake()
         {
