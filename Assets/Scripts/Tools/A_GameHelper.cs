@@ -69,34 +69,47 @@ namespace GameTools {
         {
             Head.LookAt(target);
         }
-
-
-
-
-        //---------------------------------------敌人管理---------------------------------
-
-        //保持血条朝向
-        public void KeepRotate(Transform obj)
+        //子弹保持y轴朝向
+        public void KeepY(GameObject gameObject,Transform target)
         {
-            obj.LookAt(Camera.main.transform.position);
+            target.position = new Vector3(target.position.x, gameObject.transform.position.y, target.position.z);
+        }
+        //子弹位移
+        public  void Translate(GameObject bullet,float speed)
+        {
+            bullet.transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
 
-        public float time = 2f;
-
-        //更新血条
-        public void UpdateHp(GameObject obj, float damage, float Hp, float TotalHp)
+        public float UpdateTimer(float timer)
         {
-            if (Hp < 0)
-            {
-                return;
-            }
-            RectTransform hp = (RectTransform)obj.transform.Find("Hp/Slider");
+            timer += Time.deltaTime;
+            return timer;
+        }
+        //判断子弹是否到达敌人
+        public bool IsReach(GameObject obj,Transform target)
+        {   Vector3 Distance = obj.transform.position - target.position;
+            bool res=false;
+            if (Distance.magnitude < 0.5)
+                res = true;
+            return res;
+        }
+        
 
-            Debug.Log(hp);
-            slider = hp.gameObject.GetComponent<Slider>();
-            Debug.Log(slider.value);
-            Hp -= damage;
-            slider.value = (float)Hp / TotalHp;
+        //判断敌人是否走到终点
+        public bool IsFail(GameObject obj,Vector3 pos)
+        {
+            Vector3 Distance = obj.transform.position - pos;
+            bool res = false;
+            if (Distance.magnitude < 0.5)
+                res = true;
+            return res;
+        }
+        //---------------------------------------敌人管理---------------------------------
+
+        //血条UI上移
+        public void SliderUp(GameObject slider)
+        {
+            slider.transform.position += Vector3.up;
         }
     }
 }

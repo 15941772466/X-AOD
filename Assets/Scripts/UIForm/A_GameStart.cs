@@ -10,7 +10,7 @@ public class A_GameStart : MonoBehaviour
     void Start()
     {
         // A_LuaStart.GetInstance().DoString("require 'A_StartGame'");
-        Invoke("Game_start", 2.0f);
+        Invoke("Game_start", 1f);
     }
 
     void Game_start()

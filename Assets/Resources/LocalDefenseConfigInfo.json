@@ -24,9 +24,13 @@
             "Key": "Hp",
             "Value": "gameprefabs/Hp"
         },
-        {
-            "Key": "DeABullet",
-            "Value": "gameprefabs/DeABullet"
-        }
+      {
+        "Key": "DeABullet",
+        "Value": "gameprefabs/DeABullet"
+      },
+      {
+        "Key": "DeBBullet",
+        "Value": "gameprefabs/DeBBullet"
+      }
     ]
 }

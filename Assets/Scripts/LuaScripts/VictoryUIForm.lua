@@ -44,13 +44,17 @@ end
 
 function VictoryUIForm.ProcessSelectLevel()  --选择关卡
     print("执行到 ProcessSelectLevel")  
+     CS.UnityEngine.SceneManagement.SceneManager.LoadScene("GameHall");
+     
     uiManager:ShowUIForms("LevelsUIForm")
-    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("GameHall");
+    uiManager:CloseUIForms("VictoryUIForm")
+   
 end
 
 
 function VictoryUIForm.ProcessBackHallBtn()
     print("执行到 ProcessBackHallBtn")  
+    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("GameHall");
     uiManager:CloseUIForms("VictoryUIForm")
     uiManager:ShowUIForms("HeroInfoUIForm")
     uiManager:ShowUIForms("MainCityUIForm")
