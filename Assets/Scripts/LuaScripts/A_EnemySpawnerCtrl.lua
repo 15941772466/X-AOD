@@ -99,9 +99,10 @@ function A_EnemySpawnerCtrl.Update()
          this.ShengCheng()
          timer=0
       end
+   
    end
    --如果场上敌人为0且全部生成完
-   print("A_EnemySpawener106行  场上敌人：  "..this.EnemyAlive.."已经生成的敌人：  "..Enemycount.."需要生成：  "..EnemyCount)
+   --print("A_EnemySpawener106行  场上敌人：  "..this.EnemyAlive.."已经生成的敌人：  "..Enemycount.."需要生成：  "..EnemyCount)
    if this.EnemyAlive==1 and Enemycount==EnemyCount then
       A_SettlementCtrl.GetInstance():Win()
    end
