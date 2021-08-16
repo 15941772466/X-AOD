@@ -64,6 +64,7 @@ function A_Enemy:Update()
   if(self.tool:IsFail(self.gameObject,self.GoalPosition)) then
      A_SettlementCtrl.GetInstance():Failed()
   end
+
 end
 
 --脚本销毁
@@ -85,10 +86,7 @@ function A_Enemy.TakeDamage(obj,damage)
    end
 end
 
---到达终点，战败
-function A_Enemy.ReachDestination()
-    
-end
+
 
 --敌人死亡
 function A_Enemy:Die()
