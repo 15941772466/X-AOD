@@ -3,7 +3,7 @@
 ----------------引用脚本-----------------------
 require("TestSysDefine")
 require("A_LevelSettings")
-require("TurretManager")
+require("A_TurretManager")
 
 --模拟类
 A_BuildManagerCtrl={}
@@ -146,10 +146,10 @@ function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
    --当前cube上的炮塔类型
    GroundData[cubeName].preturrettype=SelectedTurret
    --实例化炮塔类
-   local TurretObj=Turret:New(GroundData[cubeName].preturret)
+   local TurretObj=A_Turret:New(GroundData[cubeName].preturret,SelectedTurret,Level)
    index = index + 1
    --存入炮塔列表
-   TurretManager.DefenseList[index] = TurretObj
+   A_TurretManager.DefenseList[index] = TurretObj
    
 
 end

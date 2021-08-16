@@ -1257,6 +1257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7464364959f955248a4e7a461ed109af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyListC: []
 --- !u!1 &1744776336237174625
 GameObject:
   m_ObjectHideFlags: 0
@@ -2965,7 +2966,7 @@ GameObject:
   m_Component:
   - component: {fileID: 458051937581699307}
   m_Layer: 0
-  m_Name: FirePositoin
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -17,14 +17,14 @@ A_LevelSettings.Level_One={
 		"DefenseA","DefenseB","DefenseC"
 	},
 	turretAttributes={
-		["DefenseA"]={cost=70,damage=15},
-        ["DefenseB"]={cost=80,damage=20},
-        ["DefenseC"]={cost=90,damage=25}
+		["DefenseA"]={cost=70,damage=50,Bullet="DeABullet",speed=30},
+        ["DefenseB"]={cost=80,damage=20,Bullet="DeBBullet",speed=50},
+        ["DefenseC"]={cost=90,damage=25,Bullet="DeCBullet",speed=70}
 	},
 	enemyAttributes={
 		["A_Enemy1"]={Hp=150}
 	},
-	waveCount=5
+	EnemyRateTime=2
 }
 ------------------第二关敌人数据--------------------
 A_LevelSettings.Level_Two={

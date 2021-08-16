@@ -170,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3289277290010442998}
   m_Layer: 0
-  m_Name: FirePositoin
+  m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

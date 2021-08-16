@@ -28,6 +28,10 @@
   {
     "Key": "DeABullet",
     "Value": "gameprefabs|gameprefabs/gameprefabs.ab|DeABullet.prefab"
+  },
+  {
+    "Key": "DeBBullet",
+    "Value": "gameprefabs|gameprefabs/gameprefabs.ab|DeBBullet.prefab"
   }
 ]
 }
