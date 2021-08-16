@@ -79,7 +79,10 @@ function A_Turret:Update()
    self.ListCount=self.EnemyList.Count
    --print("防御塔：  "..self.gameObject.name.."  视野内敌人数量：  "..self.EnemyList.Count.."  视野内第一关敌人：  "..self.EnemyList[1].name)
    --如果附近有敌人
-   if(self.ListCount>0) then
+   for i,v,in pairs(EnemyList) do
+      
+   end
+   if(self.ListCount>0 and self.EnemyList[1]~=nil) then
         --找到目标敌人
       local targetPosition=self.EnemyList[1].transform.position
       --固定y轴

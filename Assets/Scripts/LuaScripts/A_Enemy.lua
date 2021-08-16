@@ -50,21 +50,21 @@ end
 function A_Enemy:Update()
   --保持血条跟随
   --HpSlider.position=EnemyObj.position
-  
-  self.Canvas.transform.position=self.gameObject.transform.position
-  self.tool:SliderUp(self.Canvas)
-  self.Hp=self.gameObject:GetComponent("Enemy"):SendCurrentHpToLua()
+  if(self.gameObject~=nil) then
+     self.Canvas.transform.position=self.gameObject.transform.position
+     self.tool:SliderUp(self.Canvas)
+     self.Hp=self.gameObject:GetComponent("Enemy"):SendCurrentHpToLua()
 
-  --没血了，执行死亡
-  if(self.Hp~=nil and self.Hp<=0) then
-     self:Die()
+     --没血了，执行死亡
+     if(self.Hp~=nil and self.Hp<=0) then
+        self:Die()
+     end
+
+     --如果到达目的地，游戏失败
+     if(self.tool:IsFail(self.gameObject,self.GoalPosition)) then
+        A_SettlementCtrl.GetInstance():Failed()
+     end
   end
-
-  --如果到达目的地，游戏失败
-  if(self.tool:IsFail(self.gameObject,self.GoalPosition)) then
-     A_SettlementCtrl.GetInstance():Failed()
-  end
-
 end
 
 --脚本销毁

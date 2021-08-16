@@ -58,7 +58,9 @@ public class Enemy : MonoBehaviour
 
     public void CloseEnemy()
     {
-        this.gameObject.SetActive(false);
-        this.sliderCanvas.SetActive(false);
+        //this.gameObject.SetActive(false);
+        //this.sliderCanvas.SetActive(false);
+        Destroy(this.gameObject);
+        Destroy(this.sliderCanvas);
     }
 }
