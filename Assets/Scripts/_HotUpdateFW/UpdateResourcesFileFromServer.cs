@@ -27,8 +27,9 @@ namespace HotUpdateProcess
 {
     public class UpdateResourcesFileFromServer : MonoBehaviour
     {
-        //是否启用本脚本（是否联网下载服务器更新资源）
-        public bool EnableSelf = true;                      //默认启用
+        public bool Enable = true;
+        public bool WebDownload = false;                //是否联网下载服务器更新资源
+        public static bool Local = false;                    //是否联网下载服务器更新资源
         //下载路径
         private string _DownloadPath = string.Empty;
         //HTTP 服务器地址
@@ -37,8 +38,10 @@ namespace HotUpdateProcess
 
         void Awake()
         {
+            Local = Enable;
+            
             //默认启用热更新
-            if (EnableSelf)
+            if (WebDownload)
             {
                 _DownloadPath = PathTools.GetABOutPath(); //下载路径
                 //检测资源进行对比更新

@@ -1,0 +1,32 @@
+﻿{
+    "ConfigInfo": [
+
+        {
+            "Key": "DefenseA",
+            "Value": "gameprefabs/DefenseA"
+        },
+
+        {
+            "Key": "DefenseB",
+            "Value": "gameprefabs/DefenseB"
+        },
+
+        {
+            "Key": "DefenseC",
+            "Value": "gameprefabs/DefenseC"
+        },
+
+        {
+            "Key": "A_Enemy1",
+            "Value": "gameprefabs/A_Enemy1"
+        },
+        {
+            "Key": "Hp",
+            "Value": "gameprefabs/Hp"
+        },
+        {
+            "Key": "DeABullet",
+            "Value": "gameprefabs/DeABullet"
+        }
+    ]
+}

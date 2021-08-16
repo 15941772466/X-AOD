@@ -9,7 +9,7 @@ using UnityEngine;
 namespace UIFW
 {
 	public class BaseUIForm : MonoBehaviour {
-        
+
         private UIType _CurrentUIType=new UIType();
 
         //UI窗体类型

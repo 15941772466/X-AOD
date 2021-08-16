@@ -6,17 +6,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using ABFW;
 using TFW;
+using HotUpdateProcess;
 namespace UIFW
 {
 	public class UIManager : MonoBehaviour {
-      
+
+        
 	    private static UIManager _Instance = null;
         
 	    private Dictionary<string, string> _DicFormsPaths;  //UI窗体json路径
 
         private Dictionary<string, BaseUIForm> _DicALLUIForms;      //缓存所有UI窗体
 
-        
+        public Dictionary<string, string> _DicUIFormPaths;  //UIform的本地路径
+
         public Transform _TraCanvasTransfrom = null;        //UI根节点
                                                             
         private Transform _TraNormal = null;    //全屏幕显示的节点
@@ -45,16 +48,24 @@ namespace UIFW
  
 	    public void Awake()
 	    {
-            _DicALLUIForms=new Dictionary<string, BaseUIForm>();
-            
+            _DicALLUIForms=new Dictionary<string, BaseUIForm>();           
             _DicFormsPaths=new Dictionary<string, string>();
-          
-	    }
+            _DicUIFormPaths = new Dictionary<string, string>();
+        }
 
         private void Start()
         {
-            InitUIFormsPathData();        //加载“UI窗体预设”路径数据
-            StartCoroutine(InitRootCanvasLoading(InitRootCanvas)); //加载Canvas
+            if (!UpdateResourcesFileFromServer.Local)
+            {
+                InitUIFormsPathData();        //加载“UI窗体预设”路径数据
+                StartCoroutine(InitRootCanvasLoading(InitRootCanvas)); //加载Canvas
+            }
+            else
+            {
+                //InitUIFormsPathData();
+                InitUIPathData();
+                InitRootCanvas(gameObject);  //加载Canvas
+            }
         }
 
 
@@ -105,25 +116,41 @@ namespace UIFW
         #endregion
 
 
-        #region 加载并打开
+        #region AB加载并打开
         public void ShowUIForms(string uiFormName)          // 打开UI窗体  lua调用
         {
             StartCoroutine(ShowUIForm(uiFormName));
+            
         }
+       
         public IEnumerator ShowUIForm(string uiFormName)  //打开UI窗体 
         {
-            //Logon是lua自动加载，所以需先等待UI根窗体初始化完毕
-            while (!_IsUIRootNodeInitFinish)
+            if (!UpdateResourcesFileFromServer.Local)
             {
-                yield return null;  
+                //Logon是lua自动加载，所以需先等待UI根窗体初始化完毕
+                while (!_IsUIRootNodeInitFinish)
+                {
+                    yield return null;
+                }
+                LoadFormsToAllUIFormsCatch(uiFormName);//根据UI窗体的名称，加载到缓存集合中,且窗体已经加载到层级试图的相应位置（隐藏）
+                                                       //等待UI窗体对象被赋值
+                while (_BaseUIForm == null)
+                {
+                    yield return null;
+                }
             }
-            LoadFormsToAllUIFormsCatch(uiFormName);//根据UI窗体的名称，加载到缓存集合中,且窗体已经加载到层级试图的相应位置（隐藏）
-            //等待UI窗体对象被赋值
-            while (_BaseUIForm == null)
+            else  //本地
             {
-                yield return null; 
+                while (!_IsUIRootNodeInitFinish)
+                {
+                    yield return null;
+                }
+                _BaseUIForm = ShowLocal(uiFormName);
+               
             }
+        
             //根据不同的UI窗体的显示模式，分别作不同的加载处理
+            
             switch (_BaseUIForm.CurrentUIType.UIForms_ShowMode)
             {
                 case UIFormShowMode.Normal:                 //“普通显示”窗口模式
@@ -213,8 +240,6 @@ namespace UIFW
             _DicALLUIForms.TryGetValue(strUIName, out baseUIForm);
              baseUIForm.Display();
         }
-        #endregion
-
         private IEnumerator LoadABAsset(ABPara abPara, DelTaskComplete taskComplete)    // 使用 桥梁BFW中ABLoadAssetHelper 加载
         {
             //调用AB框架ab包
@@ -229,15 +254,70 @@ namespace UIFW
             //委托调用
             taskComplete.Invoke(goCloneUIPrefab);
         }
+        #endregion
+
+
+        #region 本地加载
+        public BaseUIForm ShowLocal(string uiFormName)      //打开窗体 lua调用
+        {
+            BaseUIForm bUI;
+            if (!_DicALLUIForms.ContainsKey(uiFormName))
+            {
+                _UIFormName = uiFormName;
+                string refRoad;
+                _DicUIFormPaths.TryGetValue(uiFormName, out refRoad);
+                var obj = Resources.Load<GameObject>(refRoad);
+                GameObject Localobj = GameObject.Instantiate(obj);
+                Localobj.SetActive(false);
+                 bUI = Localobj.GetComponent<BaseUIForm>();
+                _DicALLUIForms.Add(_UIFormName, bUI);
+                switch (bUI.CurrentUIType.UIForms_Type)
+                {
+                    case UIFormType.Normal:                 //普通窗体节点
+                        Localobj.transform.SetParent(_TraNormal, false);
+                        break;
+                    case UIFormType.Fixed:                  //固定窗体节点
+                        Localobj.transform.SetParent(_TraFixed, false);
+                        break;
+                    case UIFormType.PopUp:                  //弹出窗体节点
+                        Localobj.transform.SetParent(_TraPopUp, false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                bUI = _DicALLUIForms[uiFormName];
+            }
+           
         
+
+           
+            return bUI;
+        }
+        #endregion
         #region 关闭窗体
         public void CloseUIForms(string uiFormName)      //关闭窗体 lua调用
         {
             BaseUIForm baseUIForm;                          //窗体基类
             _DicALLUIForms.TryGetValue(uiFormName, out baseUIForm);
-            baseUIForm.CloseUI();
+            baseUIForm.CloseUI();    
         }
         #endregion
+
+        private void InitUIPathData()         // 初始化“游戏预制体”路径数据
+        {
+            string strJsonDeployPath = string.Empty;
+            strJsonDeployPath = ABFW.PathTools.GetABResourcesPath() + "/LocalUIConfigInfo.json";
+
+            ConfigManagerByJson configMgr = new ConfigManagerByJson(strJsonDeployPath);   //调用Json 配置文件管理器 new时自动读好文件，并可读
+            if (configMgr != null)
+            {
+                _DicUIFormPaths = configMgr.JsonConfig;
+            }
+          
+        }
     }
     #region 窗体类型枚举
     public enum UIFormType   // UI窗体（位置）类型
@@ -258,4 +338,5 @@ namespace UIFW
         HideOther
     }
     #endregion
+
 }
