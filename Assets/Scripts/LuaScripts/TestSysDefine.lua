@@ -23,7 +23,7 @@ CtrlName={
 }
 --视图层脚本
 A_ViewNames={
-    "A_TurretManager","A_BulletManager","A_EnemyManager","A_Turret","A_BulletAB","A_Enemy"
+    "A_TurretManager","A_BulletManager","A_EnemyManager","A_Turret","A_BulletAB","A_Enemy","A_SettlementCtrl","DefeatUIForm"
 }
 
 --引入Unity内置的类型

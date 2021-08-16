@@ -559,6 +559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2584660423353336446}
   - component: {fileID: 8996509805400226489}
+  - component: {fileID: -1313909483648272172}
   m_Layer: 5
   m_Name: VictoryUIForm
   m_TagString: Untagged
@@ -596,5 +597,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c43e73e37adbc54780a6e21d4c43219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1313909483648272172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8147757254154322390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c822be95c0f4df49b027350cb324e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

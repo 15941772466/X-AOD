@@ -9,10 +9,15 @@ require("A_LevelSettings")
 require("A_SettlementCtrl")
 
 
-
 --模拟类
 A_EnemySpawnerCtrl={}
 local this=A_EnemySpawnerCtrl
+
+--活着的敌人,用于判断游戏胜利与否
+this.EnemyAlive=0
+
+
+
 --调用游戏工具类
 local tool=GameTool.GetInstance()
 
@@ -40,8 +45,8 @@ local RateTime
 local EnemyCount
 --已经生成的敌人数量
 local Enemycount
---或者的敌人
-local EnemyAlive=0
+--用于判断是否第一次等于0
+local IsFirstEqualZero=true
 
 --关卡信息
 local Level
@@ -80,6 +85,7 @@ function A_EnemySpawnerCtrl.Start(obj)
      --this.enemySpawner(Level.enemy)
      --成功加载完所有敌人并全部被消灭，游戏胜利
      --A_SettlementCtrl.Win()
+
 end
 
 
@@ -93,9 +99,13 @@ function A_EnemySpawnerCtrl.Update()
          this.ShengCheng()
          timer=0
       end
-      --当前活着的敌人数量
-      EnemyAlive=EnemyAlive+1
    end
+   --如果场上敌人为0且全部生成完
+   print("A_EnemySpawener106行  场上敌人：  "..this.EnemyAlive.."已经生成的敌人：  "..Enemycount.."需要生成：  "..EnemyCount)
+   if this.EnemyAlive==1 and Enemycount==EnemyCount then
+      A_SettlementCtrl.GetInstance():Win()
+   end
+
 end
 
 
@@ -119,6 +129,8 @@ function A_EnemySpawnerCtrl.ShengCheng()
    A_EnemyManager.EnemySelfList[Index]=EnemyObj
    --已经生成的敌人数量
    Enemycount=Enemycount+1
+   --当前活着的敌人数量
+   this.EnemyAlive=this.EnemyAlive+1
 end
 
 

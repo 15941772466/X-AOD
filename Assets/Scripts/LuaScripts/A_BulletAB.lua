@@ -41,7 +41,6 @@ function A_BulletAB:Update()
     local Distance=self.gameObject.transform.position-self.Target.position
     --距离小于一定数值，判断为碰撞
     if(self.tool:IsReach(self.gameObject,self.Target)) then
-        print("击中敌人")
         --扣血
         self.Target:GetComponent("Enemy"):Takedamage(self.Damage)
         --删除自身

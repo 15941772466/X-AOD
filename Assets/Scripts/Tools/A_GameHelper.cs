@@ -93,7 +93,17 @@ namespace GameTools {
                 res = true;
             return res;
         }
+        
 
+        //判断敌人是否走到终点
+        public bool IsFail(GameObject obj,Vector3 pos)
+        {
+            Vector3 Distance = obj.transform.position - pos;
+            bool res = false;
+            if (Distance.magnitude < 0.5)
+                res = true;
+            return res;
+        }
         //---------------------------------------敌人管理---------------------------------
 
         //血条UI上移

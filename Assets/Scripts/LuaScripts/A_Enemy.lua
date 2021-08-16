@@ -53,11 +53,16 @@ function A_Enemy:Update()
   
   self.Canvas.transform.position=self.gameObject.transform.position
   self.tool:SliderUp(self.Canvas)
-  self.Hp=self.gameObject:GetComponent("Enemy").CurrentHp
-  print(Hp)
+  self.Hp=self.gameObject:GetComponent("Enemy"):SendCurrentHpToLua()
+
   --没血了，执行死亡
   if(self.Hp~=nil and self.Hp<=0) then
      self:Die()
+  end
+
+  --如果到达目的地，游戏失败
+  if(self.tool:IsFail(self.gameObject,self.GoalPosition)) then
+     A_SettlementCtrl.GetInstance():Failed()
   end
 end
 
@@ -90,5 +95,5 @@ function A_Enemy:Die()
    print("敌人死亡")
    A_EnemyManager:Remove(self)
    self.gameObject:GetComponent("Enemy"):CloseEnemy()
-
+   A_EnemySpawnerCtrl.EnemyAlive=A_EnemySpawnerCtrl.EnemyAlive-1
 end
