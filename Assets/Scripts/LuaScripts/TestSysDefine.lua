@@ -1,17 +1,3 @@
----
---- “lua框架”定义所有的常量与“枚举”（表）
----
----
-
---项目中用到的控制层脚本名称
--- TCtrlName={
---           DefenseListCtr="DefenseListCtr"
---          }
---项目中用到的视图层脚本名称
-TViewNames={
-            "DefenseListUIForm"
-}
-
 -----------------游戏内的常量定义--------------------
 --游戏中需要的控制层脚本
 CtrlName={
