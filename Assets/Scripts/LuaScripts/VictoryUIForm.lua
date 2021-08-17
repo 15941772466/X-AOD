@@ -37,26 +37,21 @@ function VictoryUIForm.InitView()
 
 
     --返回游戏大厅
-    this.PlayNormalBtn=transform:Find("Image/Back"):GetComponent("UnityEngine.UI.Button") 
-    this.PlayNormalBtn.onClick:AddListener(this.ProcessBackHallBtn)
+    this.BackHallBtn=transform:Find("Image/Back"):GetComponent("UnityEngine.UI.Button") 
+    this.BackHallBtn.onClick:AddListener(this.ProcessBackHallBtn)
 
 end
 
-function VictoryUIForm.ProcessSelectLevel()  --选择关卡
+function VictoryUIForm.ProcessSelectLevel()  --再来一局
     print("执行到 ProcessSelectLevel")  
-     CS.UnityEngine.SceneManagement.SceneManager.LoadScene("GameHall");
-     
-    uiManager:ShowUIForms("LevelsUIForm")
-    uiManager:CloseUIForms("VictoryUIForm")
-   
+     CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_One");
+     uiManager:CloseUIForms("VictoryUIForm")
 end
 
 
 function VictoryUIForm.ProcessBackHallBtn()
     print("执行到 ProcessBackHallBtn")  
     CS.UnityEngine.SceneManagement.SceneManager.LoadScene("GameHall");
-    uiManager:CloseUIForms("VictoryUIForm")
-    uiManager:ShowUIForms("HeroInfoUIForm")
-    uiManager:ShowUIForms("MainCityUIForm")
+    
 end
 
