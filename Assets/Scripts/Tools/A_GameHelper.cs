@@ -43,7 +43,7 @@ namespace GameTools {
         public bool isCollider()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            bool iscollider = Physics.Raycast(ray, 1000,LayerMask.GetMask("Ground"));
+            bool iscollider = Physics.Raycast(ray, 1000);
             return iscollider;
         }
         //射线碰撞检测
@@ -51,7 +51,7 @@ namespace GameTools {
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Ground"));
+            Physics.Raycast(ray, out hit, 1000);
             return hit;
         }
         //炮塔位置上调

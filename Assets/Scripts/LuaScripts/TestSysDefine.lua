@@ -2,14 +2,31 @@
 --游戏中需要的控制层脚本
 CtrlName={
     A_EnemySpawnerCtrl="A_EnemySpawnerCtrl",
-    A_BuildManagerCtrl="A_A_BuildManagerCtrl",
+    A_BuildManagerCtrl="A_BuildManagerCtrl",
     A_MapCubeCtrl="A_MapCubeCtrl",
     A_TurretShootCtrl="A_TurretShootCtrl",
     A_BulletCtrl="A_BulletCtrl"
 }
 --视图层脚本
+TViewNames={
+    "DefenseListUIForm"
+}
+A_CtrlNames={
+    "A_SettlementCtrl",
+    "A_EnemySpawnerCtrl",           
+    "A_BuildManagerCtrl",
+}
 A_ViewNames={
-    "A_TurretManager","A_BulletManager","A_EnemyManager","A_Turret","A_BulletAB","A_Enemy","A_SettlementCtrl","DefeatUIForm","A_BaseEnemyList"
+    "A_TurretManager",
+    "A_BulletManager",
+    "A_EnemyManager",
+
+    "A_Turret",
+    "A_BulletAB",
+    "A_Enemy",
+    
+    "DefeatUIForm",
+    "A_BaseEnemyList"
 }
 
 --引入Unity内置的类型

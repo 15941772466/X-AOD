@@ -195,13 +195,13 @@ function A_Turret:Find(item)
    return nil
 end
 --全局敌人列表中某个敌人的下标
-function A_Turret:FindAll(item)
-   local index=0
-   for i=1,A_EnemySpawnerCtrl.Enemycount do
-      if(A_EnemySpawnerCtrl.EnemyListSpawnered[i]==item) then
-         index=i
-         return index
-      end
-   end
-   return nil
-end
+-- function A_Turret:FindAll(item)
+--    local index=0
+--    for i=1,A_EnemySpawnerCtrl.Enemycount do
+--       if(A_EnemySpawnerCtrl.EnemyListSpawnered[i]==item) then
+--          index=i
+--          return index
+--       end
+--    end
+--    return nil
+-- end
