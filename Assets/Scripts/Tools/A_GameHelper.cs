@@ -54,9 +54,6 @@ namespace GameTools {
             Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Ground"));
             return hit;
         }
-
-
-
         //炮塔位置上调
         public Vector3 UpPosition(ref Vector3 position)
         {
@@ -72,7 +69,7 @@ namespace GameTools {
         //子弹保持y轴朝向
         public void KeepY(GameObject gameObject,Transform target)
         {
-            target.position = new Vector3(target.position.x, gameObject.transform.position.y, target.position.z);
+            gameObject.transform.position = new Vector3(target.position.x, gameObject.transform.position.y, target.position.z);
         }
         //子弹位移
         public  void Translate(GameObject bullet,float speed)
@@ -93,14 +90,21 @@ namespace GameTools {
                 res = true;
             return res;
         }
-        
-
-        //判断敌人是否走到终点
-        public bool IsFail(GameObject obj,Vector3 pos)
+        //是否进入炮塔视野
+        public bool IsOnTriggerEnter(GameObject turret,GameObject enemy)
         {
-            Vector3 Distance = obj.transform.position - pos;
             bool res = false;
-            if (Distance.magnitude < 0.5)
+            Vector3 Distance = turret.transform.position - enemy.transform.position;
+            if (Distance.magnitude <= 5)
+                res = true;
+            return res;
+        }
+        //是否退出炮塔视野
+        public bool IsOnTriggerExit(GameObject turret, GameObject enemy)
+        {
+            bool res = false;
+            Vector3 Distance = turret.transform.position - enemy.transform.position;
+            if (Distance.magnitude > 5)
                 res = true;
             return res;
         }
@@ -110,6 +114,16 @@ namespace GameTools {
         public void SliderUp(GameObject slider)
         {
             slider.transform.position += Vector3.up;
+        }
+
+        //判断敌人是否走到终点
+        public bool IsFail(GameObject obj, Vector3 pos)
+        {
+            Vector3 Distance = obj.transform.position - pos;
+            bool res = false;
+            if (Distance.magnitude < 0.5)
+                res = true;
+            return res;
         }
     }
 }

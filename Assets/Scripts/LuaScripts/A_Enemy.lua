@@ -90,8 +90,12 @@ end
 
 --敌人死亡
 function A_Enemy:Die()
-   print("敌人死亡")
+   --停止刷新其update
    A_EnemyManager:Remove(self)
+   --在全局敌人列表中移除自身
+   A_EnemySpawnerCtrl:UpdateALLEnemySpawnered(self.gameObject)
+   --删除敌人物体和身上的血条
    self.gameObject:GetComponent("Enemy"):CloseEnemy()
+   --活着的敌人数量减一
    A_EnemySpawnerCtrl.EnemyAlive=A_EnemySpawnerCtrl.EnemyAlive-1
 end

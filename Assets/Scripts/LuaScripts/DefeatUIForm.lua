@@ -54,8 +54,6 @@ end
 function DefeatUIForm.ProcessBackHallBtn()
     print("执行到 ProcessBackHallBtn")  
     CS.UnityEngine.SceneManagement.SceneManager.LoadScene("GameHall");
-    uiManager:ShowUIForms("MainCityUIForm")
-    uiManager:ShowUIForms("HeroInfoUIForm")
-    --uiManager:CloseUIForms("DefeatUIForm")
+    
 end
 

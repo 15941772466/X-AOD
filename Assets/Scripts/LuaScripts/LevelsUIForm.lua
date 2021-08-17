@@ -34,11 +34,15 @@ function LevelsUIForm.InitView()
     --第一关
     this.PlayNormalBtn=transform:Find("Panel/Show/Levels/Level_One"):GetComponent("UnityEngine.UI.Button") 
     this.PlayNormalBtn.onClick:AddListener(this.ProcessLevel_One)
-
-
+    --第二关
+    this.PlayNormalTwoBtn=transform:Find("Panel/Show/Levels/Level_Two"):GetComponent("UnityEngine.UI.Button") 
+    this.PlayNormalTwoBtn.onClick:AddListener(this.ProcessLevel_Two)
+    --第三关
+    this.PlayNormalThreeBtn=transform:Find("Panel/Show/Levels/Level_Three"):GetComponent("UnityEngine.UI.Button") 
+    this.PlayNormalThreeBtn.onClick:AddListener(this.ProcessLevel_Three)
     --返回游戏大厅
-    this.PlayNormalBtn=transform:Find("Panel/Close"):GetComponent("UnityEngine.UI.Button") 
-    this.PlayNormalBtn.onClick:AddListener(this.ProcessBackHallBtn)
+    this.PlayNormalBackBtn=transform:Find("Panel/Close"):GetComponent("UnityEngine.UI.Button") 
+    this.PlayNormalBackBtn.onClick:AddListener(this.ProcessBackHallBtn)
 
 end
 
@@ -52,6 +56,30 @@ function LevelsUIForm.ProcessLevel_One()
     uiManager:ShowUIForms("DefenseListUIForm")
 
     CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_One");
+end
+
+function LevelsUIForm.ProcessLevel_Two()
+   
+    print("执行到 ProcessLevel_Two")  --开始关卡1游戏
+    --解场景包
+    
+    --luaHelper:DoString("require 'TestStartGame'")
+    uiManager:ShowUIForms("GameInfoUIForm")
+    uiManager:ShowUIForms("DefenseListUIForm")
+
+    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_Two");
+end
+
+function LevelsUIForm.ProcessLevel_THree()
+   
+    print("执行到 ProcessLevel_Three")  --开始关卡1游戏
+    --解场景包
+    
+    --luaHelper:DoString("require 'TestStartGame'")
+    uiManager:ShowUIForms("GameInfoUIForm")
+    uiManager:ShowUIForms("DefenseListUIForm")
+
+    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_THree");
 end
 
 

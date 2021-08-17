@@ -15,8 +15,8 @@ local this=A_EnemySpawnerCtrl
 
 --活着的敌人,用于判断游戏胜利与否
 this.EnemyAlive=0
-
-
+this.EnemyListSpawnered={}
+this.Enemycount=0
 
 --调用游戏工具类
 local tool=GameTool.GetInstance()
@@ -28,9 +28,7 @@ local abDTObj=DTManager.GetInstance()
 --拿到敌人数据的实例
 local levelData=A_LevelSettings.GetInstance()
 --敌人列表
-EnemyListSpawnered={}
---现存敌人数量
-EnemyCount=0
+
 --存放敌人预制体
 local tempObj={}
 --存放敌人血条UI
@@ -44,7 +42,7 @@ local RateTime
 --敌人数量
 local EnemyCount
 --已经生成的敌人数量
-local Enemycount
+--local Enemycount
 --用于判断是否第一次等于0
 local IsFirstEqualZero=true
 
@@ -75,7 +73,7 @@ function A_EnemySpawnerCtrl.Start(obj)
      --敌人数量
      EnemyCount=Level.enemy.WaveOne.count
      --已经生成的敌人数量
-     Enemycount=0
+     --Enemycount=0
      --读取敌人种类进行加载
      for i,wave in pairs(Level.enemy) do
         tempObj[wave.type]=abDTObj:PrefabAB(wave.type)
@@ -92,7 +90,7 @@ end
 
 function A_EnemySpawnerCtrl.Update()
    --如果没生成完
-   if(Enemycount<EnemyCount) then
+   if(this.Enemycount<EnemyCount) then
       --等待生成间隔
       timer=timer+CSU.Time.deltaTime
       if(timer>=RateTime) then
@@ -101,9 +99,10 @@ function A_EnemySpawnerCtrl.Update()
       end
    
    end
-   --如果场上敌人为0且全部生成完
    --print("A_EnemySpawener106行  场上敌人：  "..this.EnemyAlive.."已经生成的敌人：  "..Enemycount.."需要生成：  "..EnemyCount)
-   if this.EnemyAlive==1 and Enemycount==EnemyCount then
+
+   --如果场上敌人为0且全部生成完
+   if this.EnemyAlive==0 and this.Enemycount==EnemyCount then
       A_SettlementCtrl.GetInstance():Win()
    end
 
@@ -113,7 +112,8 @@ end
 function A_EnemySpawnerCtrl.ShengCheng()
    local enemyObj=CSU.Object.Instantiate(tempObj[Level.enemy.WaveOne.type],EnemyPosition,CSU.Quaternion.identity)
    local enemySliderCanvas=CSU.Object.Instantiate(tempSlider,EnemyPosition,CSU.Quaternion.identity)
-
+   --存入全局敌人列表
+   table.insert(this.EnemyListSpawnered,enemyObj)
    --传入对应血条UI
    enemyObj:GetComponent("Enemy"):GetUpcanvas(enemySliderCanvas)
    --传入对应血量
@@ -129,13 +129,21 @@ function A_EnemySpawnerCtrl.ShengCheng()
    --存入敌人实例列表
    A_EnemyManager.EnemySelfList[Index]=EnemyObj
    --已经生成的敌人数量
-   Enemycount=Enemycount+1
+   this.Enemycount=this.Enemycount+1
    --当前活着的敌人数量
    this.EnemyAlive=this.EnemyAlive+1
 end
 
 
-
+--敌人死亡，刷新全局敌人列表
+function A_EnemySpawnerCtrl:UpdateALLEnemySpawnered(obj)
+   for i=1,this.Enemycount do
+      if(this.EnemyListSpawnered[i]==obj) then
+         this.EnemyListSpawnered[i]=nil
+         break
+      end
+   end
+end
 
 
 
