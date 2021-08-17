@@ -1,4 +1,4 @@
-require  ("Observer")
+require("Observer")
 
 --被观察者类
 ObservationPost={}
