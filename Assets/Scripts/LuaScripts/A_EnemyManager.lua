@@ -6,7 +6,7 @@ A_EnemyManager.EnemySelfList={}
 
 function A_EnemyManager.Update()
     for i,v in pairs(A_EnemyManager.EnemySelfList) do
-     v:Update()
+      v:Update()
    end
 end
 

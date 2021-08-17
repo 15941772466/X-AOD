@@ -34,9 +34,9 @@ public class Enemy : MonoBehaviour
             return;
 
         CurrentHp -= damage;
-        Debug.Log("伤害：   "+damage+"当前血量：  "+CurrentHp);
+        //Debug.Log("伤害：   "+damage+"当前血量：  "+CurrentHp);
         slider.value = (float)CurrentHp / TotalHp;
-        Debug.Log(slider.value);
+        //Debug.Log(slider.value);
        
     }
     //void Die()
@@ -58,9 +58,9 @@ public class Enemy : MonoBehaviour
 
     public void CloseEnemy()
     {
-        //this.gameObject.SetActive(false);
-        //this.sliderCanvas.SetActive(false);
-        Destroy(this.gameObject);
-        Destroy(this.sliderCanvas);
+        this.gameObject.SetActive(false);
+        this.sliderCanvas.SetActive(false);
+        //Destroy(this.gameObject);
+        //Destroy(this.sliderCanvas);
     }
 }
