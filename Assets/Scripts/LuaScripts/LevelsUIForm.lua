@@ -60,7 +60,7 @@ end
 
 function LevelsUIForm.ProcessLevel_Two()
    
-    print("执行到 ProcessLevel_Two")  --开始关卡1游戏
+    print("执行到 ProcessLevel_Two")  --开始关卡2游戏
     --解场景包
     
     --luaHelper:DoString("require 'TestStartGame'")
@@ -70,16 +70,16 @@ function LevelsUIForm.ProcessLevel_Two()
     CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_Two");
 end
 
-function LevelsUIForm.ProcessLevel_THree()
+function LevelsUIForm.ProcessLevel_Three()
    
-    print("执行到 ProcessLevel_Three")  --开始关卡1游戏
+    print("执行到 ProcessLevel_Three")  --开始关卡3游戏
     --解场景包
     
     --luaHelper:DoString("require 'TestStartGame'")
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
 
-    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_THree");
+    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_Three");
 end
 
 
