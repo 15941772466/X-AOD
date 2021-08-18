@@ -46,7 +46,7 @@ ListenerList["DefenseD"]=function () SelectedTurret="DefenseD" end
 
 function A_BuildManagerCtrl.Awake()
    --记录地面信息
-   ReadGround()
+   this.ReadGround()
 end
 
 function A_BuildManagerCtrl.Start(obj)
@@ -54,23 +54,22 @@ function A_BuildManagerCtrl.Start(obj)
     --当前关卡信息
     Level=levelData[obj.tag]
     --调用添加监听函数 
-    AddListener(Level.turret)
+    this.AddListener(Level.turret)
 
 end
 
 --初始化所有地面位置为无炮塔，未升级
-function ReadGround()
+function A_BuildManagerCtrl.ReadGround()
    local ground=CSU.GameObject.Find("CubeManager")
    GroundDatatmp=tool:GetChildName(ground,GroundDatatmp)
    for i,child in pairs(GroundDatatmp) do
-     
       GroundData[child]={preturret=nil,preturrettype=nil,isUpgraded=false}
    end
 end
 
 
 --根据实际UI中炮塔的数量与类型添加监听事件
-function AddListener(levelDataTurret)
+function A_BuildManagerCtrl.AddListener(levelDataTurret)
 
    --根据关卡数据检索UI上对应的按钮
    for i,child in pairs(levelDataTurret) do
@@ -99,12 +98,15 @@ function A_BuildManagerCtrl.Update()
         --存储碰撞信息
         local HitInfro=tool:HitInfro()
         --如果点击了砖块
+        print("屏幕点击")
         if(isCollider==true and HitInfro.collider.gameObject.layer==8) then
             --找到点击的砖块名字
             cubeName=HitInfro.collider.gameObject.name
             print("点击到砖块："..cubeName)
 
             --如果此砖块上无炮塔，且已经选择了一个炮塔
+            print(GroundData[cubeName].preturret)
+            print(SelectedTurret)
             if(GroundData[cubeName].preturret==nil and SelectedTurret~=nil) then
                
                --检测金币余额
@@ -150,8 +152,6 @@ function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
    index = index + 1
    --存入炮塔列表
    A_TurretManager.DefenseList[index] = TurretObj
-   
-
 end
 
 

@@ -53,7 +53,7 @@ function A_Turret:New(Obj,turretType,level)
    --获取关卡信息
    temp.Level=level
    --如果是前两种炮塔
-   --if(TurretType~="DefenseC") then
+   if(TurretType~="DefenseC") then
       --炮塔实例物体
       temp.gameObject = Obj
       --已等待CD
@@ -68,9 +68,9 @@ function A_Turret:New(Obj,turretType,level)
       temp.damage=level.turretAttributes[turretType].damage
       --子弹的速度
       temp.BulletSpeed=level.turretAttributes[turretType].speed
-   --else
-   --   LaserDamageRate=30
-   --end
+   else
+      LaserDamageRate=30
+   end
    return temp
 end
 
@@ -107,8 +107,8 @@ function A_Turret:Attack()
    if(self.ListFirst~=nil ) then
       local bullet=CSU.Object.Instantiate(self.Bullet,self.FirePosition.position,self.FirePosition.rotation)
       --读取表
-      bullet:GetComponent("BulletAB"):Gettarget(self.ListFirst.transform)
-      local BulletObj=A_BulletAB:New(bullet,self.damage,self.BulletSpeed)
+      -- bullet:GetComponent("BulletAB"):Gettarget(self.ListFirst.transform)
+      local BulletObj=A_BulletAB:New(bullet,self.damage,self.BulletSpeed,self.ListFirst)
       self.index = self.index + 1
       --存入它的索引
       BulletObj.IndexSelf=self.index
@@ -146,16 +146,9 @@ function A_Turret:UpdateEnemyView()
    end
 end
 
--- function A_Turret:IsOnTriggerEnter(turret,enemy)
---    local DistanceX=turret.transform.position.x-enemy.transform.position.x
---    local DistanceY=turret.transform.position.y-enemy.transform.position.y
---    if DistanceX*DistanceX+DistanceY*DistanceY<=25 then
---       return true
---    end
---    return false
--- end
 
 
+---------------------------------------------对敌人列表封装的一些方法-----------------------------------------------
 --刷新敌人死亡产生的列表第一个不为nil的元素
 function A_Turret:UpdateEnemyLast()
    local First=nil
@@ -194,14 +187,16 @@ function A_Turret:Find(item)
    end
    return nil
 end
+
+
 --全局敌人列表中某个敌人的下标
-function A_Turret:FindAll(item)
-   local index=0
-   for i=1,A_EnemySpawnerCtrl.Enemycount do
-      if(A_EnemySpawnerCtrl.EnemyListSpawnered[i]==item) then
-         index=i
-         return index
-      end
-   end
-   return nil
-end
+-- function A_Turret:FindAll(item)
+--    local index=0
+--    for i=1,A_EnemySpawnerCtrl.Enemycount do
+--       if(A_EnemySpawnerCtrl.EnemyListSpawnered[i]==item) then
+--          index=i
+--          return index
+--       end
+--    end
+--    return nil
+-- end

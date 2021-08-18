@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace GameTools {
     public class A_GameHelper : MonoBehaviour
     {
-        public Slider slider;
+        RaycastHit Hit;
         //设置单例
         public static A_GameHelper _Instance;
         public static A_GameHelper GetInstance()
@@ -25,6 +25,7 @@ namespace GameTools {
         {
             foreach (Transform child in obj.transform)
             {
+                
                 namelist.Add(child.gameObject.name);
             }
             return namelist;
@@ -43,16 +44,16 @@ namespace GameTools {
         public bool isCollider()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            bool iscollider = Physics.Raycast(ray, 1000,LayerMask.GetMask("Ground"));
+            bool iscollider = Physics.Raycast(ray, out Hit,1000,LayerMask.GetMask("Ground"));
             return iscollider;
         }
         //射线碰撞检测
         public RaycastHit HitInfro()
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Ground"));
-            return hit;
+            //RaycastHit hit;
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Ground"));
+            return Hit;
         }
         //炮塔位置上调
         public Vector3 UpPosition(ref Vector3 position)
@@ -67,9 +68,9 @@ namespace GameTools {
             Head.LookAt(target);
         }
         //子弹保持y轴朝向
-        public void KeepY(GameObject gameObject,Transform target)
+        public void KeepY(GameObject gameObject,GameObject target)
         {
-            gameObject.transform.position = new Vector3(target.position.x, gameObject.transform.position.y, target.position.z);
+            gameObject.transform.position = new Vector3(target.transform.position.x, gameObject.transform.position.y, target.transform.position.z);
         }
         //子弹位移
         public  void Translate(GameObject bullet,float speed)
@@ -83,10 +84,10 @@ namespace GameTools {
             return timer;
         }
         //判断子弹是否到达敌人
-        public bool IsReach(GameObject obj,Transform target)
-        {   Vector3 Distance = obj.transform.position - target.position;
+        public bool IsReach(GameObject obj,GameObject target)
+        {   Vector3 Distance = obj.transform.position - target.transform.position;
             bool res=false;
-            if (Distance.magnitude < 0.5)
+            if (Distance.magnitude < 0.3)
                 res = true;
             return res;
         }
@@ -95,7 +96,7 @@ namespace GameTools {
         {
             bool res = false;
             Vector3 Distance = turret.transform.position - enemy.transform.position;
-            if (Distance.magnitude <= 5)
+            if (Distance.magnitude <= 3)
                 res = true;
             return res;
         }
@@ -104,7 +105,7 @@ namespace GameTools {
         {
             bool res = false;
             Vector3 Distance = turret.transform.position - enemy.transform.position;
-            if (Distance.magnitude > 5)
+            if (Distance.magnitude > 3)
                 res = true;
             return res;
         }
@@ -121,7 +122,7 @@ namespace GameTools {
         {
             Vector3 Distance = obj.transform.position - pos;
             bool res = false;
-            if (Distance.magnitude < 0.5)
+            if (Distance.magnitude*Distance.magnitude < 0.25)
                 res = true;
             return res;
         }
