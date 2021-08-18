@@ -338,7 +338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1153.9899, y: -593.7906}
+  m_AnchoredPosition: {x: 1153.9899, y: -247.00002}
   m_SizeDelta: {x: 687.8102, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2730056033820078681
@@ -705,6 +705,7 @@ GameObject:
   - component: {fileID: 438528541011974833}
   - component: {fileID: 6406802113286862980}
   - component: {fileID: 8621177744676334635}
+  - component: {fileID: 7319750289846299759}
   m_Layer: 5
   m_Name: CommuUIForm
   m_TagString: Untagged
@@ -768,6 +769,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c418cbfb97f374197c84885bef7dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7319750289846299759
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730056035190445728}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 391b57cea3236814d863870391230c89, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2730056035224190767
 GameObject:
   m_ObjectHideFlags: 0

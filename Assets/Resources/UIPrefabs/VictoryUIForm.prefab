@@ -560,6 +560,7 @@ GameObject:
   - component: {fileID: 2584660423353336446}
   - component: {fileID: 8996509805400226489}
   - component: {fileID: -1313909483648272172}
+  - component: {fileID: 3512331199282016079}
   m_Layer: 5
   m_Name: VictoryUIForm
   m_TagString: Untagged
@@ -611,3 +612,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c822be95c0f4df49b027350cb324e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &3512331199282016079
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8147757254154322390}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f4a2c76d378a1c345a94b38230baf25d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

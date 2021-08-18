@@ -47,7 +47,9 @@
 "Value":"UIPrefabs/VictoryUIForm"},
 
 {"Key":"DefeatUIForm",
-"Value":"UIPrefabs/DefeatUIForm"}
+"Value":"UIPrefabs/DefeatUIForm"},
 
+{"Key":"LoadUIForm",
+"Value":"UIPrefabs/LoadUIForm"}
 ]
 }

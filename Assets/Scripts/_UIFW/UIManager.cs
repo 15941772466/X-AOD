@@ -28,8 +28,6 @@ namespace UIFW
                                           
         private Transform _TraPopUp = null;      //弹出节点
 
-
-        
         private string _UIFormName = string.Empty;  //UI窗体名称
         
         private BaseUIForm _BaseUIForm = null;      //UI窗体父类
@@ -48,7 +46,7 @@ namespace UIFW
  
 	    public void Awake()
 	    {
-            _DicALLUIForms=new Dictionary<string, BaseUIForm>();           
+            _DicALLUIForms =new Dictionary<string, BaseUIForm>();           
             _DicFormsPaths=new Dictionary<string, string>();
             _DicUIFormPaths = new Dictionary<string, string>();
         }
@@ -107,7 +105,7 @@ namespace UIFW
             _TraNormal = UnityHelper.FindTheChildNode(_TraCanvasTransfrom.gameObject, SysDefine.SYS_NORMAL_NODE);
             _TraFixed = UnityHelper.FindTheChildNode(_TraCanvasTransfrom.gameObject, SysDefine.SYS_FIXED_NODE);
             _TraPopUp = UnityHelper.FindTheChildNode(_TraCanvasTransfrom.gameObject, SysDefine.SYS_POPUP_NODE);
-
+           
             //"根UI窗体"在场景转换的时候，不允许销毁
             DontDestroyOnLoad(_TraCanvasTransfrom);
             //UI根窗体初始化完毕

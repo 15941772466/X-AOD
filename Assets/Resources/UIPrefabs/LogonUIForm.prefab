@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 114099561571085948}
   - component: {fileID: 114253495029110668}
   - component: {fileID: 7554057527832869822}
+  - component: {fileID: 8048395579799132526}
   m_Layer: 5
   m_Name: LogonUIForm
   m_TagString: _TestTagLogonUIFroms
@@ -61,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -89,8 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0b2fc9f41f6dd4295d70d1a113030d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TxtLogonName: {fileID: 114337442577439902}
-  TxtLogonNameByBtn: {fileID: 114641692898012998}
 --- !u!114 &7554057527832869822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +102,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c822be95c0f4df49b027350cb324e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &8048395579799132526
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095305875847860}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 808a662672046934bb54b97328c0dc34, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1214486140600120
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +357,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2, y: -13}
+  m_AnchoredPosition: {x: -1.999939, y: -13}
   m_SizeDelta: {x: -232, y: -178}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222555012100774628

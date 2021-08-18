@@ -55,7 +55,9 @@ function LevelsUIForm.ProcessLevel_One()
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
 
+    --uiManager._TraLoad.gameobject:GetComponent("Loading").Load("Level_One")
     CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_One");
+    
 end
 
 function LevelsUIForm.ProcessLevel_Two()

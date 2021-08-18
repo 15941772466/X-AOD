@@ -118,7 +118,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1276399771}
   m_HandleRect: {fileID: 1276399770}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -193,7 +193,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000010342166}
+  m_AnchoredPosition: {x: 0, y: -0.00001844246}
   m_SizeDelta: {x: 0, y: 261.87878}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &429554975
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.79607844}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.6392157}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1099,6 +1099,7 @@ GameObject:
   - component: {fileID: 8755344645904578251}
   - component: {fileID: 6553226300458167344}
   - component: {fileID: 2598501089055988387}
+  - component: {fileID: 7730232924797980613}
   m_Layer: 5
   m_Name: NotificationUIForm
   m_TagString: Untagged
@@ -1155,7 +1156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e973efade4746d34da1b3383d455c7b1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e3a1c09ca93ab7240b67bbcaf8b10c46, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1189,3 +1190,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c822be95c0f4df49b027350cb324e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7730232924797980613
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6330141978893412098}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 391b57cea3236814d863870391230c89, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
