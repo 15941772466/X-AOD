@@ -9,6 +9,8 @@ local this = LevelsUIForm
 local UI_Manager=CS.UIFW.UIManager
 local uiManager=UI_Manager.GetInstance()
 
+local Load_Manager=CS.UIFW.LoadManager.GetInstance()
+
 local Lua_Helper=CS.LuaFramework.LuaHelper 
 local luaHelper=Lua_Helper.GetInstance()
 
@@ -55,8 +57,8 @@ function LevelsUIForm.ProcessLevel_One()
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
 
-    --uiManager._TraLoad.gameobject:GetComponent("Loading").Load("Level_One")
-    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_One");
+    Load_Manager:Load("Level_One")
+    
     
 end
 
@@ -68,8 +70,8 @@ function LevelsUIForm.ProcessLevel_Two()
     --luaHelper:DoString("require 'TestStartGame'")
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
-
-    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_Two");
+    Load_Manager:Load("Level_Two")
+    
 end
 
 function LevelsUIForm.ProcessLevel_Three()
@@ -80,8 +82,8 @@ function LevelsUIForm.ProcessLevel_Three()
     --luaHelper:DoString("require 'TestStartGame'")
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
-
-    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_Three");
+    Load_Manager:Load("Level_Three")
+    
 end
 
 
