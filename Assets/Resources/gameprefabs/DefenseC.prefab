@@ -2690,7 +2690,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8790298045559821933}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2732,8 +2732,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.04531691
-        value: 0.040210187
+        time: 0.048765395
+        value: 0.06421226
         inSlope: 0
         outSlope: 0
         tangentMode: 0

@@ -75,7 +75,7 @@ namespace GameTools {
         //子弹位移
         public  void Translate(GameObject bullet,float speed)
         {
-            bullet.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            bullet.transform.Translate(Vector3.forward * speed);
         }
 
         public float UpdateTimer(float timer)
@@ -85,7 +85,9 @@ namespace GameTools {
         }
         //判断子弹是否到达敌人
         public bool IsReach(GameObject obj,GameObject target)
-        {   Vector3 Distance = obj.transform.position - target.transform.position;
+        {
+            Vector3 newTarget = new Vector3(target.transform.position.x, obj.transform.position.y, target.transform.position.z);
+            Vector3 Distance = obj.transform.position - newTarget;
             bool res=false;
             if (Distance.magnitude < 0.3)
                 res = true;
@@ -108,6 +110,14 @@ namespace GameTools {
             if (Distance.magnitude > 3)
                 res = true;
             return res;
+        }
+
+        //炮塔激光生成
+        public void SetPositons(LineRenderer line,Transform Start, Transform End)
+        {
+            Vector3 end = new Vector3(End.position.x, Start.position.y, End.position.z);
+
+            line.SetPositions(new Vector3[] { Start.position, end });
         }
         //---------------------------------------敌人管理---------------------------------
 
