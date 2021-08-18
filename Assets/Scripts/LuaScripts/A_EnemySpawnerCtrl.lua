@@ -15,7 +15,9 @@ local this=A_EnemySpawnerCtrl
 
 --活着的敌人,用于判断游戏胜利与否
 this.EnemyAlive=0
+--生成的敌人列表
 this.EnemyListSpawnered={}
+--已经生成的敌人数量
 this.Enemycount=0
 
 --调用游戏工具类
@@ -39,12 +41,12 @@ local Index=0
 local timer
 --生成间隔
 local RateTime
---敌人数量
+--要生成的敌人数量
 local EnemyCount
---已经生成的敌人数量
---local Enemycount
 --用于判断是否第一次等于0
 local IsFirstEqualZero=true
+--敌人生成位置
+local EnemyPosition
 
 --关卡信息
 local Level
@@ -53,9 +55,7 @@ local levelWave={}
 
 --敌人结算脚本的实例
 local settlementCtrl=A_SettlementCtrl.GetInstance()
---敌人生成位置
-local EnemyPosition=CSU.GameObject.Find("SatrtPosition").transform.position
-local Barrel2=CSU.GameObject.Find("Barrel2").transform.position
+
 function A_EnemySpawnerCtrl.GetInstance()
 	print("进入敌人生成管理类")
     return this
@@ -64,25 +64,27 @@ end
 --------------------------------------敌人生成逻辑-------------------------------------------
 
 function A_EnemySpawnerCtrl.Start(obj)
-     --获取当前关卡
-     Level=levelData[obj.tag]
-     --间隔时间
-     RateTime=Level.EnemyRateTime
-     --已经等待时间
-     timer=0
-     --敌人数量
-     EnemyCount=Level.enemy.WaveOne.count
-     --已经生成的敌人数量
-     --Enemycount=0
-     --读取敌人种类进行加载
-     for i,wave in pairs(Level.enemy) do
-        tempObj[wave.type]=abDTObj:PrefabAB(wave.type)
-     end
-     tempSlider=abDTObj:PrefabAB("Hp")
-     --按波数生成敌人
-     --this.enemySpawner(Level.enemy)
-     --成功加载完所有敌人并全部被消灭，游戏胜利
-     --A_SettlementCtrl.Win()
+   local WaveCount=0
+   --敌人出生地
+   EnemyPosition=CSU.GameObject.Find("SatrtPosition").transform.position
+   --获取当前关卡
+   Level=levelData[obj.tag]
+   --间隔时间
+   RateTime=Level.EnemyRateTime
+   --已经等待时间
+   timer=0
+   --敌人数量
+   EnemyCount=Level.enemy.WaveOne.count
+   --读取敌人种类进行加载 并读取波次数量
+   for i,wave in pairs(Level.enemy) do
+      tempObj[wave.type]=abDTObj:PrefabAB(wave.type)
+      WaveCount=i
+   end
+   tempSlider=abDTObj:PrefabAB("Hp")
+   --按波数生成敌人
+   --this.enemySpawner(Level.enemy)
+   --成功加载完所有敌人并全部被消灭，游戏胜利
+   --A_SettlementCtrl.Win()
 
 end
 
@@ -97,7 +99,6 @@ function A_EnemySpawnerCtrl.Update()
          this.ShengCheng()
          timer=0
       end
-   
    end
    --print("A_EnemySpawener106行  场上敌人：  "..this.EnemyAlive.."已经生成的敌人：  "..Enemycount.."需要生成：  "..EnemyCount)
 
@@ -114,20 +115,17 @@ function A_EnemySpawnerCtrl.ShengCheng()
    local enemySliderCanvas=CSU.Object.Instantiate(tempSlider,EnemyPosition,CSU.Quaternion.identity)
    --存入全局敌人列表
    table.insert(this.EnemyListSpawnered,enemyObj)
-   --传入对应血条UI
-   enemyObj:GetComponent("Enemy"):GetUpcanvas(enemySliderCanvas)
-   --传入对应血量
-   enemyObj:GetComponent("Enemy"):GetHp(Level.enemyAttributes[Level.enemy.WaveOne.type].Hp)
-   --设置移动速度
-   enemyObj:GetComponent(typeof(CSU.AI.NavMeshAgent)).speed=Level.enemy.WaveOne.speed
-   --实例化敌人行为类
-   local EnemyObj=A_Enemy:New(enemyObj)
+
+   --实例化敌人行为类, 传入对应血条UI，总血量，初始化当前血量,速度
+   local EnemyObj=A_Enemy:New(enemyObj,enemySliderCanvas,Level.enemyAttributes[Level.enemy.WaveOne.type].Hp,Level.enemy.WaveOne.speed)
+   
    --存入行为类列表
    Index=Index+1
    --存入索引
    EnemyObj.IndexSelf=Index
-   --存入敌人实例列表
+   --存入敌人Update管理实例列表
    A_EnemyManager.EnemySelfList[Index]=EnemyObj
+
    --已经生成的敌人数量
    this.Enemycount=this.Enemycount+1
    --当前活着的敌人数量
