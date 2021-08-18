@@ -17,33 +17,26 @@ namespace UIFW
 {
 	public class MessageCenter {
         //委托：消息传递
-	    public delegate void DelMessageDelivery(KeyValuesUpdate kv);
+	    public delegate void DelMessageDelivery(string kv);
 
         //消息中心缓存集合
         //<string : 数据大的分类，DelMessageDelivery 数据执行委托>
 	    public static Dictionary<string, DelMessageDelivery> _dicMessages = new Dictionary<string, DelMessageDelivery>();
 
-        /// <summary>
-        /// 增加消息的监听。
-        /// </summary>
-        /// <param name="messageType">消息分类</param>
-        /// <param name="handler">消息委托</param>
-	    public static void AddMsgListener(string messageType,DelMessageDelivery handler)
-	    {
-            if (!_dicMessages.ContainsKey(messageType))
+
+	    public static void AddMsgListener(string messageType,DelMessageDelivery handler)       // 增加消息的监听。
+		{
+
+			if (!_dicMessages.ContainsKey(messageType))
 	        {
+
                 _dicMessages.Add(messageType,null);
             }
 	        _dicMessages[messageType] += handler;
 	    }
 
-        /// <summary>
-        /// 取消消息的监听
-        /// </summary>
-        /// <param name="messageType">消息分类</param>
-        /// <param name="handele">消息委托</param>
-	    public static void RemoveMsgListener(string messageType,DelMessageDelivery handele)
-	    {
+	    public static void RemoveMsgListener(string messageType,DelMessageDelivery handele)     // 取消消息的监听
+		{
             if (_dicMessages.ContainsKey(messageType))
             {
                 _dicMessages[messageType] -= handele;
@@ -51,27 +44,20 @@ namespace UIFW
 
 	    }
 
-        /// <summary>
-        /// 取消所有消息的监听
-        /// </summary>
-	    public static void ClearALLMsgListener()
-	    {
+	    public static void ClearALLMsgListener()        // 取消所有消息的监听
+        {
 	        if (_dicMessages!=null)
 	        {
 	            _dicMessages.Clear();
             }
 	    }
 
-        /// <summary>
-        /// 发送消息
-        /// </summary>
-        /// <param name="messageType">消息的分类</param>
-        /// <param name="kv">键值对(对象)</param>
-	    public static void SendMessage(string messageType,KeyValuesUpdate kv)
-	    {
+	    public static void SendMessage(string messageType, string kv)       // 发送消息
+        {
 	        DelMessageDelivery del;                         //委托
 
-	        if (_dicMessages.TryGetValue(messageType,out del))
+			Debug.Log(messageType);
+			if (_dicMessages.TryGetValue(messageType,out del))
 	        {
 	            if (del!=null)
 	            {
@@ -79,36 +65,11 @@ namespace UIFW
 	                del(kv);
 	            }
 	        }
+           
 	    }
 	}
 
-    /// <summary>
-    /// 键值更新对
-    /// 功能： 配合委托，实现委托数据传递
-    /// </summary>
-    public class KeyValuesUpdate
-    {   //键
-        private string _Key;
-        //值
-        private object _Values;
-
-        /*  只读属性  */
-
-        public string Key
-        {
-            get { return _Key; }
-        }
-        public object Values
-        {
-            get { return _Values; }
-        }
-
-        public KeyValuesUpdate(string key, object valueObj)
-        {
-            _Key = key;
-            _Values = valueObj;
-        }
-    }
+   
 
 
 }

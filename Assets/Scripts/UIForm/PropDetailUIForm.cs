@@ -12,28 +12,27 @@ namespace DemoProject
 {
 	public class PropDetailUIForm : BaseUIForm
 	{
-	    public Text TxtName;                                //窗体显示名称
+        MessageCenter.DelMessageDelivery del;
+        public Text Txt;                                //窗体显示
 
 		void Awake () 
         {
 		    //窗体的性质
 		    CurrentUIType.UIForms_Type = UIFormType.PopUp;
-
-
-
+            del = ShowDetail;
             /*  接受信息   */
-            ReceiveMessage("Props", 
-                p =>
-                {
-                    if (TxtName)
-                    {
-                        string[] strArray = p.Values as string[];
-                        TxtName.text = strArray[0];
-                    }
-                }
-           );
+            ReceiveMessage("Detail", del);
 
-        }//Awake_end
+        }
+        public void ShowDetail(string p)
+        {
+            Debug.Log("ShowDetail");
+            if (Txt)
+            {
+                string strArray = p;
+                Txt.text = strArray;
+            }
+        }
 		
 	}
 }
