@@ -49,10 +49,10 @@ namespace UIFW
         /// <param name="msgType">消息的类型</param>
         /// <param name="msgName">消息名称</param>
         /// <param name="msgContent">消息内容</param>
-	    protected void SendMessage(string msgType,string msgName,object msgContent)
+	    public void SendMessage(string msgType,string msgContent)
 	    {
-            KeyValuesUpdate kvs = new KeyValuesUpdate(msgName,msgContent);
-            MessageCenter.SendMessage(msgType, kvs);	    
+            MessageCenter.SendMessage(msgType, msgContent);
+            
         }
 
         /// <summary>
@@ -63,6 +63,7 @@ namespace UIFW
 	    public void ReceiveMessage(string messagType,MessageCenter.DelMessageDelivery handler)
 	    {
             MessageCenter.AddMsgListener(messagType, handler);
+          
 	    }
 	    #endregion
 
