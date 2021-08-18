@@ -71,7 +71,6 @@ function A_Turret:New(Obj,turretType,level,AttackRateTime)
    --如果是激光塔，加载激光
    if(temp.TurretType=="DefenseC") then
       temp.LaserRenderer=Obj.transform:Find("Laser"):GetComponent(typeof(CSU.LineRenderer))
-      print("是炮塔C------------------------------------------------")
    end
 
    return temp

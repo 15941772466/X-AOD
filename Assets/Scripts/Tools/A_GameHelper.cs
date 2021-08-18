@@ -136,5 +136,10 @@ namespace GameTools {
                 res = true;
             return res;
         }
+        //延时删除物体
+        public void DestroyNow(GameObject obj,int wait)
+        {
+            Destroy(obj, wait);
+        }
     }
 }
