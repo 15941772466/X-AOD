@@ -153,22 +153,15 @@ function A_Turret:UpdateEnemyView()
          --距离小于等于5 且 列表不包含此物体，进入视野 
          if(self.tool:IsOnTriggerEnter(self.gameObject,v) and self.EnemyList:Contains(v)==false) then
             self.EnemyList:Add(v)
-            --table.insert(self.EnemyList,v)
             self.EnemyListCount=self.EnemyListCount+1
-            print("炮塔类型："..self.gameObject.name.."          第"..i.."个敌人进入视野")
+            -- print("炮塔类型："..self.gameObject.name.."          第"..i.."个敌人进入视野")
          end
          --距离大于5 且 列表包含此物体，退出视野 
          if(self.tool:IsOnTriggerExit(self.gameObject,v) and self.EnemyList:Contains(v)==true) then
-            -- local index=self:Find(v)
-            -- if(index~=nil) then
-            --    table.remove(self.EnemyList,index)
-            --    self.EnemyListCount=self.EnemyListCount-1
-            --    print("第"..i.."个敌人退出视野")
-            -- end
             --移出列表
             self.EnemyList:FindDelete(v,self.EnemyListCount)
             self.EnemyListCount=self.EnemyListCount-1
-            print("炮塔类型："..self.gameObject.name.."          第"..i.."个敌人退出视野")
+            -- print("炮塔类型："..self.gameObject.name.."          第"..i.."个敌人退出视野")
          end
       end
    end
@@ -192,6 +185,12 @@ function A_Turret:UpdateEnemyLast()
    end
    return First
 end
+
+
+
+
+
+
 
 -- --敌人列表是否已经包含某个敌人物体
 -- function A_Turret:Contains(item)

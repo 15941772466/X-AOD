@@ -34,6 +34,9 @@ local SelectedTurret=nil
 --找到Canvas
 local  UIobj=CSU.GameObject.Find("DefenseListUIForm(Clone)")
 
+--升级UI
+local UpgradeUI=nil
+
 local index = 0
 
 
@@ -54,7 +57,8 @@ function A_BuildManagerCtrl.Start(obj)
     Level=levelData[obj.tag]
     --调用添加监听函数 
     this.AddListener(Level.turret)
-
+    --拿到升级UI
+    this.UpgradeUI=CSU.GameObject.Find("UpgradeUI")
 end
 
 --初始化所有地面位置为无炮塔，未升级
@@ -117,7 +121,13 @@ function A_BuildManagerCtrl.Update()
                print("选择的炮塔："..SelectedTurret.."   价格："..Level.turretAttributes[SelectedTurret].cost.."剩余金币"..Money)
             --已经有炮塔
             elseif(GroundData[cubeName].preturret~=nil) then
-
+               --如果点击的位置有塔、和选中的炮塔一样、升级UI已经出现，则隐藏
+               -- if SelectedTurret==GroundData[cubeName].preturrettype and UpgradeUI.activeInHierarchy then
+                  
+               -- else
+                  --打开升级UI
+                  this.ShowUpGradeUI(cubeName)
+               --end
             end
         end
    end
@@ -152,3 +162,14 @@ end
 
 
 
+function A_BuildManagerCtrl.ShowUpGradeUI(cubeName)
+   --找到选中的地面
+   local cube =CSU.GameObject.Find(cubeName)
+   --获取升级UI要出现的位置的位置
+   local UIposition=cube.transform.position
+   --打开升级UI
+   -- this.UpgradeUI.SetActive(true)
+   --设置升级UI位置
+   tool:UpgradeUI_Up(UIposition,this.UpgradeUI)
+   -- this.UpgradeUI.transform.position=UIposition
+end

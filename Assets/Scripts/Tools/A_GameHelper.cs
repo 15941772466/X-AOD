@@ -147,5 +147,11 @@ namespace GameTools {
         {
             Destroy(enemy);
         }
+
+        //--------------------------------------------------游戏UI控制--------------------------------
+        public void UpgradeUI_Up(Vector3 turretpos,GameObject ui)
+        {
+            ui.transform.position = new Vector3(turretpos.x, ui.transform.position.y, turretpos.z);
+        }
     }
 }
