@@ -1,9 +1,9 @@
 --Enemy1的控制类
 
---获取怪物数据
-require("A_LevelSettings")
---游戏结算脚本
-require("A_SettlementCtrl")
+-- --获取怪物数据
+-- require("A_LevelSettings")
+-- --游戏结算脚本
+-- require("A_SettlementCtrl")
 
 --设置单例
 A_Enemy={
@@ -27,8 +27,8 @@ A_Enemy={
    GoalPosition=nil,
    --自身索引
    IndexSelf=nil,
-   --死亡动画
-   DeathAnimator=nil,
+   --动画状态机
+   EnemyAnimator=nil,
 }
 
 A_Enemy.__index=A_Enemy
@@ -48,6 +48,8 @@ function A_Enemy:New(Obj,HpCanvas,HpSetting,speed)
    Obj:GetComponent(typeof(CSU.AI.NavMeshAgent)).speed=speed
    --找到目标位置并设置
    Obj:GetComponent(typeof(CSU.AI.NavMeshAgent)).destination=temp.GoalPosition
+   --拿到动画状态机
+   temp.EnemyAnimator=temp.gameObject:GetComponent(typeof(CSU.Animator))
    return temp
 end
 
@@ -60,13 +62,10 @@ function A_Enemy:Update()
   if(self.gameObject~=nil) then
      self.Canvas.transform.position=self.gameObject.transform.position
      self.tool:SliderUp(self.Canvas)
-     --self.Hp=self.gameObject:GetComponent("Enemy"):SendCurrentHpToLua()
-
      --没血了，执行死亡
    --   if(self.Hp~=nil and self.Hp<=0) then
    --      self:Die()
    --   end
-
      --如果到达目的地，游戏失败
      if(self.tool:IsFail(self.gameObject,self.GoalPosition)) then
         A_SettlementCtrl.GetInstance():Failed()
@@ -94,15 +93,16 @@ end
 --敌人死亡
 function A_Enemy:Die()
    --播放死亡动画
-
+   self.EnemyAnimator:SetBool("IsDeath",true)
    --停止刷新其update
    A_EnemyManager:Remove(self)
    --在全局敌人列表中移除自身
    A_EnemySpawnerCtrl:UpdateALLEnemySpawnered(self.gameObject)
    --删除敌人物体和身上的血条
-   -- self.gameObject:GetComponent("Enemy"):CloseEnemy()
    self.gameObject:SetActive(false)
    self.Canvas:SetActive(false)
+   -- self.tool:DestroyNow(self.gameObject,1)
+   -- self.tool:DestroyNow(self.Canvas,0)
    --活着的敌人数量减一
    A_EnemySpawnerCtrl.EnemyAlive=A_EnemySpawnerCtrl.EnemyAlive-1
 end

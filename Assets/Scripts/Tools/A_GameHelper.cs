@@ -136,5 +136,22 @@ namespace GameTools {
                 res = true;
             return res;
         }
+        //延时删除物体
+        public void DestroyNow(GameObject obj,int wait)
+        {
+            Destroy(obj, wait);
+        }
+        
+        //删除敌人和UI
+        public void DestroyEnemy(GameObject enemy)
+        {
+            Destroy(enemy);
+        }
+
+        //--------------------------------------------------游戏UI控制--------------------------------
+        public void UpgradeUI_Up(Vector3 turretpos,GameObject ui)
+        {
+            ui.transform.position = new Vector3(turretpos.x, ui.transform.position.y, turretpos.z);
+        }
     }
 }

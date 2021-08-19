@@ -1,12 +1,12 @@
 --敌人生成管理类
 
 ----------------引用脚本-----------------------
---怪物生成逻辑
-require("TestSysDefine")
---获取关卡数据
-require("A_LevelSettings")
---游戏结算脚本
-require("A_SettlementCtrl")
+-- --怪物生成逻辑
+-- require("TestSysDefine")
+-- --获取关卡数据
+-- require("A_LevelSettings")
+-- --游戏结算脚本
+-- require("A_SettlementCtrl")
 
 
 --模拟类
