@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using ABFW;
 using HotUpdateProcess;
+using UnityEditor;
+
 namespace PFW
 {
     public class DefenseManager : MonoBehaviour
@@ -133,8 +135,8 @@ namespace PFW
             foreach (var item in DTPaths)
             {
                 string refRoad = item.Value;
-                var goPrefab = Resources.Load<GameObject>(refRoad);
-                
+                //var goPrefab = Resources.Load<GameObject>(refRoad);
+                var goPrefab = AssetDatabase.LoadAssetAtPath("Assets/" + "AB_Resources/" + refRoad, typeof(GameObject)) as GameObject;
                 string pName = goPrefab.name;
                 //委托调用
                 _DicALLDTForms.Add(pName, goPrefab);

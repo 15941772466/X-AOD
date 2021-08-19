@@ -7,11 +7,11 @@ using UnityEngine;
 using ABFW;
 using TFW;
 using HotUpdateProcess;
+using UnityEditor;
+
 namespace UIFW
 {
 	public class UIManager : MonoBehaviour {
-
-        
 	    private static UIManager _Instance = null;
         
 	    private Dictionary<string, string> _DicFormsPaths;  //UI窗体json路径
@@ -60,7 +60,6 @@ namespace UIFW
             }
             else
             {
-                //InitUIFormsPathData();
                 InitUIPathData();
                 InitRootCanvas(gameObject);  //加载Canvas
             }
@@ -105,7 +104,7 @@ namespace UIFW
             _TraNormal = UnityHelper.FindTheChildNode(_TraCanvasTransfrom.gameObject, SysDefine.SYS_NORMAL_NODE);
             _TraFixed = UnityHelper.FindTheChildNode(_TraCanvasTransfrom.gameObject, SysDefine.SYS_FIXED_NODE);
             _TraPopUp = UnityHelper.FindTheChildNode(_TraCanvasTransfrom.gameObject, SysDefine.SYS_POPUP_NODE);
-           
+
             //"根UI窗体"在场景转换的时候，不允许销毁
             DontDestroyOnLoad(_TraCanvasTransfrom);
             //UI根窗体初始化完毕
@@ -264,8 +263,11 @@ namespace UIFW
                 _UIFormName = uiFormName;
                 string refRoad;
                 _DicUIFormPaths.TryGetValue(uiFormName, out refRoad);
-                var obj = Resources.Load<GameObject>(refRoad);
-                GameObject Localobj = GameObject.Instantiate(obj);
+                
+                //var obj = Resources.Load<GameObject>(refRoad);
+                var obj = AssetDatabase.LoadAssetAtPath("Assets/"+"AB_Resources/"+ refRoad, typeof(GameObject)) as GameObject;
+                Debug.Log("Assets/" + "AB_Resources/" + refRoad);
+                GameObject Localobj = GameObject.Instantiate(obj);  
                 Localobj.SetActive(false);
                  bUI = Localobj.GetComponent<BaseUIForm>();
                 _DicALLUIForms.Add(_UIFormName, bUI);
