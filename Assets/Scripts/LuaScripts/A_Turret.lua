@@ -8,8 +8,8 @@ gameObject=nil,
 tool=GameTool.GetInstance(),
 --调用DefenseManager脚本
 abDTObj=CS.PFW.DefenseManager.GetInstance(),
---视野范围内敌人列表
-EnemyList={},
+
+EnemyList=nil,
 --列表敌人数量
 EnemyListCount=0,
 --列表中第一个敌人
@@ -44,10 +44,12 @@ A_Turret.__index = A_Turret
 
 
 --实例化对象
-function A_Turret:New(Obj,turretType,level,AttackRateTime)
+function A_Turret:New(Obj,turretType,level)
    -- body
    local temp = {}
    setmetatable(temp,A_Turret)
+   --初始化视野范围内敌人列表
+   temp.EnemyList=A_BaseList:New()
    --获取炮塔类型
    temp.TurretType=turretType
    --获取关卡信息
@@ -147,25 +149,26 @@ end
 function A_Turret:UpdateEnemyView()
    --遍历敌人全局列表中不为nil的值
    for i,v in pairs(A_EnemySpawnerCtrl.EnemyListSpawnered) do
-      -- local index=self:FindAll(v)
-      -- print("当前扫到的敌人是：：   ")
-      -- print(index)
-      -- print(A_EnemySpawnerCtrl.EnemyListSpawnered[i])
       if(v~=nil) then
          --距离小于等于5 且 列表不包含此物体，进入视野 
-         if(self.tool:IsOnTriggerEnter(self.gameObject,v) and self:Contains(v)==false) then
-            table.insert(self.EnemyList,v)
+         if(self.tool:IsOnTriggerEnter(self.gameObject,v) and self.EnemyList:Contains(v)==false) then
+            self.EnemyList:Add(v)
+            --table.insert(self.EnemyList,v)
             self.EnemyListCount=self.EnemyListCount+1
-            print("第"..i.."个敌人进入视野")
+            print("炮塔类型："..self.gameObject.name.."          第"..i.."个敌人进入视野")
          end
          --距离大于5 且 列表包含此物体，退出视野 
-         if(self.tool:IsOnTriggerExit(self.gameObject,v) and self:Contains(v)==true) then
-            local index=self:Find(v)
-            if(index~=nil) then
-               table.remove(self.EnemyList,index)
-               self.EnemyListCount=self.EnemyListCount-1
-               print("第"..i.."个敌人退出视野")
-            end
+         if(self.tool:IsOnTriggerExit(self.gameObject,v) and self.EnemyList:Contains(v)==true) then
+            -- local index=self:Find(v)
+            -- if(index~=nil) then
+            --    table.remove(self.EnemyList,index)
+            --    self.EnemyListCount=self.EnemyListCount-1
+            --    print("第"..i.."个敌人退出视野")
+            -- end
+            --移出列表
+            self.EnemyList:FindDelete(v,self.EnemyListCount)
+            self.EnemyListCount=self.EnemyListCount-1
+            print("炮塔类型："..self.gameObject.name.."          第"..i.."个敌人退出视野")
          end
       end
    end
@@ -173,17 +176,16 @@ end
 
 
 
----------------------------------------------对敌人列表封装的一些方法-----------------------------------------------
 --刷新敌人死亡产生的列表第一个不为nil的元素
 function A_Turret:UpdateEnemyLast()
    local First=nil
    --在EnemyList中不为nil
-   for i,u in pairs(self.EnemyList) do
+   for i,u in pairs(self.EnemyList.Data) do
       --在全局敌人列表中也不为nil
       for j,v in pairs(A_EnemySpawnerCtrl.EnemyListSpawnered) do
          --找到了第一个跳出
          if u==v then
-             First=self.EnemyList[i]
+             First=self.EnemyList.Data[i]
              return First
          end
       end
@@ -191,27 +193,27 @@ function A_Turret:UpdateEnemyLast()
    return First
 end
 
---敌人列表是否已经包含某个敌人物体
-function A_Turret:Contains(item)
-   for i,v in pairs(self.EnemyList) do
-       if self.EnemyList[i] == item then
-           return true
-       end
-   end
-   return false
-end
+-- --敌人列表是否已经包含某个敌人物体
+-- function A_Turret:Contains(item)
+--    for i,v in pairs(self.EnemyList) do
+--        if self.EnemyList[i] == item then
+--            return true
+--        end
+--    end
+--    return false
+-- end
 
---敌人列表中某个敌人的下标
-function A_Turret:Find(item)
-   local index=0
-   for i=1,self.EnemyListCount do
-      if(self.EnemyList[i]==item) then
-         index=i
-         return index
-      end
-   end
-   return nil
-end
+-- --敌人列表中某个敌人的下标
+-- function A_Turret:Find(item)
+--    local index=0
+--    for i=1,self.EnemyListCount do
+--       if(self.EnemyList[i]==item) then
+--          index=i
+--          return index
+--       end
+--    end
+--    return nil
+-- end
 
 
 --全局敌人列表中某个敌人的下标

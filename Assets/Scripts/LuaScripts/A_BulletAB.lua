@@ -52,9 +52,8 @@ function A_BulletAB:Update()
 end
 
 function A_BulletAB:Die()
+   --self.gameObject:SetActive(false)
    A_BulletManager:Remove(self)
-   self.gameObject:SetActive(false)
-  
 end
 
 function A_BulletAB:UpdateTarget()

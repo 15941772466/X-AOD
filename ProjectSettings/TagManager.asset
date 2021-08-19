@@ -9,6 +9,7 @@ TagManager:
   - _TestTagLogonUIFroms
   - Level_One
   - Enemy
+  - Level_Two
   layers:
   - Default
   - TransparentFX

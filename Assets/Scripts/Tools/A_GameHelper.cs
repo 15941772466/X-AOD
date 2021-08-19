@@ -141,5 +141,11 @@ namespace GameTools {
         {
             Destroy(obj, wait);
         }
+        
+        //删除敌人和UI
+        public void DestroyEnemy(GameObject enemy)
+        {
+            Destroy(enemy);
+        }
     }
 }
