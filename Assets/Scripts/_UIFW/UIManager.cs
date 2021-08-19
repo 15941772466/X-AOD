@@ -7,11 +7,11 @@ using UnityEngine;
 using ABFW;
 using TFW;
 using HotUpdateProcess;
+using UnityEditor;
+
 namespace UIFW
 {
 	public class UIManager : MonoBehaviour {
-
-        
 	    private static UIManager _Instance = null;
         
 	    private Dictionary<string, string> _DicFormsPaths;  //UI窗体json路径
@@ -28,8 +28,6 @@ namespace UIFW
                                           
         private Transform _TraPopUp = null;      //弹出节点
 
-
-        
         private string _UIFormName = string.Empty;  //UI窗体名称
         
         private BaseUIForm _BaseUIForm = null;      //UI窗体父类
@@ -48,7 +46,7 @@ namespace UIFW
  
 	    public void Awake()
 	    {
-            _DicALLUIForms=new Dictionary<string, BaseUIForm>();           
+            _DicALLUIForms =new Dictionary<string, BaseUIForm>();           
             _DicFormsPaths=new Dictionary<string, string>();
             _DicUIFormPaths = new Dictionary<string, string>();
         }
@@ -62,7 +60,6 @@ namespace UIFW
             }
             else
             {
-                //InitUIFormsPathData();
                 InitUIPathData();
                 InitRootCanvas(gameObject);  //加载Canvas
             }
@@ -266,8 +263,11 @@ namespace UIFW
                 _UIFormName = uiFormName;
                 string refRoad;
                 _DicUIFormPaths.TryGetValue(uiFormName, out refRoad);
-                var obj = Resources.Load<GameObject>(refRoad);
-                GameObject Localobj = GameObject.Instantiate(obj);
+                
+                //var obj = Resources.Load<GameObject>(refRoad);
+                var obj = AssetDatabase.LoadAssetAtPath("Assets/"+"AB_Resources/"+ refRoad, typeof(GameObject)) as GameObject;
+                Debug.Log("Assets/" + "AB_Resources/" + refRoad);
+                GameObject Localobj = GameObject.Instantiate(obj);  
                 Localobj.SetActive(false);
                  bUI = Localobj.GetComponent<BaseUIForm>();
                 _DicALLUIForms.Add(_UIFormName, bUI);
