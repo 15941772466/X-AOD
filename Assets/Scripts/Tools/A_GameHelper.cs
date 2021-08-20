@@ -65,6 +65,7 @@ namespace GameTools {
         //炮塔指向
         public void LookAt(Transform Head, Vector3 target)
         {
+            target = new Vector3(target.x, Head.position.y, target.z);
             Head.LookAt(target);
         }
         //子弹保持y轴朝向
