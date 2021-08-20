@@ -70,10 +70,6 @@ end
 
 --------------------------------------敌人生成逻辑-------------------------------------------
 function A_EnemySpawnerCtrl.Awake()
-
-end
-
-function A_EnemySpawnerCtrl.Start(obj)
    --------------------------------初始化、清空------------------------------
    --活着的敌人,用于判断游戏胜利与否
    this.EnemyAlive=0
@@ -83,8 +79,10 @@ function A_EnemySpawnerCtrl.Start(obj)
    this.Enemycount=0
    --敌人生成位置
    this.EnemyPosition=nil
+   
+end
 
-
+function A_EnemySpawnerCtrl.Start(obj)
    local WaveCount=0
    --敌人出生地
    EnemyPosition=CSU.GameObject.Find("SatrtPosition").transform.position
@@ -127,7 +125,6 @@ function A_EnemySpawnerCtrl.Update()
    if this.EnemyAlive==0 and this.Enemycount==EnemyCount then
       A_SettlementCtrl.GetInstance():Win()
    end
-
 end
 
 

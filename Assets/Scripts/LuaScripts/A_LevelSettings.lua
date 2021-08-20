@@ -19,9 +19,9 @@ A_LevelSettings.Level_One={
 		"DefenseA","DefenseB","DefenseC"
 	},
 	turretAttributes={
-		["DefenseA"]={cost=70,damage=30,Bullet="DeABullet",speed=1,BulletattackRateTime=2},
-        ["DefenseB"]={cost=80,damage=10,Bullet="DeBBullet",speed=1,BulletattackRateTime=0.25},
-        ["DefenseC"]={cost=90,damage=10,Bullet="DeCBullet",speed=1,BulletattackRateTime=30}
+		["DefenseA"]={cost=70,damage=30,Bullet="DeABullet",speed=5,BulletattackRateTime=2},
+        ["DefenseB"]={cost=80,damage=10,Bullet="DeBBullet",speed=10,BulletattackRateTime=0.25},
+        ["DefenseC"]={cost=90,damage=10,Bullet="DeCBullet",speed=10,BulletattackRateTime=30}
 	},
 	--不同类型敌人的属性
 	enemyAttributes={
