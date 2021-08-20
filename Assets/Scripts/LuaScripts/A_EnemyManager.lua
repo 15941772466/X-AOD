@@ -5,6 +5,7 @@ A_EnemyManager.EnemySelfList={}
 
 
 function A_EnemyManager.Update()
+   print("敌人刷新-------------------------------------------------------------")
     for i,v in pairs(A_EnemyManager.EnemySelfList) do
       v:Update()
    end

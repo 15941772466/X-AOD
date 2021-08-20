@@ -25,7 +25,7 @@ A_LevelSettings.Level_One={
 	},
 	--不同类型敌人的属性
 	enemyAttributes={
-		["A_Enemy1"]={Hp=150}
+		["A_Enemy1"]={Hp=300}
 	},
 	--同波次敌人生成间隔
 	EnemyRateTime=1.5,

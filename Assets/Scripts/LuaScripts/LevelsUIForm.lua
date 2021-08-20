@@ -53,7 +53,7 @@ function LevelsUIForm.ProcessLevel_One()
     print("执行到 ProcessLevel_One")  --开始关卡1游戏
     --解场景包
     
-    luaHelper:DoString("require 'TestStartGame'")
+    --luaHelper:DoString("require 'TestStartGame'")
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
 
@@ -67,7 +67,6 @@ function LevelsUIForm.ProcessLevel_Two()
     print("执行到 ProcessLevel_Two")  --开始关卡2游戏
     --解场景包
     
-    --luaHelper:DoString("require 'TestStartGame'")
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
     Load_Manager:Load("Level_Two")
@@ -79,7 +78,6 @@ function LevelsUIForm.ProcessLevel_Three()
     print("执行到 ProcessLevel_Three")  --开始关卡3游戏
     --解场景包
     
-    --luaHelper:DoString("require 'TestStartGame'")
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
     Load_Manager:Load("Level_Three")
