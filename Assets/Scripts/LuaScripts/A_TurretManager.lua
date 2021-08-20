@@ -5,7 +5,6 @@ A_TurretManager.DefenseList = {}
 
 
 function A_TurretManager.Update()
-   print("炮塔刷新-------------------------------------------------------------")
    for i,v in pairs(A_TurretManager.DefenseList) do
       if(v.gameObject~=nil) then
          v:Update()

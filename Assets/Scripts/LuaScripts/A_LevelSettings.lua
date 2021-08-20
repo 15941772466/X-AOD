@@ -30,7 +30,9 @@ A_LevelSettings.Level_One={
 	--同波次敌人生成间隔
 	EnemyRateTime=1.5,
 	--波次产生间隔
-	WaveRateTime=5
+	WaveRateTime=5,
+	--敌人生成位置
+	enemySpawmerPosition="StartPosition"
 }
 ------------------第二关敌人数据--------------------
 A_LevelSettings.Level_Two={

@@ -10,7 +10,14 @@
 
 
 --模拟类
-A_EnemySpawnerCtrl={}
+A_EnemySpawnerCtrl={
+   --活着的敌人,用于判断游戏胜利与否
+   EnemyAlive=nil,
+   --生成的敌人列表
+   EnemyListSpawnered={},
+   --已经生成的敌人数量
+   Enemycount=nil
+}
 local this=A_EnemySpawnerCtrl
 
 --活着的敌人,用于判断游戏胜利与否
@@ -62,8 +69,22 @@ function A_EnemySpawnerCtrl.GetInstance()
 end
 
 --------------------------------------敌人生成逻辑-------------------------------------------
+function A_EnemySpawnerCtrl.Awake()
+
+end
 
 function A_EnemySpawnerCtrl.Start(obj)
+   --------------------------------初始化、清空------------------------------
+   --活着的敌人,用于判断游戏胜利与否
+   this.EnemyAlive=0
+   --生成的敌人列表
+   this.EnemyListSpawnered={}
+   --已经生成的敌人数量
+   this.Enemycount=0
+   --敌人生成位置
+   this.EnemyPosition=nil
+
+
    local WaveCount=0
    --敌人出生地
    EnemyPosition=CSU.GameObject.Find("SatrtPosition").transform.position
