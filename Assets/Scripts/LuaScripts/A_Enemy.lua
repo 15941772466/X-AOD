@@ -58,7 +58,6 @@ end
 
 function A_Enemy:Update()
   --保持血条跟随
-  --HpSlider.position=EnemyObj.position
   if(self.gameObject~=nil) then
      self.Canvas.transform.position=self.gameObject.transform.position
      self.tool:SliderUp(self.Canvas)

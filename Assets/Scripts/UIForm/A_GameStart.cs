@@ -10,7 +10,7 @@ public class A_GameStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine("StartTip");
+        StartTipUI.SetActive(true);
         // A_LuaStart.GetInstance().DoString("require 'A_StartGame'");
         Invoke("Game_start", 6.5f);
     }
@@ -19,11 +19,5 @@ public class A_GameStart : MonoBehaviour
     {
         LuaHelper.GetInstance().DoString("require 'A_StartGame'");
         StartTipUI.SetActive(false);
-    }
-
-    IEnumerator StartTip()
-    {
-        yield return new WaitForSeconds(1f);
-        StartTipUI.SetActive(true);
     }
 }

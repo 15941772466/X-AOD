@@ -10,6 +10,6 @@ require("A_CtrlMgr")
 
 --游戏开始
 print("游戏开始")
-TestProjectInit.Init()
+TestProjectInit.Game_Init()
 A_CtrlMgr.Init()
 

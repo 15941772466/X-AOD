@@ -8,9 +8,9 @@ CtrlName={
     A_BulletCtrl="A_BulletCtrl"
 }
 --视图层脚本
-TViewNames={
-    "DefenseListUIForm"
-}
+-- TViewNames={
+--     "DefenseListUIForm"
+-- }
 A_CtrlNames={
     "A_BaseList",
     "A_LevelSettings",
