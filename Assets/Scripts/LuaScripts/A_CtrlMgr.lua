@@ -7,10 +7,10 @@ local this=A_CtrlMgr
 local ctrlList={}
 
 function A_CtrlMgr.Init()
-	
-	A_EnemyManager.EnemySelfList={}
-	A_TurretManager.DefenseList={}
-	A_BulletManager.Bulletlist={}
+
+	-- A_EnemyManager.EnemySelfList={}
+	-- A_TurretManager.DefenseList={}
+	-- A_BulletManager.Bulletlist={}
 
     --------------------------加载建造管理脚本-------------------------------------------
 	print("加载炮塔生成管理脚本")
