@@ -40,6 +40,7 @@ function TestProjectInit.ImportAllCtrls()
         package.loaded[A_CtrlNames[i]] = nil
         require(A_CtrlNames[i])
     end
+    require("A_CtrlMgr")
     print("导入控制层脚本成功")
 end
 

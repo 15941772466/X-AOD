@@ -53,6 +53,8 @@ end
 
 function A_BuildManagerCtrl.Start(obj)
     print("开始处理建造逻辑")    
+    print("A_BuildManagerCtrl：56--------------------炮塔建造逻辑")
+
     --当前关卡信息
     Level=levelData[obj.tag]
     --调用添加监听函数 
@@ -104,7 +106,7 @@ function A_BuildManagerCtrl.Update()
         if(isCollider==true and HitInfro.collider.gameObject.layer==8) then
             --找到点击的砖块名字
             local cubeName=HitInfro.collider.gameObject.name
-
+            print("点击了砖块： "..cubeName)
             --如果此砖块上无炮塔，且已经选择了一个炮塔
             if(GroundData[cubeName].preturret==nil and SelectedTurret~=nil) then
                

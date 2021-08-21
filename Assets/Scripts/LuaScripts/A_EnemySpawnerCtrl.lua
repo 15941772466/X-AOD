@@ -93,6 +93,7 @@ function A_EnemySpawnerCtrl.Awake()
 end
 
 function A_EnemySpawnerCtrl.Start(obj)
+   print("A_EnemySpawnerCtrl96：--------------------敌人生成逻辑")
    WaveCount=0
    --获取当前关卡
    Level=levelData[obj.tag]

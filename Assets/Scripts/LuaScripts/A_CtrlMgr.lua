@@ -8,6 +8,7 @@ local ctrlList={}
 
 function A_CtrlMgr.Init()
 
+	print("A_CtrlMgr11:---------------------控制开启")
 	-- A_EnemyManager.EnemySelfList={}
 	-- A_TurretManager.DefenseList={}
 	-- A_BulletManager.Bulletlist={}
@@ -35,6 +36,7 @@ function A_CtrlMgr.Init()
 	CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaUIForm(bulletManager)
 	local enemyManager=CSU.GameObject.Find("GameObjectManager").transform:Find("A_EnemyManager")
 	CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaUIForm(enemyManager)
+	print("A_CtrlMgr11:---------------------控制开启")
 
 end
 
