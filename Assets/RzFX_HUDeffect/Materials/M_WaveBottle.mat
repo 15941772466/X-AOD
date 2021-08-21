@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: M_WaveBottle
   m_Shader: {fileID: 4800000, guid: f0a4e83256e69e24195b377dc81428e6, type: 3}
   m_ShaderKeywords: _USESPHEREMASK_ON _USETIME_ON
@@ -172,7 +173,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _Color2: {r: 1, g: 0, b: 0, a: 1}
-    - _ColorBG: {r: 0.24999616, g: 0.30845192, b: 0.5019608, a: 1}
+    - _ColorBG: {r: 0.0047614924, g: 0.009433985, b: 0.0079558715, a: 1}
     - _ColorInside: {r: 0.3945098, g: 0.7843137, b: 0.7772973, a: 1}
     - _ColorOutside: {r: 0.07843138, g: 0.3921569, b: 0.7803922, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
