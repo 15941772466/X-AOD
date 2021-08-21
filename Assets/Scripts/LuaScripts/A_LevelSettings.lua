@@ -31,7 +31,7 @@ A_LevelSettings.Level_One={
 		["A_Enemy2"]={Hp=300}
 	},
 	--同波次敌人生成间隔
-	EnemyRateTime=1.5,
+	EnemyRateTime=5,
 	--波次产生间隔
 	WaveRateTime=5,
 

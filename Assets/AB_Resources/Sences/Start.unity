@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b2a4dbcf7a46f469712ca63844d78a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enable: 1
+  Enable: 0
   WebDownload: 0
 --- !u!4 &1929103393
 Transform:
@@ -505,10 +505,6 @@ PrefabInstance:
     - target: {fileID: 1856558310338192, guid: 5d4a93433ed91c348ac0e676d535844a, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856558310338192, guid: 5d4a93433ed91c348ac0e676d535844a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224899671641664600, guid: 5d4a93433ed91c348ac0e676d535844a,
         type: 3}
@@ -614,26 +610,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4719694851796244269, guid: 5d4a93433ed91c348ac0e676d535844a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6504056534050102870, guid: 5d4a93433ed91c348ac0e676d535844a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6504056534226550808, guid: 5d4a93433ed91c348ac0e676d535844a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6504056534341514731, guid: 5d4a93433ed91c348ac0e676d535844a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d4a93433ed91c348ac0e676d535844a, type: 3}

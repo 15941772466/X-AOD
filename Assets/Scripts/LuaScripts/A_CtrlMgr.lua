@@ -1,10 +1,15 @@
 --控制层管理器
 
 
-A_CtrlMgr={}
+A_CtrlMgr={
+	-- DTManager=CS.PFW.DefenseManager,
+    abDTObj=CS.PFW.DefenseManager.GetInstance() 
+}
 local this=A_CtrlMgr
 
 local ctrlList={}
+--调用DefenseManager脚本
+
 
 function A_CtrlMgr.Init()
 

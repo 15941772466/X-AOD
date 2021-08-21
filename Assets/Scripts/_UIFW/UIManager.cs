@@ -264,8 +264,8 @@ namespace UIFW
                 string refRoad;
                 _DicUIFormPaths.TryGetValue(uiFormName, out refRoad);
                 
-                //var obj = Resources.Load<GameObject>(refRoad);
-                var obj = AssetDatabase.LoadAssetAtPath("Assets/"+"AB_Resources/"+ refRoad, typeof(GameObject)) as GameObject;
+                var obj = Resources.Load<GameObject>(refRoad);
+                //var obj = AssetDatabase.LoadAssetAtPath("Assets/"+"AB_Resources/"+ refRoad, typeof(GameObject)) as GameObject;
                 Debug.Log("Assets/" + "AB_Resources/" + refRoad);
                 GameObject Localobj = GameObject.Instantiate(obj);  
                 Localobj.SetActive(false);

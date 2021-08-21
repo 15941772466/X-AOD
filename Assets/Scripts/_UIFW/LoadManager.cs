@@ -39,24 +39,25 @@ namespace UIFW
         public void Load(string str)
         {
             Debug.Log("执行到LoadManager");
-            _GoLoadUIForm.SetActive(true);
+           // _GoLoadUIForm.SetActive(true);
             StartCoroutine(StartLoading(str));
         }
         IEnumerator StartLoading(string str)
         {
             float i = 0;
             AsyncOperation acOp = SceneManager.LoadSceneAsync(str);
-            acOp.allowSceneActivation = false;
-            while (i <= 100)
-            {
-                i++;
-                objProcessBar.GetComponent<Slider>().value = i / 100;
-                yield return new WaitForEndOfFrame();
-                percent.GetComponent<Text>().text = i.ToString() + "%";
-            }
-            acOp.allowSceneActivation = true;
-            _GoLoadUIForm.SetActive(false);
-            percent.GetComponent<Text>().text = "0%";
+            //acOp.allowSceneActivation = false;
+            //while (i <= 100)
+            //{
+            //    i++;
+            //    objProcessBar.GetComponent<Slider>().value = i / 100;
+            //    yield return new WaitForEndOfFrame();
+            //    percent.GetComponent<Text>().text = i.ToString() + "%";
+            //}
+            yield return null;
+            //acOp.allowSceneActivation = true;
+            //_GoLoadUIForm.SetActive(false);
+            //percent.GetComponent<Text>().text = "0%";
         }
     }
 }

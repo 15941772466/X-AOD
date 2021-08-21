@@ -9,9 +9,9 @@
 A_BuildManagerCtrl={}
 local this=A_BuildManagerCtrl
 
---调用DefenseManager脚本
-local DTManager=CS.PFW.DefenseManager
-local abDTObj=DTManager.GetInstance()
+-- --调用DefenseManager脚本
+-- local DTManager=CS.PFW.DefenseManager
+-- local abDTObj=DTManager.GetInstance()
 --调用游戏工具类
 local tool=GameTool.GetInstance()
 -------------------建造信息----------------------------
@@ -147,7 +147,7 @@ function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
    --获取炮塔要生成的位置
    local position=cube.transform.position
    --加载炮塔预制体
-   local tmpObj=abDTObj:PrefabAB(SelectedTurret)
+   local tmpObj=A_CtrlMgr.abDTObj:PrefabAB(SelectedTurret)
    --生成并记录
    GroundData[cubeName].preturret=CSU.GameObject.Instantiate(tmpObj)
    --炮塔上移
