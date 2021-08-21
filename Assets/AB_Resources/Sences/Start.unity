@@ -450,7 +450,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1929103392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,7 +482,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &3449187797386894821
+--- !u!1001 &4719694851089483724
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -492,6 +492,10 @@ PrefabInstance:
     - target: {fileID: 1856558310338192, guid: 5d4a93433ed91c348ac0e676d535844a, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1856558310338192, guid: 5d4a93433ed91c348ac0e676d535844a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224899671641664600, guid: 5d4a93433ed91c348ac0e676d535844a,
         type: 3}
@@ -597,6 +601,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504056534050102870, guid: 5d4a93433ed91c348ac0e676d535844a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504056534226550808, guid: 5d4a93433ed91c348ac0e676d535844a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504056534341514731, guid: 5d4a93433ed91c348ac0e676d535844a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d4a93433ed91c348ac0e676d535844a, type: 3}
