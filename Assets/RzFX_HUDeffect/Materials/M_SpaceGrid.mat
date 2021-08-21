@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: M_SpaceGrid
   m_Shader: {fileID: 4800000, guid: 3466860a3f09f5c40a1e9b887862e399, type: 3}
   m_ShaderKeywords: 
@@ -63,7 +64,7 @@ Material:
     - _Density: 200
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Emission: 1.25
+    - _Emission: 0.89
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -83,11 +84,11 @@ Material:
     - _RandomSeed: 0.05
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 2
+    - _Speed: 0.01
     - _SrcBlend: 1
     - _UVSec: 0
     - _UseAlpha: 0
-    - _Width: 0.1
+    - _Width: 0.01
     - _ZWrite: 1
     - _node_1588: 0.06837607
     - _node_2047: 0.547

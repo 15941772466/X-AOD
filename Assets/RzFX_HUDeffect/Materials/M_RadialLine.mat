@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: M_RadialLine
   m_Shader: {fileID: 4800000, guid: 4b9b044ad2096e747ac3a3a75a7a911d, type: 3}
   m_ShaderKeywords: 
@@ -75,7 +76,7 @@ Material:
     - _Radius: 0.4
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 2
+    - _Speed: 0.3
     - _SrcBlend: 1
     - _UVSec: 0
     - _UseAlpha: 0

@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: M_SinWave
   m_Shader: {fileID: 4800000, guid: dbd1dbfa5a1203b4495345262a5f5c36, type: 3}
   m_ShaderKeywords: _USETIME_ON
@@ -108,11 +109,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Amount: 0.05
-    - _Amplitude: 8
-    - _AmplitudeAmount: 1
+    - _Amplitude: 2.78
+    - _AmplitudeAmount: 0.5
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _Cycle: 3
+    - _Cycle: 3.25
     - _Density: 6
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -122,10 +123,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GridOpacity: 0.1
-    - _GridWidth: 0.5
-    - _Grid_: 8
-    - _Grid_x: 8
+    - _GridOpacity: 0.43
+    - _GridWidth: 0.22
+    - _Grid_: 11.85
+    - _Grid_x: 10.52
     - _MainTexB_Bdepth: -2
     - _Metallic: 0
     - _Mode: 0
@@ -138,7 +139,7 @@ Material:
     - _ShinnySpeed: 0.1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 4
+    - _Speed: 3
     - _Speed_B: 0.5
     - _Speed_G: -1
     - _Speed_R: 3
@@ -147,7 +148,7 @@ Material:
     - _UVSec: 0
     - _UseFill: 0
     - _UseTime: 1
-    - _Width: 0.15
+    - _Width: 0.01
     - _ZWrite: 1
     - _node_1838: 0
     - _node_3606: 0
@@ -171,9 +172,9 @@ Material:
     - _node_9175: 1
     - _node_977: 64
     m_Colors:
-    - _Color: {r: 0, g: 0.9916434, b: 1, a: 1}
+    - _Color: {r: 0, g: 0.64825225, b: 1, a: 1}
     - _Color2: {r: 1, g: 0, b: 0, a: 1}
-    - _ColorBG: {r: 0.18798923, g: 0.20307906, b: 0.2509804, a: 1}
+    - _ColorBG: {r: 0, g: 0, b: 0, a: 1}
     - _ColorInside: {r: 0.3945098, g: 0.7843137, b: 0.7772973, a: 1}
     - _ColorOutside: {r: 0.07843138, g: 0.3921569, b: 0.7803922, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
