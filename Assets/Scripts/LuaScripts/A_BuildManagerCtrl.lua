@@ -63,7 +63,6 @@ function A_BuildManagerCtrl.ReadGround()
    local ground=CSU.GameObject.Find("CubeManager")
    GroundDatatmp=tool:GetChildName(ground,GroundDatatmp)
    for i,child in pairs(GroundDatatmp) do
-     
       GroundData[child]={preturret=nil,preturrettype=nil,isUpgraded=false}
    end
 end
@@ -102,7 +101,6 @@ function A_BuildManagerCtrl.Update()
         if(isCollider==true and HitInfro.collider.gameObject.layer==8) then
             --找到点击的砖块名字
             cubeName=HitInfro.collider.gameObject.name
-            print("点击到砖块："..cubeName)
 
             --如果此砖块上无炮塔，且已经选择了一个炮塔
             if(GroundData[cubeName].preturret==nil and SelectedTurret~=nil) then

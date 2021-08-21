@@ -15,7 +15,7 @@ EnemyListCount=0,
 --列表中第一个敌人
 ListFirst=nil,
 --攻击间隔
-attackRateTime=1,
+attackRateTime=nil,
 --已经等待时间
 timer=nil,
 --子弹
@@ -34,17 +34,17 @@ TurretType=nil,
 BulletSpeed=nil,
 --关卡信息
 Level=nil,
---激光攻击方式
-LaserDamageRate=nil,
 --中间参数
-index=0
+index=0,
+--激光攻击方式的激光
+LaserRenderer=nil
 }
 A_Turret.__index = A_Turret
 
 
 
 --实例化对象
-function A_Turret:New(Obj,turretType,level)
+function A_Turret:New(Obj,turretType,level,AttackRateTime)
    -- body
    local temp = {}
    setmetatable(temp,A_Turret)
@@ -52,25 +52,27 @@ function A_Turret:New(Obj,turretType,level)
    temp.TurretType=turretType
    --获取关卡信息
    temp.Level=level
-   --如果是前两种炮塔
-   --if(TurretType~="DefenseC") then
-      --炮塔实例物体
-      temp.gameObject = Obj
-      --已等待CD
-      temp.timer=0
-      --炮塔头部
-      temp.Head=Obj.transform:Find("Head")
-      --炮塔开火位置
-      temp.FirePosition=Obj.transform:Find("Head/FirePosition")   
-      --对应bullet的预制体
-      temp.Bullet=temp.abDTObj:PrefabAB(level.turretAttributes[turretType].Bullet)
-      --子弹的伤害
-      temp.damage=level.turretAttributes[turretType].damage
-      --子弹的速度
-      temp.BulletSpeed=level.turretAttributes[turretType].speed
-   --else
-   --   LaserDamageRate=30
-   --end
+   --炮塔实例物体
+   temp.gameObject = Obj
+   --已等待CD
+   temp.timer=0
+   --炮塔头部
+   temp.Head=Obj.transform:Find("Head")
+   --炮塔开火位置
+   temp.FirePosition=Obj.transform:Find("Head/FirePosition")   
+   --对应bullet的预制体
+   temp.Bullet=temp.abDTObj:PrefabAB(level.turretAttributes[turretType].Bullet)
+   --子弹的伤害
+   temp.damage=level.turretAttributes[turretType].damage
+   --子弹的速度
+   temp.BulletSpeed=level.turretAttributes[turretType].speed
+   --子弹CD
+   temp.attackRateTime=level.turretAttributes[turretType].BulletattackRateTime
+   --如果是激光塔，加载激光
+   if(temp.TurretType=="DefenseC") then
+      temp.LaserRenderer=Obj.transform:Find("Laser"):GetComponent(typeof(CSU.LineRenderer))
+   end
+
    return temp
 end
 
@@ -81,23 +83,47 @@ function A_Turret:Update()
    self:UpdateEnemyView()
    --取到敌人列表中第一个不为nil的值
    self.ListFirst=self:UpdateEnemyLast()
-   
+   --子弹攻击方式
+
    --当敌人列表第一个不为nil的元素存在
    if(self.ListFirst~=nil) then
-        --找到目标敌人
+      ----------------  目标朝向-----------------
+      --找到目标敌人
       local targetPosition=self.ListFirst.transform.position
       --固定y轴
       targetPosition.y=self.Head.position.y
       --朝向敌人
       self.tool:LookAt(self.Head,targetPosition)
+      ----------------子弹攻击方式---------------
+      if(self.TurretType~="DefenseC") then
+         --如果附近有敌人且冷却时间已过
+         self.timer=self.timer+CSU.Time.deltaTime
+         if(self.ListFirst~=nil and self.timer>=self.attackRateTime) then
+            --发动攻击
+            self:Attack()
+            --等待时间置零
+            self.timer=0
+         end
+      ---------------激光攻击方式------------------
+      elseif self.ListFirst~=nil then
+         --打开激光
+         if(self.LaserRenderer.enabled==false) then
+            self.LaserRenderer.enabled=true
+         end   
+         --设置激光指向
+         self.tool:SetPositons(self.LaserRenderer,self.FirePosition,self.ListFirst.transform)
+         -------------------------------又一次用到寻找所在类的方法，需要封装-------------------------------
+         -- self.ListFirst:Takedamage(self.attackRateTime*CSU.Time.deltaTime)
+         for i,v in pairs(A_EnemyManager.EnemySelfList) do
+            if v.gameObject==self.ListFirst then
+              v:Takedamage(self.attackRateTime*CSU.Time.deltaTime)
+            end
+          end
+      end
    end
-   --如果附近有敌人且冷却时间已过
-   self.timer=self.timer+CSU.Time.deltaTime
-   if(self.ListFirst~=nil and self.timer>=self.attackRateTime) then
-        --发动攻击
-        self:Attack()
-        --等待时间置零
-        self.timer=0
+   if(self.TurretType=="DefenseC" and self.ListFirst==nil) then
+      --附近无敌人
+      self.LaserRenderer.enabled=false 
    end
 end
 
@@ -106,9 +132,8 @@ function A_Turret:Attack()
 
    if(self.ListFirst~=nil ) then
       local bullet=CSU.Object.Instantiate(self.Bullet,self.FirePosition.position,self.FirePosition.rotation)
-      --读取表
-      bullet:GetComponent("BulletAB"):Gettarget(self.ListFirst.transform)
-      local BulletObj=A_BulletAB:New(bullet,self.damage,self.BulletSpeed)
+      --实例化子弹类
+      local BulletObj=A_BulletAB:New(bullet,self.damage,self.BulletSpeed,self.ListFirst)
       self.index = self.index + 1
       --存入它的索引
       BulletObj.IndexSelf=self.index
@@ -146,16 +171,9 @@ function A_Turret:UpdateEnemyView()
    end
 end
 
--- function A_Turret:IsOnTriggerEnter(turret,enemy)
---    local DistanceX=turret.transform.position.x-enemy.transform.position.x
---    local DistanceY=turret.transform.position.y-enemy.transform.position.y
---    if DistanceX*DistanceX+DistanceY*DistanceY<=25 then
---       return true
---    end
---    return false
--- end
 
 
+---------------------------------------------对敌人列表封装的一些方法-----------------------------------------------
 --刷新敌人死亡产生的列表第一个不为nil的元素
 function A_Turret:UpdateEnemyLast()
    local First=nil
@@ -194,6 +212,8 @@ function A_Turret:Find(item)
    end
    return nil
 end
+
+
 --全局敌人列表中某个敌人的下标
 -- function A_Turret:FindAll(item)
 --    local index=0

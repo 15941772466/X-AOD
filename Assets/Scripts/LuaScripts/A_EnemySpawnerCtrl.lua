@@ -115,20 +115,17 @@ function A_EnemySpawnerCtrl.ShengCheng()
    local enemySliderCanvas=CSU.Object.Instantiate(tempSlider,EnemyPosition,CSU.Quaternion.identity)
    --存入全局敌人列表
    table.insert(this.EnemyListSpawnered,enemyObj)
-   --传入对应血条UI
-   enemyObj:GetComponent("Enemy"):GetUpcanvas(enemySliderCanvas)
-   --传入对应血量
-   enemyObj:GetComponent("Enemy"):GetHp(Level.enemyAttributes[Level.enemy.WaveOne.type].Hp)
-   --设置移动速度
-   enemyObj:GetComponent(typeof(CSU.AI.NavMeshAgent)).speed=Level.enemy.WaveOne.speed
-   --实例化敌人行为类
-   local EnemyObj=A_Enemy:New(enemyObj)
+
+   --实例化敌人行为类, 传入对应血条UI，总血量，初始化当前血量,速度
+   local EnemyObj=A_Enemy:New(enemyObj,enemySliderCanvas,Level.enemyAttributes[Level.enemy.WaveOne.type].Hp,Level.enemy.WaveOne.speed)
+   
    --存入行为类列表
    Index=Index+1
    --存入索引
    EnemyObj.IndexSelf=Index
    --存入敌人Update管理实例列表
    A_EnemyManager.EnemySelfList[Index]=EnemyObj
+
    --已经生成的敌人数量
    this.Enemycount=this.Enemycount+1
    --当前活着的敌人数量
