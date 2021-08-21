@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -65,6 +66,7 @@ namespace GameTools {
         //炮塔指向
         public void LookAt(Transform Head, Vector3 target)
         {
+            target = new Vector3(target.x, Head.position.y, target.z);
             Head.LookAt(target);
         }
         //子弹保持y轴朝向
@@ -94,20 +96,20 @@ namespace GameTools {
             return res;
         }
         //是否进入炮塔视野
-        public bool IsOnTriggerEnter(GameObject turret,GameObject enemy)
+        public bool IsOnTriggerEnter(GameObject turret,GameObject enemy,int viewdistance)
         {
             bool res = false;
             Vector3 Distance = turret.transform.position - enemy.transform.position;
-            if (Distance.magnitude <= 3)
+            if (Distance.magnitude <= viewdistance)
                 res = true;
             return res;
         }
         //是否退出炮塔视野
-        public bool IsOnTriggerExit(GameObject turret, GameObject enemy)
+        public bool IsOnTriggerExit(GameObject turret, GameObject enemy, int viewdistance)
         {
             bool res = false;
             Vector3 Distance = turret.transform.position - enemy.transform.position;
-            if (Distance.magnitude > 3)
+            if (Distance.magnitude > viewdistance)
                 res = true;
             return res;
         }
@@ -137,9 +139,27 @@ namespace GameTools {
             return res;
         }
         //延时删除物体
-        public void DestroyNow(GameObject obj,int wait)
+        public void DestroyNow(GameObject obj,float wait)
         {
             Destroy(obj, wait);
+        }
+        
+        //删除敌人和UI
+        public void DestroyEnemy(GameObject enemy)
+        {
+            Destroy(enemy);
+        }
+        //禁用组件
+        public void CloseNavMesh(GameObject enemy)
+        {
+            Debug.Log("guanbi1");
+            enemy.GetComponent<NavMeshAgent>().enabled = false;
+        }
+
+        //--------------------------------------------------游戏UI控制--------------------------------
+        public void UpgradeUI_Up(Vector3 turretpos,GameObject ui)
+        {
+            ui.transform.position = new Vector3(turretpos.x, ui.transform.position.y, turretpos.z);
         }
     }
 }

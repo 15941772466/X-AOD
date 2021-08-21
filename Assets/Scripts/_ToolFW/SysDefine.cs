@@ -40,6 +40,5 @@ namespace TFW
         public const string SYS_FIXED_NODE = "Fixed";
         public const string SYS_POPUP_NODE = "PopUp";
 
-
     }
 }

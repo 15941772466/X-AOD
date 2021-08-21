@@ -34,9 +34,9 @@ function A_BulletAB:Update()
       print("敌人不存在  删除！")
     	self:Die()
     end
-    self.tool:KeepY(self.gameObject,self.Target)
+   --  self.tool:KeepY(self.gameObject,self.Target)
     self.tool:LookAt(self.gameObject.transform,self.Target.transform.position)
-    self.tool:Translate(self.gameObject,self.Speed)
+    self.tool:Translate(self.gameObject,self.Speed*CSU.Time.deltaTime)
     local Distance=self.gameObject.transform.position-self.Target.transform.position
     --距离小于一定数值，判断为碰撞
     if(self.tool:IsReach(self.gameObject,self.Target)) then
@@ -52,9 +52,8 @@ function A_BulletAB:Update()
 end
 
 function A_BulletAB:Die()
-   A_BulletManager:Remove(self)
    self.gameObject:SetActive(false)
-  
+   A_BulletManager:Remove(self)
 end
 
 function A_BulletAB:UpdateTarget()

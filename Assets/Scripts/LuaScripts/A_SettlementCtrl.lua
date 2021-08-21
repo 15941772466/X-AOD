@@ -15,13 +15,15 @@ end
 
 --赢得战斗
 function A_SettlementCtrl:Win()
+  this.Unload()
   uiManager:ShowUIForms("VictoryUIForm")
-  CSU.Time.timeScale=0
+
 end
 --战败
 function A_SettlementCtrl:Failed()
+  this.Unload()
   uiManager:ShowUIForms("DefeatUIForm")
-  CSU.Time.timeScale=0
+
 end 
 --重玩
 function A_SettlementCtrl:Retry()
@@ -30,5 +32,20 @@ end
 --返回菜单
 function A_SettlementCtrl:ButtonMenu()
 
+end
+
+
+function A_SettlementCtrl:Unload()
+  for i=1, #A_ViewNames do
+      package.loaded[A_ViewNames[i]] = nil
+  end
+  print("卸载视图层脚本成功")
+
+  for i=1, #A_CtrlNames do
+      package.loaded[A_CtrlNames[i]] = nil
+  end
+  package.loaded["A_StartGame"]=nil
+  package.loaded["A_CtrlMgr"]=nil
+  print("卸载控制层脚本成功")
 end
 

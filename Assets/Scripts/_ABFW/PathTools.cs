@@ -11,7 +11,8 @@ namespace ABFW
 	{
         public static string GetABResourcesPath()   //编辑区路径
         {
-            return Application.dataPath + "/"+ "Resources";
+            //return Application.dataPath + "/"+ "Resources";
+            return Application.dataPath + "/" + "AB_Resources";
         }
 
         public static string GetABOutPath()         //发布区路径

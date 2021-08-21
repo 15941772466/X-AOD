@@ -8,13 +8,16 @@ CtrlName={
     A_BulletCtrl="A_BulletCtrl"
 }
 --视图层脚本
-TViewNames={
-    "DefenseListUIForm"
-}
+-- TViewNames={
+--     "DefenseListUIForm"
+-- }
 A_CtrlNames={
+    "A_BaseList",
+    "A_LevelSettings",
     "A_SettlementCtrl",
     "A_EnemySpawnerCtrl",           
     "A_BuildManagerCtrl",
+
 }
 A_ViewNames={
     "A_TurretManager",
@@ -26,7 +29,6 @@ A_ViewNames={
     "A_Enemy",
     
     "DefeatUIForm",
-    "A_BaseEnemyList"
 }
 
 --引入Unity内置的类型

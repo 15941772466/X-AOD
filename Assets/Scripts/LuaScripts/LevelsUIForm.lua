@@ -1,6 +1,8 @@
 ---
 --- 选择关卡窗口  UI窗体视图层脚本
 ---
+require("TestSysDefine")
+
 
 LevelsUIForm = {}
 local this = LevelsUIForm
@@ -8,6 +10,8 @@ local this = LevelsUIForm
 
 local UI_Manager=CS.UIFW.UIManager
 local uiManager=UI_Manager.GetInstance()
+
+local Load_Manager=CS.UIFW.LoadManager.GetInstance()
 
 local Lua_Helper=CS.LuaFramework.LuaHelper 
 local luaHelper=Lua_Helper.GetInstance()
@@ -49,37 +53,39 @@ end
 function LevelsUIForm.ProcessLevel_One()
    
     print("执行到 ProcessLevel_One")  --开始关卡1游戏
+    --卸载所有lua脚本
+    --this.Unload()
     --解场景包
-    
-    luaHelper:DoString("require 'TestStartGame'")
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
 
-    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_One");
+    Load_Manager:Load("Level_One")
+    
+    
 end
 
 function LevelsUIForm.ProcessLevel_Two()
    
     print("执行到 ProcessLevel_Two")  --开始关卡2游戏
+    --卸载所有lua脚本
+    --this.Unload()
     --解场景包
-    
-    --luaHelper:DoString("require 'TestStartGame'")
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
-
-    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_Two");
+    Load_Manager:Load("Level_Two")
+    
 end
 
 function LevelsUIForm.ProcessLevel_Three()
    
     print("执行到 ProcessLevel_Three")  --开始关卡3游戏
+    --卸载所有lua脚本
+    --this.Unload()
     --解场景包
-    
-    --luaHelper:DoString("require 'TestStartGame'")
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
-
-    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_Three");
+    Load_Manager:Load("Level_Three")
+    
 end
 
 
@@ -90,3 +96,16 @@ function LevelsUIForm.ProcessBackHallBtn()
     uiManager:ShowUIForms("HeroInfoUIForm")
 end
 
+function LevelsUIForm.Unload()
+    for i=1, #A_ViewNames do
+        package.loaded[A_ViewNames[i]] = nil
+    end
+    print("卸载视图层脚本成功")
+
+    for i=1, #A_CtrlNames do
+        package.loaded[A_CtrlNames[i]] = nil
+    end
+    package.loaded["A_StartGame"]=nil
+    package.loaded["A_CtrlMgr"]=nil
+    print("卸载控制层脚本成功")
+end
