@@ -10,9 +10,9 @@ public class A_GameStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartTipUI.SetActive(true);
+        //StartTipUI.SetActive(true);
         // A_LuaStart.GetInstance().DoString("require 'A_StartGame'");
-        Invoke("Game_start", 6.5f);
+        Invoke("Game_start", 0.5f);
     }
 
     void Game_start()

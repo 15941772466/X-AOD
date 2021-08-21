@@ -32,6 +32,8 @@ damage=nil,
 TurretType=nil,
 --子弹速度
 BulletSpeed=nil,
+--视野距离
+Viewdistance=nil,
 --关卡信息
 Level=nil,
 --中间参数
@@ -68,6 +70,8 @@ function A_Turret:New(Obj,turretType,level)
    temp.damage=level.turretAttributes[turretType].damage
    --子弹的速度
    temp.BulletSpeed=level.turretAttributes[turretType].speed
+   --视野距离
+   temp.Viewdistance=level.turretAttributes[turretType].ViewDistance
    --子弹CD
    temp.attackRateTime=level.turretAttributes[turretType].BulletattackRateTime
    --如果是激光塔，加载激光
@@ -151,13 +155,13 @@ function A_Turret:UpdateEnemyView()
    for i,v in pairs(A_EnemySpawnerCtrl.EnemyListSpawnered) do
       if(v~=nil) then
          --距离小于等于5 且 列表不包含此物体，进入视野 
-         if(self.tool:IsOnTriggerEnter(self.gameObject,v) and self.EnemyList:Contains(v)==false) then
+         if(self.tool:IsOnTriggerEnter(self.gameObject,v,self.Viewdistance) and self.EnemyList:Contains(v)==false) then
             self.EnemyList:Add(v)
             self.EnemyListCount=self.EnemyListCount+1
             -- print("炮塔类型："..self.gameObject.name.."          第"..i.."个敌人进入视野")
          end
          --距离大于5 且 列表包含此物体，退出视野 
-         if(self.tool:IsOnTriggerExit(self.gameObject,v) and self.EnemyList:Contains(v)==true) then
+         if(self.tool:IsOnTriggerExit(self.gameObject,v,self.Viewdistance) and self.EnemyList:Contains(v)==true) then
             --移出列表
             self.EnemyList:FindDelete(v,self.EnemyListCount)
             self.EnemyListCount=self.EnemyListCount-1

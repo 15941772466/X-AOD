@@ -95,20 +95,20 @@ namespace GameTools {
             return res;
         }
         //是否进入炮塔视野
-        public bool IsOnTriggerEnter(GameObject turret,GameObject enemy)
+        public bool IsOnTriggerEnter(GameObject turret,GameObject enemy,int viewdistance)
         {
             bool res = false;
             Vector3 Distance = turret.transform.position - enemy.transform.position;
-            if (Distance.magnitude <= 3)
+            if (Distance.magnitude <= viewdistance)
                 res = true;
             return res;
         }
         //是否退出炮塔视野
-        public bool IsOnTriggerExit(GameObject turret, GameObject enemy)
+        public bool IsOnTriggerExit(GameObject turret, GameObject enemy, int viewdistance)
         {
             bool res = false;
             Vector3 Distance = turret.transform.position - enemy.transform.position;
-            if (Distance.magnitude > 3)
+            if (Distance.magnitude > viewdistance)
                 res = true;
             return res;
         }

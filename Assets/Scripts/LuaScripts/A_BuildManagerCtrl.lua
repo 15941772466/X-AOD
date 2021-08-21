@@ -155,7 +155,6 @@ function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
    --实例化炮塔类
    local TurretObj=A_Turret:New(GroundData[cubeName].preturret,SelectedTurret,Level)
    index = index + 1
-   print("炮塔存入位置：                    "..index)
    --存入炮塔列表
    A_TurretManager.DefenseList[index] = TurretObj
 end
