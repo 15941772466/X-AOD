@@ -36,9 +36,12 @@ local  UIobj=CSU.GameObject.Find("DefenseListUIForm(Clone)")
 
 --升级UI
 local UpgradeUI=nil
-
+--升级UI是否打开
+local IsOpenUI=false
+--中间变量
 local index = 0
-
+--当前操作的地块
+local cubeNameUI=nil
 
 --初始化监听函数
 ListenerList["DefenseA"]=function () SelectedTurret="DefenseA" end
@@ -57,10 +60,13 @@ function A_BuildManagerCtrl.Start(obj)
 
     --当前关卡信息
     Level=levelData[obj.tag]
+    --拿到升级UI
+    local father=CSU.GameObject.Find("GameUI")
+    UpgradeUI=CS.TFW.UnityHelper.FindTheChildNode(father,"UpgradeUI")
+    print("升级UI的名字：               "..UpgradeUI.name)
     --调用添加监听函数 
     this.AddListener(Level.turret)
-    --拿到升级UI
-    this.UpgradeUI=CSU.GameObject.Find("UpgradeUI")
+
 end
 
 --初始化所有地面位置为无炮塔，未升级
@@ -86,6 +92,10 @@ function A_BuildManagerCtrl.AddListener(levelDataTurret)
    for i,listner in pairs(TurretUIList) do
       listner.onClick:AddListener(ListenerList[listner.name])
    end
+   
+   --升级、拆除UI按钮监听
+   UpgradeUI:Find("Upgrade"):GetComponent("UnityEngine.UI.Button").onClick:AddListener(this.UpgradeTurret)
+   UpgradeUI:Find("Delete"):GetComponent("UnityEngine.UI.Button").onClick:AddListener(this.DeleteTurret)
    print("按钮事件监听添加成功")
 end
 
@@ -124,12 +134,12 @@ function A_BuildManagerCtrl.Update()
             --已经有炮塔
             elseif(GroundData[cubeName].preturret~=nil) then
                --如果点击的位置有塔、和选中的炮塔一样、升级UI已经出现，则隐藏
-               -- if SelectedTurret==GroundData[cubeName].preturrettype and UpgradeUI.activeInHierarchy then
-                  
-               -- else
+               if SelectedTurret==GroundData[cubeName].preturrettype and IsOpenUI==true then
+                  this.HideUpGradeUI()
+               else
                   --打开升级UI
                   this.ShowUpGradeUI(cubeName)
-               --end
+               end
             end
         end
    end
@@ -157,20 +167,60 @@ function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
    --实例化炮塔类
    local TurretObj=A_Turret:New(GroundData[cubeName].preturret,SelectedTurret,Level)
    index = index + 1
+   --记录该炮塔的索引
+   TurretObj.IndexSelf=index
    --存入炮塔列表
    A_TurretManager.DefenseList[index] = TurretObj
 end
 
 
+--------------------------------------升级UI的行为逻辑-------------------------------------------
 
+--打开升级UI
 function A_BuildManagerCtrl.ShowUpGradeUI(cubeName)
    --找到选中的地面
    local cube =CSU.GameObject.Find(cubeName)
    --获取升级UI要出现的位置的位置
    local UIposition=cube.transform.position
    --打开升级UI
-   -- this.UpgradeUI.SetActive(true)
+   UpgradeUI.gameObject:SetActive(true)
    --设置升级UI位置
-   tool:UpgradeUI_Up(UIposition,this.UpgradeUI)
-   -- this.UpgradeUI.transform.position=UIposition
+   tool:UpgradeUI_Up(UIposition,UpgradeUI)
+   --UI已经打开
+   IsOpenUI=true
+   --赋值被操作的地块
+   cubeNameUI=cubeName
+
+end
+--隐藏升级UI
+function A_BuildManagerCtrl.HideUpGradeUI()
+   UpgradeUI.gameObject:SetActive(false)
+   IsOpenUI=false
+   --建造操作重置（即不会点一下UI，可以一直建塔）
+   SelectedTurret=nil
+end
+--炮塔升级按钮
+function A_BuildManagerCtrl.UpgradeTurret()
+   print("升级！！！！！！！！")
+   --建造操作重置（即不会点一下UI，可以一直建塔）
+   SelectedTurret=nil
+end
+
+
+--炮塔拆除按钮
+function A_BuildManagerCtrl.DeleteTurret()
+   print("拆除")
+   --停止刷新其Update
+   tool:DestroyNow(GroundData[cubeNameUI].preturret,0)
+   --关闭升级UI
+   this.HideUpGradeUI()
+   for i,v in pairs(A_TurretManager.DefenseList) do
+      if(v.gameObject==GroundData[cubeNameUI].preturret) then
+         A_TurretManager:Remove(v)
+      end
+   end
+   --地块复原
+   GroundData[cubeNameUI].preturret=nil
+   GroundData[cubeNameUI].preturrettype=nil
+   --删除炮塔物体
 end

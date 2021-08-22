@@ -1,17 +1,17 @@
 --建造管理类
 
 ----------------引用脚本-----------------------
-require("TestSysDefine")
-require("A_LevelSettings")
-require("A_TurretManager")
+-- require("TestSysDefine")
+-- require("A_LevelSettings")
+-- require("A_TurretManager")
 
 --模拟类
 A_BuildManagerCtrl={}
 local this=A_BuildManagerCtrl
 
---调用DefenseManager脚本
-local DTManager=CS.PFW.DefenseManager
-local abDTObj=DTManager.GetInstance()
+-- --调用DefenseManager脚本
+-- local DTManager=CS.PFW.DefenseManager
+-- local abDTObj=DTManager.GetInstance()
 --调用游戏工具类
 local tool=GameTool.GetInstance()
 -------------------建造信息----------------------------
@@ -30,10 +30,12 @@ local GroundDatatmp={}
 local ListenerList={}
 --被选中的炮塔
 local SelectedTurret=nil
---被点击的地面
-local cubeName
+
 --找到Canvas
 local  UIobj=CSU.GameObject.Find("DefenseListUIForm(Clone)")
+
+--升级UI
+local UpgradeUI=nil
 
 local index = 0
 
@@ -46,31 +48,33 @@ ListenerList["DefenseD"]=function () SelectedTurret="DefenseD" end
 
 function A_BuildManagerCtrl.Awake()
    --记录地面信息
-   ReadGround()
+   this.ReadGround()
 end
 
 function A_BuildManagerCtrl.Start(obj)
     print("开始处理建造逻辑")    
+    print("A_BuildManagerCtrl：56--------------------炮塔建造逻辑")
+
     --当前关卡信息
     Level=levelData[obj.tag]
     --调用添加监听函数 
-    AddListener(Level.turret)
-
+    this.AddListener(Level.turret)
+    --拿到升级UI
+    this.UpgradeUI=CSU.GameObject.Find("UpgradeUI")
 end
 
 --初始化所有地面位置为无炮塔，未升级
-function ReadGround()
+function A_BuildManagerCtrl.ReadGround()
    local ground=CSU.GameObject.Find("CubeManager")
    GroundDatatmp=tool:GetChildName(ground,GroundDatatmp)
    for i,child in pairs(GroundDatatmp) do
-     
       GroundData[child]={preturret=nil,preturrettype=nil,isUpgraded=false}
    end
 end
 
 
 --根据实际UI中炮塔的数量与类型添加监听事件
-function AddListener(levelDataTurret)
+function A_BuildManagerCtrl.AddListener(levelDataTurret)
 
    --根据关卡数据检索UI上对应的按钮
    for i,child in pairs(levelDataTurret) do
@@ -101,9 +105,8 @@ function A_BuildManagerCtrl.Update()
         --如果点击了砖块
         if(isCollider==true and HitInfro.collider.gameObject.layer==8) then
             --找到点击的砖块名字
-            cubeName=HitInfro.collider.gameObject.name
-            print("点击到砖块："..cubeName)
-
+            local cubeName=HitInfro.collider.gameObject.name
+            print("点击了砖块： "..cubeName)
             --如果此砖块上无炮塔，且已经选择了一个炮塔
             if(GroundData[cubeName].preturret==nil and SelectedTurret~=nil) then
                
@@ -120,7 +123,13 @@ function A_BuildManagerCtrl.Update()
                print("选择的炮塔："..SelectedTurret.."   价格："..Level.turretAttributes[SelectedTurret].cost.."剩余金币"..Money)
             --已经有炮塔
             elseif(GroundData[cubeName].preturret~=nil) then
-
+               --如果点击的位置有塔、和选中的炮塔一样、升级UI已经出现，则隐藏
+               if SelectedTurret==GroundData[cubeName].preturrettype and this.UpgradeUI.activeInHierarchy then
+                  this.HideUpGradeUI()
+               else
+                  --打开升级UI
+                  this.ShowUpGradeUI(cubeName)
+               end
             end
         end
    end
@@ -138,7 +147,7 @@ function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
    --获取炮塔要生成的位置
    local position=cube.transform.position
    --加载炮塔预制体
-   local tmpObj=abDTObj:PrefabAB(SelectedTurret)
+   local tmpObj=A_CtrlMgr.abDTObj:PrefabAB(SelectedTurret)
    --生成并记录
    GroundData[cubeName].preturret=CSU.GameObject.Instantiate(tmpObj)
    --炮塔上移
@@ -150,9 +159,23 @@ function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
    index = index + 1
    --存入炮塔列表
    A_TurretManager.DefenseList[index] = TurretObj
-   
-
 end
 
 
 
+function A_BuildManagerCtrl.ShowUpGradeUI(cubeName)
+   --找到选中的地面
+   local cube =CSU.GameObject.Find(cubeName)
+   --获取升级UI要出现的位置的位置
+   local UIposition=cube.transform.position
+   --打开升级UI
+   this.UpgradeUI.SetActive(true)
+   --设置升级UI位置
+   tool:UpgradeUI_Up(UIposition,this.UpgradeUI)
+   -- this.UpgradeUI.transform.position=UIposition
+end
+
+function A_BuildManagerCtrl.HideUpGradeUI()
+   tool:WaitSeconds(1.2)
+   this.UpgradeUI.SetActive(false)
+end

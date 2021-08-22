@@ -121,6 +121,8 @@ namespace GameTools {
 
             line.SetPositions(new Vector3[] { Start.position, end });
         }
+
+
         //---------------------------------------敌人管理---------------------------------
 
         //血条UI上移
@@ -157,9 +159,9 @@ namespace GameTools {
         }
 
         //--------------------------------------------------游戏UI控制--------------------------------
-        public void UpgradeUI_Up(Vector3 turretpos,GameObject ui)
+        public void UpgradeUI_Up(Vector3 turretpos,Transform ui)
         {
-            ui.transform.position = new Vector3(turretpos.x, ui.transform.position.y, turretpos.z);
+            ui.position = new Vector3(turretpos.x, ui.position.y, turretpos.z);
         }
     }
 }

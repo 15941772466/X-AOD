@@ -41,8 +41,11 @@ function DefeatUIForm.InitView()
 
 end
 
-function DefeatUIForm.ProcessRestart()  --选择关卡
+function DefeatUIForm.ProcessRestart()  --重新开始
     print("执行到 ProcessRestart")  
+    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_One");
+
+    uiManager:CloseUIForms("DefeatUIForm")
     --找到当前场景游戏开始节点
     --？？？
 end
@@ -50,8 +53,7 @@ end
 
 function DefeatUIForm.ProcessBackHallBtn()
     print("执行到 ProcessBackHallBtn")  
-    uiManager:CloseUIForms("DefeatUIForm")
-    uiManager:ShowUIForms("HeroInfoUIForm")
-    uiManager:ShowUIForms("MainCityUIForm")
+    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("GameHall");
+   
 end
 
