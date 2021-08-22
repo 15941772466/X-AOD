@@ -110,12 +110,12 @@ function A_EnemySpawnerCtrl.Start(obj)
    EnemyCount=Level.AllenemyCounts
    --读取敌人种类进行加载 并读取波次数量 
    local tempcount=0
-   CSU.Object.Instantiate(A_CtrlMgr.abDTObj:PrefabAB("DefenseA"))
-   -- for i,wave in pairs(Level.enemy) do
+   -- CSU.Object.Instantiate(A_CtrlMgr.abDTObj:PrefabAB("DefenseA"))
+   for i,wave in pairs(Level.enemy) do
    --    tempObj[wave.type]=A_CtrlMgr.abDTObj:PrefabAB(wave.type)
    --    print("ggggggggggggggggggggggggggggggggg"..tempObj[wave.type])
-   --    tempcount=tempcount+1
-   -- end
+       tempcount=tempcount+1
+   end
    --波次数量
    WaveCount=tempcount
    tempSlider=A_CtrlMgr.abDTObj:PrefabAB("Hp")
@@ -171,8 +171,8 @@ function A_EnemySpawnerCtrl.Wave(wave)
 end
 --生成敌人
 function A_EnemySpawnerCtrl.ShengCheng(wave)
-   local enemyObj=CSU.Object.Instantiate(tempObj[wave.type],EnemyPosition,CSU.Quaternion.identity)
-   local enemySliderCanvas=CSU.Object.Instantiate(tempSlider,EnemyPosition,CSU.Quaternion.identity)
+   local enemyObj=CSU.Object.Instantiate(A_CtrlMgr.abDTObj:PrefabAB(wave.type),EnemyPosition,CSU.Quaternion.identity)
+   local enemySliderCanvas=CSU.Object.Instantiate(A_CtrlMgr.abDTObj:PrefabAB("Hp"),EnemyPosition,CSU.Quaternion.identity)
    --存入全局敌人列表
    table.insert(this.EnemyListSpawnered,enemyObj)
    --实例化敌人行为类, 传入对应血条UI，总血量，初始化当前血量,速度

@@ -24,10 +24,12 @@ function ResUIForm.Start(obj)
 end
 
 function ResUIForm.InitView()   
-   --查找UI中登录按钮
-   this.ResBtn=transform:Find("Image/ResButton")
-   this.ResBtn=this.ResBtn:GetComponent("UnityEngine.UI.Button") 
+   --查找UI中注册按钮
+   this.ResBtn=transform:Find("Image/ResButton"):GetComponent("UnityEngine.UI.Button") 
    this.ResBtn.onClick:AddListener(this.ProcessResBtn)
+
+   this.CloseBtnBtn=transform:Find("Image/CloseBtn"):GetComponent("UnityEngine.UI.Button") 
+   this.CloseBtnBtn.onClick:AddListener(this.ProcessCloseBtn)
 end
 
 function ResUIForm.ProcessResBtn()
@@ -46,5 +48,9 @@ function ResUIForm.ProcessResBtn()
     else 
       print("注册失败lua")
     end
+   uiManager:CloseUIForms("ResUIForm")
+end
+
+function ResUIForm.ProcessCloseBtn()
    uiManager:CloseUIForms("ResUIForm")
 end
