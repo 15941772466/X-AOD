@@ -9,9 +9,9 @@
 A_BuildManagerCtrl={}
 local this=A_BuildManagerCtrl
 
---调用DefenseManager脚本
-local DTManager=CS.PFW.DefenseManager
-local abDTObj=DTManager.GetInstance()
+-- --调用DefenseManager脚本
+-- local DTManager=CS.PFW.DefenseManager
+-- local abDTObj=DTManager.GetInstance()
 --调用游戏工具类
 local tool=GameTool.GetInstance()
 -------------------建造信息----------------------------
@@ -53,6 +53,8 @@ end
 
 function A_BuildManagerCtrl.Start(obj)
     print("开始处理建造逻辑")    
+    print("A_BuildManagerCtrl：56--------------------炮塔建造逻辑")
+
     --当前关卡信息
     Level=levelData[obj.tag]
     --调用添加监听函数 
@@ -104,7 +106,7 @@ function A_BuildManagerCtrl.Update()
         if(isCollider==true and HitInfro.collider.gameObject.layer==8) then
             --找到点击的砖块名字
             local cubeName=HitInfro.collider.gameObject.name
-
+            print("点击了砖块： "..cubeName)
             --如果此砖块上无炮塔，且已经选择了一个炮塔
             if(GroundData[cubeName].preturret==nil and SelectedTurret~=nil) then
                
@@ -145,7 +147,7 @@ function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
    --获取炮塔要生成的位置
    local position=cube.transform.position
    --加载炮塔预制体
-   local tmpObj=abDTObj:PrefabAB(SelectedTurret)
+   local tmpObj=A_CtrlMgr.abDTObj:PrefabAB(SelectedTurret)
    --生成并记录
    GroundData[cubeName].preturret=CSU.GameObject.Instantiate(tmpObj)
    --炮塔上移

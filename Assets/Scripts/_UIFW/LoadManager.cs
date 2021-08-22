@@ -54,6 +54,7 @@ namespace UIFW
                 yield return new WaitForEndOfFrame();
                 percent.GetComponent<Text>().text = i.ToString() + "%";
             }
+            //yield return null;
             acOp.allowSceneActivation = true;
             _GoLoadUIForm.SetActive(false);
             percent.GetComponent<Text>().text = "0%";

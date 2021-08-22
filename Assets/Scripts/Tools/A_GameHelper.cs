@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -138,7 +139,7 @@ namespace GameTools {
             return res;
         }
         //延时删除物体
-        public void DestroyNow(GameObject obj,int wait)
+        public void DestroyNow(GameObject obj,float wait)
         {
             Destroy(obj, wait);
         }
@@ -147,6 +148,12 @@ namespace GameTools {
         public void DestroyEnemy(GameObject enemy)
         {
             Destroy(enemy);
+        }
+        //禁用组件
+        public void CloseNavMesh(GameObject enemy)
+        {
+            Debug.Log("guanbi1");
+            enemy.GetComponent<NavMeshAgent>().enabled = false;
         }
 
         //--------------------------------------------------游戏UI控制--------------------------------

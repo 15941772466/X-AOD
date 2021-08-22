@@ -32,8 +32,8 @@ local tool=GameTool.GetInstance()
 
 ----------------关于敌人的数据等------------------
 --拿到敌人加载的cs脚本
-local DTManager=CS.PFW.DefenseManager
-local abDTObj=DTManager.GetInstance()
+-- local DTManager=CS.PFW.DefenseManager
+-- local abDTObj=DTManager.GetInstance()
 --拿到敌人数据的实例
 local levelData=A_LevelSettings.GetInstance()
 --敌人列表
@@ -93,6 +93,7 @@ function A_EnemySpawnerCtrl.Awake()
 end
 
 function A_EnemySpawnerCtrl.Start(obj)
+   print("A_EnemySpawnerCtrl96：--------------------敌人生成逻辑")
    WaveCount=0
    --获取当前关卡
    Level=levelData[obj.tag]
@@ -109,13 +110,15 @@ function A_EnemySpawnerCtrl.Start(obj)
    EnemyCount=Level.AllenemyCounts
    --读取敌人种类进行加载 并读取波次数量 
    local tempcount=0
+   -- CSU.Object.Instantiate(A_CtrlMgr.abDTObj:PrefabAB("DefenseA"))
    for i,wave in pairs(Level.enemy) do
-      tempObj[wave.type]=abDTObj:PrefabAB(wave.type)
-      tempcount=tempcount+1
+   --    tempObj[wave.type]=A_CtrlMgr.abDTObj:PrefabAB(wave.type)
+   --    print("ggggggggggggggggggggggggggggggggg"..tempObj[wave.type])
+       tempcount=tempcount+1
    end
    --波次数量
    WaveCount=tempcount
-   tempSlider=abDTObj:PrefabAB("Hp")
+   tempSlider=A_CtrlMgr.abDTObj:PrefabAB("Hp")
    --按波数生成敌人
    --this.enemySpawner(Level.enemy)
    --成功加载完所有敌人并全部被消灭，游戏胜利
@@ -144,7 +147,7 @@ function A_EnemySpawnerCtrl.Wave(wave)
    if(EnemycountThisWave<wave.count) then
       --等待生成间隔
       enemy_timer=enemy_timer+CSU.Time.deltaTime
-      if(enemy_timer>=EnemyRateTime) then
+       if(enemy_timer>=EnemyRateTime) then
          --执行生成函数
          this.ShengCheng(wave)
          enemy_timer=0
@@ -168,8 +171,8 @@ function A_EnemySpawnerCtrl.Wave(wave)
 end
 --生成敌人
 function A_EnemySpawnerCtrl.ShengCheng(wave)
-   local enemyObj=CSU.Object.Instantiate(tempObj[wave.type],EnemyPosition,CSU.Quaternion.identity)
-   local enemySliderCanvas=CSU.Object.Instantiate(tempSlider,EnemyPosition,CSU.Quaternion.identity)
+   local enemyObj=CSU.Object.Instantiate(A_CtrlMgr.abDTObj:PrefabAB(wave.type),EnemyPosition,CSU.Quaternion.identity)
+   local enemySliderCanvas=CSU.Object.Instantiate(A_CtrlMgr.abDTObj:PrefabAB("Hp"),EnemyPosition,CSU.Quaternion.identity)
    --存入全局敌人列表
    table.insert(this.EnemyListSpawnered,enemyObj)
    --实例化敌人行为类, 传入对应血条UI，总血量，初始化当前血量,速度
