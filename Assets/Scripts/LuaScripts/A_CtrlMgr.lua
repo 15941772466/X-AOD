@@ -56,6 +56,7 @@ function A_CtrlMgr.ObserverOpen()
 	ObserverOne=Z_ConcreteObserver:new()
 	--添加观察者
 	this.Money:add(ObserverOne)
+	print("观察者模式添加成功")
 end
 
 

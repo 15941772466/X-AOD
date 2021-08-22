@@ -12,12 +12,12 @@ public class A_GameStart : MonoBehaviour
     {
         //StartTipUI.SetActive(true);
         // A_LuaStart.GetInstance().DoString("require 'A_StartGame'");
-        Invoke("Game_start", 0.5f);
+        Invoke("Game_start", 5f);
     }
 
     void Game_start()
     {
         LuaHelper.GetInstance().DoString("require 'A_StartGame'");
-        StartTipUI.SetActive(false);
+      
     }
 }

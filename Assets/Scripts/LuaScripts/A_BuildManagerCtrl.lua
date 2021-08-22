@@ -114,7 +114,8 @@ function A_BuildManagerCtrl.Update()
             print("点击了砖块： "..cubeName)
             --如果此砖块上无炮塔，且已经选择了一个炮塔
             if(GroundData[cubeName].preturret==nil and SelectedTurret~=nil) then
-               
+               print(A_CtrlMgr.Money.number)
+               print(Level.turretAttributes[SelectedTurret].cost)
                --检测金币余额
                if(A_CtrlMgr.Money.number>=Level.turretAttributes[SelectedTurret].cost) then
                   --扣钱qwq

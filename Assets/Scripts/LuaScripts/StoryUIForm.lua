@@ -44,9 +44,6 @@ function StoryUIForm.InitView()
     this.ContinueBtn=this.ContinueBtn:GetComponent("UnityEngine.UI.Button") --返回Button类型
     this.ContinueBtn.onClick:AddListener(this.ProcessContinueBtn)
 
-    this.CloseBtn=transform:Find("BtnClose")--返回transform
-    this.CloseBtn=this.CloseBtn:GetComponent("UnityEngine.UI.Button") --返回Button类型
-    this.CloseBtn.onClick:AddListener(this.ProcessCloseBtn)
 end
 
 function StoryUIForm.ProcessContinueBtn()
@@ -55,11 +52,4 @@ function StoryUIForm.ProcessContinueBtn()
     --打开窗体
     uiManager:ShowUIForms("MainCityUIForm")
     uiManager:ShowUIForms("HeroInfoUIForm")
- end
-
- function StoryUIForm.ProcessCloseBtn()
-    --加载AB包
-    print("执行到 ProcessCloseBtn")
-    --打开窗体
-    uiManager:ShowUIForms("LogonUIForm",true)
  end
