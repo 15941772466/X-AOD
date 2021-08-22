@@ -39,7 +39,9 @@ Level=nil,
 --中间参数
 index=0,
 --激光攻击方式的激光
-LaserRenderer=nil
+LaserRenderer=nil,
+--自身在表中的索引
+IndexSelf=nil
 }
 A_Turret.__index = A_Turret
 
@@ -82,7 +84,10 @@ function A_Turret:New(Obj,turretType,level)
    return temp
 end
 
+--点击升级按钮后，对炮塔的一些数据进行修改
+function A_Turret.UpdateData()
 
+end
 
 function A_Turret:Update()
    --刷新视野

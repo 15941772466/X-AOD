@@ -1,9 +1,9 @@
 --Enemy1的控制类
 
---获取怪物数据
-require("A_LevelSettings")
---游戏结算脚本
-require("A_SettlementCtrl")
+-- --获取怪物数据
+-- require("A_LevelSettings")
+-- --游戏结算脚本
+-- require("A_SettlementCtrl")
 
 --设置单例
 A_Enemy={
@@ -26,21 +26,30 @@ A_Enemy={
    --目标位置
    GoalPosition=nil,
    --自身索引
-   IndexSelf=nil
+   IndexSelf=nil,
+   --动画状态机
+   EnemyAnimator=nil,
 }
 
 A_Enemy.__index=A_Enemy
-function A_Enemy:New(Obj)
+function A_Enemy:New(Obj,HpCanvas,HpSetting,speed)
    local temp = {}
    setmetatable(temp,A_Enemy)
    --拿到物体实例
    temp.gameObject=Obj
    --拿到血条UI
-   temp.Canvas=Obj:GetComponent("Enemy"):SendCanvasToLua()
-   --找到目标位置并设置
+   temp.Canvas=HpCanvas
+   --拿到血量
+   temp.TotalHp=HpSetting
+   temp.Hp=HpSetting
+   --目标位置
    temp.GoalPosition=CSU.GameObject.Find("EndPosition").transform.position
+   --设置移动速度
+   Obj:GetComponent(typeof(CSU.AI.NavMeshAgent)).speed=speed
+   --找到目标位置并设置
    Obj:GetComponent(typeof(CSU.AI.NavMeshAgent)).destination=temp.GoalPosition
-  
+   --拿到动画状态机
+   temp.EnemyAnimator=temp.gameObject:GetComponent(typeof(CSU.Animator))
    return temp
 end
 
@@ -49,46 +58,45 @@ end
 
 function A_Enemy:Update()
   --保持血条跟随
-  --HpSlider.position=EnemyObj.position
-  
-  self.Canvas.transform.position=self.gameObject.transform.position
-  self.tool:SliderUp(self.Canvas)
-  self.Hp=self.gameObject:GetComponent("Enemy"):SendCurrentHpToLua()
-
-  --没血了，执行死亡
-  if(self.Hp~=nil and self.Hp<=0) then
-     self:Die()
+  if(self.gameObject~=nil) then
+     self.Canvas.transform.position=self.gameObject.transform.position
+     self.tool:SliderUp(self.Canvas)
+     --如果到达目的地，游戏失败
+     if(self.tool:IsFail(self.gameObject,self.GoalPosition)) then
+        A_SettlementCtrl.GetInstance():Failed()
+     end
   end
 end
 
---脚本销毁
-function A_Enemy.OnDestroy()
-
-end
 
 
---收到伤害，被子弹所调用
-function A_Enemy.TakeDamage(obj,damage)
+--受到伤害，被子弹所调用
+function A_Enemy:Takedamage(damage)
    --扣血
-   Hp=Hp-damage
+   self.Hp=self.Hp-damage
    --更改血条显示
-   -- local HpSlider=obj.transform:Find("Hp/HpSlider").gameObject:GetComponent("UnityEngine.UI.Slider")
-   -- HpSlider.value=Hp/TotalHp
+   local HpSlider=self.Canvas.transform:Find("HpSlider"):GetComponent("UnityEngine.UI.Slider")
+   HpSlider.value=self.Hp/self.TotalHp
    --血量为0，敌人死亡
-   if(Hp<=0) then
-   	 this.Die()
+   if(self.Hp<=0) then
+   	 self:Die()
    end
 end
 
---到达终点，战败
-function A_Enemy.ReachDestination()
-    
-end
+
 
 --敌人死亡
 function A_Enemy:Die()
-   print("敌人死亡")
+   --在全局敌人列表中移除自身
+   A_EnemySpawnerCtrl:UpdateALLEnemySpawnered(self.gameObject)
+   --停止刷新其update
    A_EnemyManager:Remove(self)
-   self.gameObject:GetComponent("Enemy"):CloseEnemy()
-
+   --播放死亡动画
+   self.EnemyAnimator:SetBool("IsDeath",true)
+   --删除敌人物体和身上的血条
+   self.gameObject:GetComponent(typeof(CSU.AI.NavMeshAgent)).speed=0
+   self.tool:DestroyNow(self.gameObject,1.5)
+   self.tool:DestroyNow(self.Canvas,0)
+   --活着的敌人数量减一
+   A_EnemySpawnerCtrl.EnemyAlive=A_EnemySpawnerCtrl.EnemyAlive-1
 end

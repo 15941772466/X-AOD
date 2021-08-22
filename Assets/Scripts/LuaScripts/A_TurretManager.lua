@@ -11,7 +11,9 @@ function A_TurretManager.Update()
       end
    end
 end
-
+function A_TurretManager:Remove(ClassObj)
+   A_TurretManager.DefenseList[ClassObj.IndexSelf]=nil
+end
 
 
 
