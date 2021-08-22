@@ -9,6 +9,8 @@ end
 
 -------------------第一关-------------------
 A_LevelSettings.Level_One={
+	--初始金币数
+	DefaultMoney=500,
 	--敌人波次信息
 	enemy={
 		{count=5,type="A_Enemy2",speed=0.66},
@@ -28,8 +30,8 @@ A_LevelSettings.Level_One={
 	},
 	--不同类型敌人的属性: 血量
 	enemyAttributes={
-		["A_Enemy1"]={Hp=300},
-		["A_Enemy2"]={Hp=200}
+		["A_Enemy1"]={Hp=300,getMoney=20},
+		["A_Enemy2"]={Hp=200,getMoney=30}
 	},
 	--同波次敌人生成间隔
 	EnemyRateTime=1.5,

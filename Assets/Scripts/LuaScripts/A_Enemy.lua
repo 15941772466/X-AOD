@@ -29,14 +29,18 @@ A_Enemy={
    IndexSelf=nil,
    --动画状态机
    EnemyAnimator=nil,
+   --死亡掉落钱数
+   GetMoney=nil
 }
 
 A_Enemy.__index=A_Enemy
-function A_Enemy:New(Obj,HpCanvas,HpSetting,speed)
+function A_Enemy:New(Obj,HpCanvas,HpSetting,speed,getMoney)
    local temp = {}
    setmetatable(temp,A_Enemy)
    --拿到物体实例
    temp.gameObject=Obj
+   --敌人类型
+   temp.GetMoney=getMoney
    --拿到血条UI
    temp.Canvas=HpCanvas
    --拿到血量
@@ -91,6 +95,8 @@ function A_Enemy:Die()
    A_EnemySpawnerCtrl:UpdateALLEnemySpawnered(self.gameObject)
    --停止刷新其update
    A_EnemyManager:Remove(self)
+   --加金币
+   A_BuildManagerCtrl.ChanageMoney(-self.GetMoney)
    --播放死亡动画
    self.EnemyAnimator:SetBool("IsDeath",true)
    --删除敌人物体和身上的血条

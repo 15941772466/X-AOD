@@ -1,9 +1,6 @@
 --建造管理类
 
-----------------引用脚本-----------------------
--- require("TestSysDefine")
--- require("A_LevelSettings")
--- require("A_TurretManager")
+
 
 --模拟类
 A_BuildManagerCtrl={}
@@ -15,8 +12,7 @@ local this=A_BuildManagerCtrl
 --调用游戏工具类
 local tool=GameTool.GetInstance()
 -------------------建造信息----------------------------
---玩家金币
-local Money=1500
+
 --获取关卡信息
 local levelData=A_LevelSettings.GetInstance()
 --当前关卡
@@ -56,17 +52,17 @@ end
 
 function A_BuildManagerCtrl.Start(obj)
     print("开始处理建造逻辑")    
-    print("A_BuildManagerCtrl：56--------------------炮塔建造逻辑")
-
     --当前关卡信息
     Level=levelData[obj.tag]
     --拿到升级UI
     local father=CSU.GameObject.Find("GameUI")
     UpgradeUI=CS.TFW.UnityHelper.FindTheChildNode(father,"UpgradeUI")
-    print("升级UI的名字：               "..UpgradeUI.name)
     --调用添加监听函数 
     this.AddListener(Level.turret)
-
+    
+    --初始化金币数并发出通知
+    A_CtrlMgr.Money.number=Level.DefaultMoney
+    A_CtrlMgr.Money:Notify()
 end
 
 --初始化所有地面位置为无炮塔，未升级
@@ -106,7 +102,6 @@ function A_BuildManagerCtrl.Update()
    --如果检测到鼠标点击且未点击到UI，执行炮塔建造
    local isover=tool:IsOverGameObject()
    --鼠标点击且不在UI上
-
    if(CSU.Input.GetMouseButtonDown(0) and isover==false) then
         --是否与地图产生碰撞
         local isCollider=tool:isCollider()
@@ -121,7 +116,7 @@ function A_BuildManagerCtrl.Update()
             if(GroundData[cubeName].preturret==nil and SelectedTurret~=nil) then
                
                --检测金币余额
-               if(Money>=Level.turretAttributes[SelectedTurret].cost) then
+               if(A_CtrlMgr.Money.number>=Level.turretAttributes[SelectedTurret].cost) then
                   --扣钱qwq
                   this.ChanageMoney(Level.turretAttributes[SelectedTurret].cost)
                   --建造炮塔
@@ -130,7 +125,7 @@ function A_BuildManagerCtrl.Update()
                   --没钱了你
                   print("没钱了！！")
                end
-               print("选择的炮塔："..SelectedTurret.."   价格："..Level.turretAttributes[SelectedTurret].cost.."剩余金币"..Money)
+               print("选择的炮塔："..SelectedTurret.."   价格："..Level.turretAttributes[SelectedTurret].cost.."剩余金币"..A_CtrlMgr.Money.number)
             --已经有炮塔
             elseif(GroundData[cubeName].preturret~=nil) then
                --如果点击的位置有塔、和选中的炮塔一样、升级UI已经出现，则隐藏
@@ -147,7 +142,8 @@ end
 
 --金币更改
 function A_BuildManagerCtrl.ChanageMoney(changeMoney)
-   Money=Money-changeMoney
+   A_CtrlMgr.Money.number=A_CtrlMgr.Money.number-changeMoney
+   A_CtrlMgr.Money:Notify()
 end
 
 --炮塔建造
@@ -205,9 +201,13 @@ end
 --炮塔升级按钮
 function A_BuildManagerCtrl.UpgradeTurret()
    --如果当前钱多于升级所需钱
-   if Money>=Level.turretAttributes[GroundData[cubeNameUI].preturrettype].UpgradeCost then
+   if A_CtrlMgr.Money.number>=Level.turretAttributes[GroundData[cubeNameUI].preturrettype].UpgradeCost and GroundData[cubeNameUI].isUpgraded==false then
+      --记录升级状态
+      GroundData[cubeNameUI].isUpgraded=true
       --打开升级后的Buff特效
       CS.TFW.UnityHelper.FindTheChildNode(GroundData[cubeNameUI].preturret,"Partical").gameObject:SetActive(true)
+      --扣钱
+      this.ChanageMoney(Level.turretAttributes[GroundData[cubeNameUI].preturrettype].UpgradeCost)
       --找到这个炮塔的类并调用刷新数据函数
       for i,v in pairs(A_TurretManager.DefenseList) do
          if(v.gameObject==GroundData[cubeNameUI].preturret) then
@@ -216,17 +216,21 @@ function A_BuildManagerCtrl.UpgradeTurret()
             break
          end
       end
-
+   elseif GroundData[cubeNameUI].isUpgraded==true then
+      print("不能再升级了")
    else
       print("没钱升级了！！！")
    end
    --建造操作重置（即不会点一下UI，就可以一直建塔）
    SelectedTurret=nil
 end
+
 --炮塔拆除按钮
 function A_BuildManagerCtrl.DeleteTurret()
    --删除炮塔物体
    tool:DestroyNow(GroundData[cubeNameUI].preturret,0)
+   --返还一半的金币
+   this.ChanageMoney(math.floor(-Level.turretAttributes[GroundData[cubeNameUI].preturrettype].cost/2))
    --关闭升级UI
    this.HideUpGradeUI()
    --停止刷新其Update
@@ -238,5 +242,6 @@ function A_BuildManagerCtrl.DeleteTurret()
    --地块复原
    GroundData[cubeNameUI].preturret=nil
    GroundData[cubeNameUI].preturrettype=nil
+   GroundData[cubeNameUI].isUpgraded=false
 end
 ---------------------------------------------------------------------------------

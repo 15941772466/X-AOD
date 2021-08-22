@@ -12,21 +12,27 @@ CtrlName={
 --     "DefenseListUIForm"
 -- }
 A_CtrlNames={
-    "A_BaseList",
-    "A_LevelSettings",
-    "A_SettlementCtrl",
-    "A_EnemySpawnerCtrl",           
-    "A_BuildManagerCtrl",
+    --观察者模式控制脚本
+    "Z_Observer",--观察者模式基类
+    "Z_ConcreteObserver",--观察者
+    "Z_ObservationPost",--被观察者
+    -- "Z_ObserverCtrl",--观察者模式控制
 
+    --游戏逻辑控制脚本
+    "A_BaseList",--封装List类
+    "A_LevelSettings",--关卡数据
+    "A_SettlementCtrl",--游戏结算
+    "A_EnemySpawnerCtrl",--敌人生成管理   
+    "A_BuildManagerCtrl",--炮塔建造管理
 }
 A_ViewNames={
-    "A_TurretManager",
-    "A_BulletManager",
-    "A_EnemyManager",
+    "A_TurretManager",--炮塔生命周期
+    "A_BulletManager",--子弹生命周期
+    "A_EnemyManager",--敌人生命周期
 
-    "A_Turret",
-    "A_BulletAB",
-    "A_Enemy",
+    "A_Turret",--炮塔行为类
+    "A_BulletAB",--子弹行为类
+    "A_Enemy",--敌人行为类
     
     "DefeatUIForm",
 }
