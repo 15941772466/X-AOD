@@ -196,24 +196,40 @@ end
 function A_BuildManagerCtrl.HideUpGradeUI()
    UpgradeUI.gameObject:SetActive(false)
    IsOpenUI=false
-   --建造操作重置（即不会点一下UI，可以一直建塔）
+   --建造操作重置（即不会点一下UI，就可以一直建塔）
    SelectedTurret=nil
 end
+
+
+----------------俩按钮的事件响应------------
 --炮塔升级按钮
 function A_BuildManagerCtrl.UpgradeTurret()
-   print("升级！！！！！！！！")
-   --建造操作重置（即不会点一下UI，可以一直建塔）
+   --如果当前钱多于升级所需钱
+   if Money>=Level.turretAttributes[GroundData[cubeNameUI].preturrettype].UpgradeCost then
+      --打开升级后的Buff特效
+      CS.TFW.UnityHelper.FindTheChildNode(GroundData[cubeNameUI].preturret,"Partical").gameObject:SetActive(true)
+      --找到这个炮塔的类并调用刷新数据函数
+      for i,v in pairs(A_TurretManager.DefenseList) do
+         if(v.gameObject==GroundData[cubeNameUI].preturret) then
+            --调用其刷新数据方法
+            v:UpdateData()
+            break
+         end
+      end
+
+   else
+      print("没钱升级了！！！")
+   end
+   --建造操作重置（即不会点一下UI，就可以一直建塔）
    SelectedTurret=nil
 end
-
-
 --炮塔拆除按钮
 function A_BuildManagerCtrl.DeleteTurret()
-   print("拆除")
-   --停止刷新其Update
+   --删除炮塔物体
    tool:DestroyNow(GroundData[cubeNameUI].preturret,0)
    --关闭升级UI
    this.HideUpGradeUI()
+   --停止刷新其Update
    for i,v in pairs(A_TurretManager.DefenseList) do
       if(v.gameObject==GroundData[cubeNameUI].preturret) then
          A_TurretManager:Remove(v)
@@ -222,5 +238,5 @@ function A_BuildManagerCtrl.DeleteTurret()
    --地块复原
    GroundData[cubeNameUI].preturret=nil
    GroundData[cubeNameUI].preturrettype=nil
-   --删除炮塔物体
 end
+---------------------------------------------------------------------------------
