@@ -85,8 +85,12 @@ function A_Turret:New(Obj,turretType,level)
 end
 
 --点击升级按钮后，对炮塔的一些数据进行修改
-function A_Turret.UpdateData()
-
+function A_Turret:UpdateData()
+   self.damage=self.Level.turretAttributes[self.TurretType].UpgradeAttributes.damage
+   self.BulletSpeed=self.Level.turretAttributes[self.TurretType].UpgradeAttributes.speed
+   self.attackRateTime=self.Level.turretAttributes[self.TurretType].UpgradeAttributes.BulletattackRateTime
+   self.Viewdistance=self.Level.turretAttributes[self.TurretType].UpgradeAttributes.ViewDistance
+   print("炮塔升级数据刷新成功")
 end
 
 function A_Turret:Update()

@@ -9,10 +9,12 @@ end
 
 -------------------第一关-------------------
 A_LevelSettings.Level_One={
-	   --敌人波次信息
-	   enemy={
+	--初始金币数
+	DefaultMoney=500,
+	--敌人波次信息
+	enemy={
+		{count=5,type="A_Enemy2",speed=0.66},
 		{count=5,type="A_Enemy1",speed=0.3},
-	    {count=5,type="A_Enemy1",speed=0.3},
 		{count=5,type="A_Enemy2",speed=0.6},
 		{count=5,type="A_Enemy1",speed=0.3}
 	},
@@ -20,15 +22,16 @@ A_LevelSettings.Level_One={
 	turret={
 		"DefenseA","DefenseB","DefenseC"
 	},
+	--炮塔的属性：     价格       升级价格      伤害       子弹类型         子弹速度     攻击频率             视野范围            升级后属性...
 	turretAttributes={
-		["DefenseA"]={cost=70,damage=30,Bullet="DeABullet",speed=5,BulletattackRateTime=2,ViewDistance=6},
-        ["DefenseB"]={cost=80,damage=10,Bullet="DeBBullet",speed=10,BulletattackRateTime=0.25,ViewDistance=3},
-        ["DefenseC"]={cost=90,damage=10,Bullet="DeCBullet",speed=10,BulletattackRateTime=30,ViewDistance=4}
+		["DefenseA"]={cost=70,UpgradeCost=50,damage=30,Bullet="DeABullet",speed=5,BulletattackRateTime=2,ViewDistance=6,UpgradeAttributes={damage=40,speed=7,BulletattackRateTime=1,ViewDistance=8}},
+		["DefenseB"]={cost=80,UpgradeCost=50,damage=10,Bullet="DeBBullet",speed=10,BulletattackRateTime=0.4,ViewDistance=3,UpgradeAttributes={damage=20,speed=12,BulletattackRateTime=0.25,ViewDistance=5}},
+		["DefenseC"]={cost=90,UpgradeCost=50,damage=10,Bullet="DeCBullet",speed=10,BulletattackRateTime=30,ViewDistance=4,UpgradeAttributes={damage=15,speed=12,BulletattackRateTime=20,ViewDistance=6}}
 	},
-	--不同类型敌人的属性
+	--不同类型敌人的属性: 血量
 	enemyAttributes={
-		["A_Enemy1"]={Hp=300},
-		["A_Enemy2"]={Hp=300}
+		["A_Enemy1"]={Hp=300,getMoney=20},
+		["A_Enemy2"]={Hp=200,getMoney=30}
 	},
 	--同波次敌人生成间隔
 	EnemyRateTime=1.5,
@@ -53,10 +56,11 @@ A_LevelSettings.Level_Two={
 	turret={
 		"DefenseA","DefenseB","DefenseC"
 	},
-	turretAttributes={
-		["DefenseA"]={cost=70,damage=30,Bullet="DeABullet",speed=5,BulletattackRateTime=2,ViewDistance=6},
-        ["DefenseB"]={cost=80,damage=10,Bullet="DeBBullet",speed=10,BulletattackRateTime=0.25,ViewDistance=3},
-        ["DefenseC"]={cost=90,damage=10,Bullet="DeCBullet",speed=10,BulletattackRateTime=30,ViewDistance=4}
+	--炮塔的属性：     价格       升级价格      伤害       子弹类型         子弹速度     攻击频率             视野范围            升级后属性...
+ 	turretAttributes={
+		["DefenseA"]={cost=70,UpgradeCost=50,damage=30,Bullet="DeABullet",speed=5,BulletattackRateTime=2,ViewDistance=6,UpgradeAttributes={damage=40,speed=7,BulletattackRateTime=1,ViewDistance=8}},
+        ["DefenseB"]={cost=80,UpgradeCost=50,damage=10,Bullet="DeBBullet",speed=10,BulletattackRateTime=0.4,ViewDistance=3,UpgradeAttributes={damage=20,speed=12,BulletattackRateTime=0.25,ViewDistance=5}},
+        ["DefenseC"]={cost=90,UpgradeCost=50,damage=10,Bullet="DeCBullet",speed=10,BulletattackRateTime=30,ViewDistance=4,UpgradeAttributes={damage=15,speed=12,BulletattackRateTime=20,ViewDistance=6}}
 	},
 	--不同类型敌人的属性
 	enemyAttributes={

@@ -1,10 +1,10 @@
-require("Observer")
+--require("Z_Observer")
 
 --被观察者类
-ObservationPost={}
+Z_ObservationPost={}
 
 
-function ObservationPost:new(_o)
+function Z_ObservationPost:new(_o)
    _o = _o  or {}
    setmetatable(_o,self)
    self.__index=self
@@ -12,10 +12,10 @@ function ObservationPost:new(_o)
 end
 
 --观察者列表 
-ObservationPost.ObserverList={}
+Z_ObservationPost.ObserverList={}
 
 --增加观察者
-function ObservationPost:add(_obs)
+function Z_ObservationPost:add(_obs)
     if self.ObserverList == nil then
         self.ObserverList={} 
     end
@@ -23,7 +23,7 @@ function ObservationPost:add(_obs)
 end
 
  --删除观察者
-function ObservationPost:delete(_obs)
+function Z_ObservationPost:delete(_obs)
     for k, v in pairs(self.ObserverList) do
 		if v == _obs then
 			table.remove(self.ObserverList,k)
@@ -33,11 +33,11 @@ function ObservationPost:delete(_obs)
 end
 
 --消息通知
-function ObservationPost:Notify()
+function Z_ObservationPost:Notify()
     for k,v in ipairs(self.ObserverList) do 
         local obs=self.ObserverList[k]
         if(k) then
-            obs:run()
+            obs:UpgradeCoinUI()
         end
     end
 end
