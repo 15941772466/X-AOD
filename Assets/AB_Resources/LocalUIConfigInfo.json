@@ -81,9 +81,15 @@
         "Value": "UIPrefabs/DefeatUIForm.prefab"
     },
 
-    {
-        "Key": "LoadUIForm",
-        "Value": "UIPrefabs/LoadUIForm.prefab"
-    }
+  {
+    "Key": "LoadUIForm",
+    "Value": "UIPrefabs/LoadUIForm.prefab"
+  },
+
+
+  {
+    "Key": "CountdownUIForm",
+    "Value": "UIPrefabs/CountdownUIForm.prefab"
+  }
 ]
 }

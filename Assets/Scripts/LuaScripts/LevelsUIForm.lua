@@ -72,6 +72,7 @@ function LevelsUIForm.ProcessLevel_Two()
     --解场景包
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
+
     Load_Manager:Load("Level_Two")
     
 end
@@ -84,6 +85,7 @@ function LevelsUIForm.ProcessLevel_Three()
     --解场景包
     uiManager:ShowUIForms("GameInfoUIForm")
     uiManager:ShowUIForms("DefenseListUIForm")
+
     Load_Manager:Load("Level_Three")
     
 end

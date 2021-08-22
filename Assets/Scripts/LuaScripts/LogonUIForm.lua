@@ -9,7 +9,7 @@ local UI_Manager=CS.UIFW.UIManager
 local uiManager=UI_Manager.GetInstance()
 
 -- 标题【welcome】
-local logonTitle="《救赎朋克》"
+local logonTitle="《赛博朋克3080》"
 
 local transform
 local gameobject

@@ -57,7 +57,14 @@ namespace UIFW
             //yield return null;
             acOp.allowSceneActivation = true;
             _GoLoadUIForm.SetActive(false);
+            UIManager.GetInstance().ShowUIForms("CountdownUIForm");
+            Invoke("CloseCountDown", 3.8f);
+           
             percent.GetComponent<Text>().text = "0%";
+        }
+        private void CloseCountDown()
+        {
+            UIManager.GetInstance().CloseUIForms("CountdownUIForm");
         }
     }
 }
