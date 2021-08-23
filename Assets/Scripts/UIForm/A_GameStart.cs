@@ -6,13 +6,11 @@ using XLua;
 
 public class A_GameStart : MonoBehaviour
 {
-    public GameObject StartTipUI;
     // Start is called before the first frame update
     void Start()
     {
-        //StartTipUI.SetActive(true);
         // A_LuaStart.GetInstance().DoString("require 'A_StartGame'");
-        Invoke("Game_start", 5f);
+        Invoke("Game_start", 4f);
     }
 
     void Game_start()

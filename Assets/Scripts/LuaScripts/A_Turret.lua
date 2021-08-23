@@ -38,10 +38,13 @@ Viewdistance=nil,
 Level=nil,
 --中间参数
 index=0,
+--自身在表中的索引
+IndexSelf=nil,
+
 --激光攻击方式的激光
 LaserRenderer=nil,
---自身在表中的索引
-IndexSelf=nil
+--激光攻击方式音频播放触发器
+IsPlay=nil
 }
 A_Turret.__index = A_Turret
 
@@ -67,7 +70,8 @@ function A_Turret:New(Obj,turretType,level)
    --炮塔开火位置
    temp.FirePosition=Obj.transform:Find("Head/FirePosition")   
    --对应bullet的预制体
-   temp.Bullet=temp.abDTObj:PrefabAB(level.turretAttributes[turretType].Bullet)
+   --temp.Bullet=temp.abDTObj:PrefabAB(level.turretAttributes[turretType].Bullet)
+   temp.Bullet=level.turretAttributes[turretType].Bullet
    --子弹的伤害
    temp.damage=level.turretAttributes[turretType].damage
    --子弹的速度
@@ -79,6 +83,7 @@ function A_Turret:New(Obj,turretType,level)
    --如果是激光塔，加载激光
    if(temp.TurretType=="DefenseC") then
       temp.LaserRenderer=Obj.transform:Find("Laser"):GetComponent(typeof(CSU.LineRenderer))
+      temp.IsPlay=false
    end
 
    return temp
@@ -127,8 +132,12 @@ function A_Turret:Update()
          end   
          --设置激光指向
          self.tool:SetPositons(self.LaserRenderer,self.FirePosition,self.ListFirst.transform)
-         -------------------------------又一次用到寻找所在类的方法，需要封装-------------------------------
-         -- self.ListFirst:Takedamage(self.attackRateTime*CSU.Time.deltaTime)
+         --播放音效
+         if self.IsPlay==false then
+            self.tool:PlayAudio(self.gameObject)
+            self.IsPlay=true
+         end
+         
          for i,v in pairs(A_EnemyManager.EnemySelfList) do
             if v.gameObject==self.ListFirst then
               v:Takedamage(self.attackRateTime*CSU.Time.deltaTime)
@@ -139,6 +148,10 @@ function A_Turret:Update()
    if(self.TurretType=="DefenseC" and self.ListFirst==nil) then
       --附近无敌人
       self.LaserRenderer.enabled=false 
+      if self.TurretType=="DefenseC" then
+         self.tool:CloseAudio(self.gameObject)
+         self.IsPlay=false
+      end
    end
 end
 
@@ -146,7 +159,9 @@ end
 function A_Turret:Attack()
 
    if(self.ListFirst~=nil ) then
-      local bullet=CSU.Object.Instantiate(self.Bullet,self.FirePosition.position,self.FirePosition.rotation)
+      --local bullet=CSU.Object.Instantiate(self.Bullet,self.FirePosition.position,self.FirePosition.rotation)
+      local bullet=A_CtrlMgr.PrefabPool:Get(self.Bullet)
+      bullet.transform.position=self.FirePosition.position
       --实例化子弹类
       local BulletObj=A_BulletAB:New(bullet,self.damage,self.BulletSpeed,self.ListFirst)
       self.index = self.index + 1
@@ -154,6 +169,9 @@ function A_Turret:Attack()
       BulletObj.IndexSelf=self.index
        --存入子弹列表
       A_BulletManager.Bulletlist[self.index] = BulletObj
+      --播放音效
+      -- self.gameObject:GetComponent("UnityEngine.AudioSource")
+      self.tool:PlayAudio(self.gameObject)
    end
 
 end

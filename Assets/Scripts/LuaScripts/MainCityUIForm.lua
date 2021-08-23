@@ -12,6 +12,9 @@ local uiManager=UI_Manager.GetInstance()
 local Lua_Helper=CS.LuaFramework.LuaHelper 
 local luaHelper=Lua_Helper.GetInstance()
 
+local Load_Manager=CS.UIFW.LoadManager.GetInstance()
+
+
 local transform
 local gameobject
 
@@ -47,6 +50,14 @@ function MainCityUIForm.InitView()
     this.CommuBtn=transform:Find("Btncommunication")--返回transform
     this.CommuBtn=this.CommuBtn:GetComponent("UnityEngine.UI.Button") --返回Button类型
     this.CommuBtn.onClick:AddListener(this.ProcessCommuBtn)
+
+    this.PlayCrazyBtn=transform:Find("PlayCrazy")--返回transform
+    this.PlayCrazyBtn=this.PlayCrazyBtn:GetComponent("UnityEngine.UI.Button") --返回Button类型
+    this.PlayCrazyBtn.onClick:AddListener(this.ProcessPlayCrazy)
+
+    this.PlayCopyBtn=transform:Find("PlayCopy")--返回transform
+    this.PlayCopyBtn=this.PlayCopyBtn:GetComponent("UnityEngine.UI.Button") --返回Button类型
+    this.PlayCopyBtn.onClick:AddListener(this.ProcessPlayCopy)
 end
 
 function MainCityUIForm.ProcessPlayNormal()
@@ -70,4 +81,18 @@ function MainCityUIForm.ProcessCommuBtn()
    
     print("执行到 ProcessCommuBtn")  
     uiManager:ShowUIForms("CommuUIForm")
+end
+
+function MainCityUIForm.ProcessPlayCrazy()
+   
+    uiManager:ShowUIForms("GameInfoUIForm")
+    uiManager:ShowUIForms("DefenseListUIForm")
+    Load_Manager:Load("Level_Crazy")
+end
+
+function MainCityUIForm.ProcessPlayCopy()
+   
+    uiManager:ShowUIForms("GameInfoUIForm")
+    uiManager:ShowUIForms("DefenseListUIForm")
+    Load_Manager:Load("Level_NoEnd")
 end

@@ -9,6 +9,7 @@ namespace GameTools {
     public class A_GameHelper : MonoBehaviour
     {
         RaycastHit Hit;
+        public bool IsDelete=false;
         //设置单例
         public static A_GameHelper _Instance;
         public static A_GameHelper GetInstance()
@@ -30,6 +31,26 @@ namespace GameTools {
                 namelist.Add(child.gameObject.name);
             }
             return namelist;
+        }
+        //设置物体位置
+        public void SetPosition(GameObject obj,GameObject target)
+        {
+            obj.transform.position = target.transform.position;
+        }
+        //invoke延时函数
+        public void WaitSeconds(float time)
+        {
+            IsDelete = false;
+            Invoke("invoke", 5f);
+        }
+        public void invoke()
+        {
+            IsDelete = true;
+        }
+        public bool GetIsDelete()
+        {
+            return IsDelete;
+            
         }
 
         //----------------------------------------炮塔建造管理--------------------------------
@@ -60,6 +81,12 @@ namespace GameTools {
         public Vector3 UpPosition(ref Vector3 position)
         {
             position.y = 0.2f;
+            return position;
+        }
+        //炮塔被选中时上移表现
+        public Vector3 UpTurret(ref Vector3 position)
+        {
+            position.y = 0.3f;
             return position;
         }
 
@@ -121,7 +148,17 @@ namespace GameTools {
 
             line.SetPositions(new Vector3[] { Start.position, end });
         }
-
+        //播放音效
+        public void PlayAudio(GameObject obj)
+        {
+            obj.GetComponent<AudioSource>().Play();
+        }
+        //关闭音效
+        public void CloseAudio(GameObject obj)
+        {
+            obj.GetComponent<AudioSource>().Stop();
+        }
+        
 
         //---------------------------------------敌人管理---------------------------------
 

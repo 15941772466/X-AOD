@@ -11,6 +11,8 @@ TagManager:
   - Enemy
   - Level_Two
   - Level_Three
+  - Level_Crazy
+  - Level_NoEnd
   layers:
   - Default
   - TransparentFX

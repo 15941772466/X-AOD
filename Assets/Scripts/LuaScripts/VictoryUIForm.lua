@@ -12,6 +12,8 @@ local uiManager=UI_Manager.GetInstance()
 local Lua_Helper=CS.LuaFramework.LuaHelper 
 local luaHelper=Lua_Helper.GetInstance()
 
+local Load_Manager=CS.UIFW.LoadManager.GetInstance()
+
 local transform
 local gameobject
 
@@ -44,8 +46,9 @@ end
 
 function VictoryUIForm.ProcessSelectLevel()  --再来一局
     print("执行到 ProcessSelectLevel")  
-     CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_One");
-     uiManager:CloseUIForms("VictoryUIForm")
+    local s =CS.UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
+    Load_Manager:Load(s)
+    uiManager:CloseUIForms("VictoryUIForm")
 end
 
 

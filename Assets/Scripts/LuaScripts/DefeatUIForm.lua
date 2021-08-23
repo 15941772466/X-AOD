@@ -12,6 +12,8 @@ local uiManager=UI_Manager.GetInstance()
 local Lua_Helper=CS.LuaFramework.LuaHelper 
 local luaHelper=Lua_Helper.GetInstance()
 
+local Load_Manager=CS.UIFW.LoadManager.GetInstance()
+
 local transform
 local gameobject
 
@@ -43,8 +45,8 @@ end
 
 function DefeatUIForm.ProcessRestart()  --重新开始
     print("执行到 ProcessRestart")  
-    CS.UnityEngine.SceneManagement.SceneManager.LoadScene("Level_One");
-
+    local s =CS.UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
+    Load_Manager:Load(s)
     uiManager:CloseUIForms("DefeatUIForm")
     --找到当前场景游戏开始节点
     --？？？

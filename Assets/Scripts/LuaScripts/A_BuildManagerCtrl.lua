@@ -155,7 +155,7 @@ function A_BuildManagerCtrl.BuildTurret(SelectedTurret,cubeName)
    local position=cube.transform.position
    --加载炮塔预制体
    local tmpObj=A_CtrlMgr.abDTObj:PrefabAB(SelectedTurret)
-   --生成并记录
+   -- --生成并记录
    GroundData[cubeName].preturret=CSU.GameObject.Instantiate(tmpObj)
    --炮塔上移
    GroundData[cubeName].preturret.transform.position=tool:UpPosition(position)
@@ -187,14 +187,14 @@ function A_BuildManagerCtrl.ShowUpGradeUI(cubeName)
    IsOpenUI=true
    --赋值被操作的地块
    cubeNameUI=cubeName
-
+   --位置升高
 end
 --隐藏升级UI
 function A_BuildManagerCtrl.HideUpGradeUI()
    UpgradeUI.gameObject:SetActive(false)
    IsOpenUI=false
    --建造操作重置（即不会点一下UI，就可以一直建塔）
-   SelectedTurret=nil
+   --SelectedTurret=nil
 end
 
 
@@ -222,6 +222,8 @@ function A_BuildManagerCtrl.UpgradeTurret()
    else
       print("没钱升级了！！！")
    end
+   --关闭升级UI
+   this.HideUpGradeUI()
    --建造操作重置（即不会点一下UI，就可以一直建塔）
    SelectedTurret=nil
 end
