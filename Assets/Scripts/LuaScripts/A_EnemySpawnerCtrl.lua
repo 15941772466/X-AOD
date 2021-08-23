@@ -93,7 +93,6 @@ function A_EnemySpawnerCtrl.Awake()
 end
 
 function A_EnemySpawnerCtrl.Start(obj)
-   print("A_EnemySpawnerCtrl96：--------------------敌人生成逻辑")
    WaveCount=0
    --获取当前关卡
    Level=levelData[obj.tag]
@@ -110,19 +109,12 @@ function A_EnemySpawnerCtrl.Start(obj)
    EnemyCount=Level.AllenemyCounts
    --读取敌人种类进行加载 并读取波次数量 
    local tempcount=0
-   -- CSU.Object.Instantiate(A_CtrlMgr.abDTObj:PrefabAB("DefenseA"))
    for i,wave in pairs(Level.enemy) do
-   --    tempObj[wave.type]=A_CtrlMgr.abDTObj:PrefabAB(wave.type)
-   --    print("ggggggggggggggggggggggggggggggggg"..tempObj[wave.type])
        tempcount=tempcount+1
    end
    --波次数量
    WaveCount=tempcount
    tempSlider=A_CtrlMgr.abDTObj:PrefabAB("Hp")
-   --按波数生成敌人
-   --this.enemySpawner(Level.enemy)
-   --成功加载完所有敌人并全部被消灭，游戏胜利
-   --A_SettlementCtrl.Win()
 
 end
 
@@ -175,9 +167,8 @@ function A_EnemySpawnerCtrl.ShengCheng(wave)
    local enemySliderCanvas=CSU.Object.Instantiate(A_CtrlMgr.abDTObj:PrefabAB("Hp"),EnemyPosition,CSU.Quaternion.identity)
    --存入全局敌人列表
    table.insert(this.EnemyListSpawnered,enemyObj)
-   --实例化敌人行为类, 传入对应血条UI，总血量，初始化当前血量,速度
-   local EnemyObj=A_Enemy:New(enemyObj,enemySliderCanvas,Level.enemyAttributes[wave.type].Hp,wave.speed)
-   
+   --实例化敌人行为类, 传入对应血条UI，总血量，初始化当前血量,速度,敌人类型
+   local EnemyObj=A_Enemy:New(enemyObj,enemySliderCanvas,Level.enemyAttributes[wave.type].Hp,wave.speed,Level.enemyAttributes[wave.type].getMoney)
    --存入行为类列表
    Index=Index+1
    --存入索引

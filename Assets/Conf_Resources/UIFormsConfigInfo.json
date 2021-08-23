@@ -50,6 +50,9 @@
 "Value":"uiprefabs|uiprefabs/uiprefabs.ab|DefeatUIForm.prefab"},
 
 {"Key":"LoadUIForm",
-"Value":"uiprefabs|uiprefabs/uiprefabs.ab|LoadUIForm.prefab"}
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|LoadUIForm.prefab"},
+
+{"Key":"CountdownUIForm",
+"Value":"uiprefabs|uiprefabs/uiprefabs.ab|CountdownUIForm.prefab"}
 ]
 }

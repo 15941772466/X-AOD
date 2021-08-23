@@ -129,8 +129,8 @@ namespace UIFW
                 {
                     yield return null;
                 }
-                LoadFormsToAllUIFormsCatch(uiFormName);//根据UI窗体的名称，加载到缓存集合中,且窗体已经加载到层级试图的相应位置（隐藏）
-                                                       //等待UI窗体对象被赋值
+                LoadFormsToAllUIFormsCatch(uiFormName); //根据UI窗体的名称，加载到缓存集合中,且窗体已经加载到层级试图的相应位置（隐藏）
+                                                        //等待UI窗体对象被赋值
                 while (_BaseUIForm == null)
                 {
                     yield return null;

@@ -2,18 +2,15 @@
 
 
 A_CtrlMgr={
-	-- DTManager=CS.PFW.DefenseManager,
-    abDTObj=CS.PFW.DefenseManager.GetInstance() 
+    abDTObj=CS.PFW.DefenseManager.GetInstance(), 
+	Money=nil,
 }
 local this=A_CtrlMgr
 
-local ctrlList={}
---调用DefenseManager脚本
-
 
 function A_CtrlMgr.Init()
-
-	print("A_CtrlMgr11:---------------------控制开启")
+ 
+ 	print("A_CtrlMgr11:---------------------控制开启")
 	-- A_EnemyManager.EnemySelfList={}
 	-- A_TurretManager.DefenseList={}
 	-- A_BulletManager.Bulletlist={}
@@ -41,8 +38,26 @@ function A_CtrlMgr.Init()
 	CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaUIForm(bulletManager)
 	local enemyManager=CSU.GameObject.Find("GameObjectManager").transform:Find("A_EnemyManager")
 	CS.LuaFramework.LuaHelper.GetInstance():AddBaseLuaUIForm(enemyManager)
-	print("A_CtrlMgr11:---------------------控制开启")
 
+    --建立金币观察者模式
+	this.ObserverOpen()
 end
 
 
+--声明观察者
+ObserverOne={}
+
+function A_CtrlMgr.ObserverOpen()
+	--创建对金币的观察者模式监听
+	--注册被观察者，声明金币
+	this.Money=Z_ObservationPost:new()
+	this.Money.number=nil
+	--注册观察者
+	ObserverOne=Z_ConcreteObserver:new()
+	--添加观察者
+	this.Money:add(ObserverOne)
+	print("观察者模式添加成功")
+end
+
+
+	

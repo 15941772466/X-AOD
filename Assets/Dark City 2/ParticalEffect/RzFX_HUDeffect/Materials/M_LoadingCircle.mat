@@ -72,7 +72,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Emission: 1
+    - _Emission: 1.2
     - _FadeIn: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -85,23 +85,23 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Radius: 0.79
-    - _Radius_inside: 0.5
-    - _RoadingLevel: 12
+    - _Radius: 0.8
+    - _Radius_inside: 0.68
+    - _RoadingLevel: 50
     - _ScaleUV_Main: 0
-    - _ShinnyAmount: 0.15
+    - _ShinnyAmount: 0.01
     - _ShinnySpeed: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.3
+    - _Speed: 0.6
     - _SrcBlend: 1
     - _UVSec: 0
     - _UsePercentage: 0
-    - _Width: 0.7
+    - _Width: 1
     - _ZWrite: 1
     - _node_4134: 0.25
     - _node_9746: 0.158
     m_Colors:
-    - _Color: {r: 0.058823526, g: 0.6775358, b: 1, a: 1}
-    - _Color2: {r: 0.8540001, g: 0, b: 1, a: 1}
+    - _Color: {r: 0.028299509, g: 0.02647741, b: 0.8018868, a: 1}
+    - _Color2: {r: 0.9938173, g: 0, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

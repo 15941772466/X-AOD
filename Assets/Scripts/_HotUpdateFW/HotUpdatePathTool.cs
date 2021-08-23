@@ -18,7 +18,7 @@ namespace HotUpdateProcess
         public const string LUA_EDITOR_PATH = "/Scripts/LuaScripts";  //lua编辑区
         public const string LUA_DEPLOY_PATH = "/LUA";                       //发布区
         
-        public const string SERVER_URL = "http://127.0.0.1:8080/UpdateAssets";  //HTTP 服务器链接地址
+        public const string SERVER_URL = "http://10.0.11.134:8088/UpdateAssets";  //HTTP 服务器链接地址
 
         public const string PROJECT_VERIFY_FILE = "/ProjectVerifyFile";  //校验文件
         
