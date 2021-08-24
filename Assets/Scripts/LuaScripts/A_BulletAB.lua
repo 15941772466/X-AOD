@@ -12,7 +12,9 @@ A_BulletAB={
   --子弹目标
   Target,
   --索引
-  IndexSelf=nil
+  IndexSelf=nil,
+  --销毁延迟时间
+  DieTimer=nil
 }
 
 A_BulletAB.__index = A_BulletAB
@@ -24,16 +26,25 @@ function A_BulletAB:New(Obj,damage,speed,target)
    temp.Target=target
    temp.Damage=damage
    temp.Speed=speed
+   temp.DieTimer=0
    return temp
 end
 
 function A_BulletAB:Update()
     --找到该敌人在全局敌人列表中的位置
-    local IsTargetAlive=self:UpdateTarget()
-    if(self.IsTargetAlive==false) then
-      print("敌人不存在  删除！")
-    	self:Die()
-    end
+   --  local IsTargetAlive=self:UpdateTarget()
+   --  print(IsTargetAlive)
+   --  if(self.IsTargetAlive==false) then
+   --    print("敌人不存在  删除！")
+   --  	self:Die()
+   --  end
+
+   --2秒后删除
+   self.DieTimer=self.DieTimer+CSU.Time.deltaTime
+   if self.DieTimer>=2 then
+      print("目标丢失  删除！")
+      self:Die()
+   end
    --  self.tool:KeepY(self.gameObject,self.Target)
     self.tool:LookAt(self.gameObject.transform,self.Target.transform.position)
     self.tool:Translate(self.gameObject,self.Speed*CSU.Time.deltaTime)

@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class BulletAB : MonoBehaviour
 {
-    public Transform Target;
-    public void Gettarget(Transform target)
-    {
-        if (target != null)
-            Target = target;
-    }
+    private float timer = 0;
 
-    public Transform GetTarget()
+    private void Update()
     {
-        return Target;
-    }
-
-    public void DestroyGameObject()
-    {
-        //Destroy(this.gameObject);
-        this.gameObject.SetActive(false);
+        timer = timer + Time.deltaTime;
+        if (timer >= 1.2f)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 }

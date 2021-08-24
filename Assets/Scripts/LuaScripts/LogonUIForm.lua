@@ -47,7 +47,7 @@ function LogonUIForm.ProcessOKBtn()
     --密码
     this.Inp_PW=transform:Find("BG/Inp_PW/Text"):GetComponent("UnityEngine.UI.Text")
 
-    --uiManager:ShowUIForms("StoryUIForm")
+   -- uiManager:ShowUIForms("StoryUIForm")
     --print(this.txtInp_ID.text)
     --判断打开窗体
     
