@@ -57,7 +57,7 @@ namespace Communication
             tmpmessage.MyName = name;
             if (!send.Connected)
             {
-                send.Connect("10.0.11.202", 33678);//服务器监听端口
+                send.Connect("192.168.192.143", 33678);//服务器监听端口
             }
 
             send.Send(tmpmessage.ToByteArray());
@@ -92,7 +92,7 @@ namespace Communication
             print(connect.Connected);
             if (!connect.Connected)
             {
-                connect.Connect("10.0.11.202", 33666);//服务器监听端口
+                connect.Connect("192.168.192.143", 33666);//服务器监听端口
             }
             connect.Send(tmpmessage.ToByteArray());
         }

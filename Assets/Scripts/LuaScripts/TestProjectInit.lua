@@ -22,7 +22,7 @@ function TestProjectInit.ImportAllCtrls()
         require(A_CtrlNames[i])
     end
     require("A_CtrlMgr")
-    print("导入控制层脚本成功")
+    --print("导入控制层脚本成功")
 end
 --导入游戏中所有的视图层脚本
 function TestProjectInit.ImportAllViews()
@@ -38,7 +38,7 @@ function TestProjectInit.ImportAllViews()
         package.loaded[A_ViewNames[i]] = nil
         require(A_ViewNames[i])
     end
-    print("导入视图层脚本成功")
+    --print("导入视图层脚本成功")
 end
 
 

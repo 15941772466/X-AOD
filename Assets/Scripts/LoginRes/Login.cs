@@ -13,9 +13,9 @@ namespace LoginRes
         public static bool LogIn(string id, string password)
         {
             print(id + "   " + password);
-            if (File.Exists(Application.dataPath + "/ID/" + id))
+            if (File.Exists(Application.streamingAssetsPath + "/ID/" + id))
             {
-                byte[] read = File.ReadAllBytes(Application.dataPath + "/ID/" + id);
+                byte[] read = File.ReadAllBytes(Application.streamingAssetsPath + "/ID/" + id);
                 Gamedata message = new Gamedata();
                 message.MergeFrom(read);
                 if (password == message.Password)

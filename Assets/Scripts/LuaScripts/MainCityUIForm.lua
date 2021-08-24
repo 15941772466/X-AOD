@@ -24,7 +24,7 @@ function MainCityUIForm.GetInstance()
  end
 
 function MainCityUIForm.Awake(obj)
-    print("------- MainCityUIForm.Awake  -----------");
+    
     gameobject=obj
     transform=obj.transform
 end
@@ -67,19 +67,19 @@ end
 
 function MainCityUIForm.ProcessMarket()
    
-    print("执行到 ProcessMarket")  
+    
     uiManager:ShowUIForms("MarketUIFrom")
 end
 
 function MainCityUIForm.ProcessEmallBtn()
    
-    print("执行到 ProcessEmallBtn")  
+    
     uiManager:ShowUIForms("NotificationUIForm")
 end
 
 function MainCityUIForm.ProcessCommuBtn()
    
-    print("执行到 ProcessCommuBtn")  
+    
     uiManager:ShowUIForms("CommuUIForm")
 end
 

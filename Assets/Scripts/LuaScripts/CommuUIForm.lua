@@ -21,7 +21,7 @@ function CommuUIForm.GetInstance()
  end
 
 function CommuUIForm.Awake(obj)
-    print("------- CommuUIForm.Awake  -----------");
+    
     gameobject=obj
     transform=obj.transform
 end
@@ -31,9 +31,6 @@ function CommuUIForm.Start(obj)
 end
 
 function CommuUIForm.Update(obj)
-    --showContent = CS.Communication.CommuManager.GetInstance():ShowText()
-    --print("lua"..showContent)
-    --transform:Find("Panel/Show/Text"):GetComponent("UnityEngine.UI.Text").text = showContent
     transform:Find("Panel/Show/Text"):GetComponent("UnityEngine.UI.Text").text =CS.Communication.CommuManager.showContent
 end
 function CommuUIForm.InitView()
@@ -41,17 +38,16 @@ function CommuUIForm.InitView()
     this.SendBtn=transform:Find("Panel/Send")--返回transform
     this.SendBtn=this.SendBtn:GetComponent("UnityEngine.UI.Button") --返回Button类型
     this.SendBtn.onClick:AddListener(this.ProcessSendBtn)
-    print("this.SendBtn")
+    
     this.CloseBtn=transform:Find("Panel/Close")--返回transform
     this.CloseBtn=this.CloseBtn:GetComponent("UnityEngine.UI.Button") --返回Button类型
     this.CloseBtn.onClick:AddListener(this.ProcessClose)
 end
 
 function CommuUIForm.ProcessSendBtn()
-    print("执行到 ProcessSendBtn")  --发送信息
+
     this.txtInput=transform:Find("Panel/InputField/Text"):GetComponent("UnityEngine.UI.Text")
     local content = this.txtInput.text
-    print(content)
     --cs
     CS.Communication.CommuManager.GetInstance():SendMes(content)
     
@@ -60,6 +56,6 @@ end
 
 function CommuUIForm.ProcessClose()
    
-    print("执行到 ProcessClose")  
+    
     uiManager:CloseUIForms("CommuUIForm")
 end

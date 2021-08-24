@@ -19,7 +19,7 @@ end
 --说明:
 --输入参数： obj 表示UI窗体对象。
 function HeroInfoUIForm.Awake(obj)
-    print("------- HeroInfoUIForm.Awake  -----------");
+ 
     gameobject=obj
     transform=obj.transform
 end
@@ -39,8 +39,7 @@ function HeroInfoUIForm.InitView()
 end
 
 function HeroInfoUIForm.ProcessBackBtn()
-   
-    print("执行到 ProcessBackBtn")
+
     --打开窗体
     uiManager:ShowUIForms("LogonUIForm")
     

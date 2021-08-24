@@ -740,8 +740,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b2a4dbcf7a46f469712ca63844d78a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enable: 1
-  WebDownload: 0
+  Enable: 0
+  WebDownload: 1
 --- !u!4 &1929103393
 Transform:
   m_ObjectHideFlags: 0
@@ -954,7 +954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1856558310338192, guid: 5d4a93433ed91c348ac0e676d535844a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224899671641664600, guid: 5d4a93433ed91c348ac0e676d535844a,
         type: 3}

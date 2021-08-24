@@ -28,7 +28,7 @@ function PrefabObjectPool:Get(ObjName)
 	--如果列表存有量为0，则新生成
 	if self.ListCount == 0 then
 		obj = GameObject.Instantiate(A_CtrlMgr.abDTObj:PrefabAB(ObjName))
-		print("池子里面没东西，新建：。。。。。。。。。。。。。。。")
+		--print("池子里面没东西，新建：。。。。。。。。。。。。。。。")
 	--列表种有对象
 	else
 		--如果找到目标对象，返回
@@ -41,13 +41,13 @@ function PrefabObjectPool:Get(ObjName)
 				table.remove(self.List,i)
 				--对象池数量-1
 				self.ListCount=self.ListCount-1
-				print("池子里面有，拿到了。。。。。。。。。。")
+				--print("池子里面有，拿到了。。。。。。。。。。")
 				return obj
 			end
 		end
 		--没找到，生成对象
 		obj=GameObject.Instantiate(A_CtrlMgr.abDTObj:PrefabAB(ObjName))
-		print("池子里没这个类型的，新建。。。。。。。。。。。。。。。。。")
+		--print("池子里没这个类型的，新建。。。。。。。。。。。。。。。。。")
 	end
 
 	obj:SetActive(true)
@@ -65,7 +65,7 @@ function PrefabObjectPool:GetEnemy(ObjName,StartPosition)
 	--如果列表存有量为0，则新生成
 	if self.ListCount == 0 then
 		obj = GameObject.Instantiate(A_CtrlMgr.abDTObj:PrefabAB(ObjName),StartPosition.transform.position,CSU.Quaternion.identity)
-		print("池子里面没东西，新建：。。。。。。。。。。。。。。。")
+		--print("池子里面没东西，新建：。。。。。。。。。。。。。。。")
 	--列表种有对象
 	else
 		--如果找到目标对象，返回
@@ -79,13 +79,13 @@ function PrefabObjectPool:GetEnemy(ObjName,StartPosition)
 				table.remove(self.List,i)
 				--对象池数量-1
 				self.ListCount=self.ListCount-1
-				print("池子里面有，拿到了。。。。。。。。。。")
+				--print("池子里面有，拿到了。。。。。。。。。。")
 				return obj
 			end
 		end
 		--没找到，生成对象
 		obj = GameObject.Instantiate(A_CtrlMgr.abDTObj:PrefabAB(ObjName),StartPosition.transform.position,CSU.Quaternion.identity)
-		print("池子里没这个类型的，新建。。。。。。。。。。。。。。。。。")
+		--print("池子里没这个类型的，新建。。。。。。。。。。。。。。。。。")
 	end
 
 	obj:SetActive(true)
@@ -103,7 +103,7 @@ function PrefabObjectPool:Put(obj)
 	self.ListCount=self.ListCount+1
 	--插入对象池
 	table.insert(self.List,obj)
-	print("回收成功。。。。。。。。。。。。。")
+	-- print("回收成功。。。。。。。。。。。。。")
 end
 --敌人回收
 function PrefabObjectPool:PutEnemy(obj)
@@ -115,7 +115,7 @@ function PrefabObjectPool:PutEnemy(obj)
 	self.ListCount=self.ListCount+1
 	--插入对象池
 	table.insert(self.List,obj)
-	print("回收成功。。。。。。。。。。。。。")
+	--print("回收成功。。。。。。。。。。。。。")
 end
 --敌人血条UI回收定制版PutUI
 function PrefabObjectPool:PutUI(obj)
@@ -127,7 +127,7 @@ function PrefabObjectPool:PutUI(obj)
 	self.ListCount=self.ListCount+1
 	--插入对象池
 	table.insert(self.List,obj)
-	print("回收成功。。。。。。。。。。。。。")
+	--print("回收成功。。。。。。。。。。。。。")
 end
 --炮塔回收PutTurret
 function PrefabObjectPool:PutTurret(obj)
@@ -139,7 +139,7 @@ function PrefabObjectPool:PutTurret(obj)
 	obj:SetActive(false)
 	--列表大小+1
 	self.ListCount=self.ListCount+1
-	print("回收成功。。。。。。。。。。。。。")
+	--print("回收成功。。。。。。。。。。。。。")
 end
 
 

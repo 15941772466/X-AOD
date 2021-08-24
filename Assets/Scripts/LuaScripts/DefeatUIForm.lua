@@ -23,7 +23,7 @@ function DefeatUIForm.GetInstance()
  end
 
 function DefeatUIForm.Awake(obj)
-    print("------- DefeatUIForm.Awake  -----------");
+    
     gameobject=obj
     transform=obj.transform
 end
@@ -44,7 +44,7 @@ function DefeatUIForm.InitView()
 end
 
 function DefeatUIForm.ProcessRestart()  --重新开始
-    print("执行到 ProcessRestart")  
+      
     local s =CS.UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
     Load_Manager:Load(s)
     uiManager:CloseUIForms("DefeatUIForm")
@@ -54,7 +54,7 @@ end
 
 
 function DefeatUIForm.ProcessBackHallBtn()
-    print("执行到 ProcessBackHallBtn")  
+  
     CS.UnityEngine.SceneManagement.SceneManager.LoadScene("GameHall");
    
 end

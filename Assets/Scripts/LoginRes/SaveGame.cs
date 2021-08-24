@@ -4,6 +4,7 @@ using UnityEngine;
 using XProgect;
 using Google.Protobuf;
 using System.IO;
+using System;
 
 namespace LoginRes
 {
@@ -26,12 +27,17 @@ namespace LoginRes
             try
             {
                 byte[] tem = gamedata.ToByteArray();
-                FileStream stream = File.Create(Application.dataPath + "/ID/" + id);
+                if (!Directory.Exists(Application.streamingAssetsPath + "/ID"))
+                {
+                    Directory.CreateDirectory(Application.streamingAssetsPath + "/ID");
+                }
+                FileStream stream = File.Create(Application.streamingAssetsPath + "/ID/" + id);
                 stream.Write(tem, 0, tem.Length);
                 print("注册成功");
             }
-            catch
+            catch (UnauthorizedAccessException e)
             {
+                print(Application.streamingAssetsPath + "/ID/" + id);
                 return false;
             }
             return true;
