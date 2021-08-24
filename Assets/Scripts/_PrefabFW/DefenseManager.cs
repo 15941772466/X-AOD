@@ -47,13 +47,14 @@ namespace PFW
                 //把所有的游戏预制体都加载出来
                 StartCoroutine(InitRootCanvasLoading(_DicDefensesPaths, DICgoPrefab));
             }
+#if UNITY_EDITOR
             else
             {
                 //本地资源
                 Local_InitDefensesPathData();
                 StartCoroutine(InitLocalLoading(_DicDefensesPaths));
             }
-            
+#endif
         }
 
         private IEnumerator InitRootCanvasLoading(Dictionary<string,string> DTPaths, DTComplete taskComplete)// 从JSON读好的路径，初始化加载游戏预制体
@@ -129,7 +130,7 @@ namespace PFW
                 _DicDefensesPaths = configMgr.JsonConfig;
             }
         }
-
+        #if UNITY_EDITOR
         private IEnumerator InitLocalLoading(Dictionary<string, string> DTPaths)// 从JSON读好的路径，初始化加载游戏预制体
         {
             foreach (var item in DTPaths)
@@ -143,6 +144,7 @@ namespace PFW
             }
             yield return null;
         }
+        #endif
     }
 }
 

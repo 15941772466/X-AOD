@@ -30,13 +30,28 @@ A_Enemy={
    --动画状态机
    EnemyAnimator=nil,
    --死亡掉落钱数
-   GetMoney=nil
+   GetMoney=nil,
+   --延时计数参数
+   IsDelete=nil,
+   --死亡等待时间
+   DeadRateTime=1.5,
+   --已经等待时间
+   DeadTimer=nil,
+   
+   --是否是无尽模式
+   IsNoEnd=nil
 }
 
 A_Enemy.__index=A_Enemy
 function A_Enemy:New(Obj,HpCanvas,HpSetting,speed,getMoney)
    local temp = {}
    setmetatable(temp,A_Enemy)
+   --工具类
+   temp.tool=GameTool.GetInstance()
+   --初始化等待时间
+   temp.DeadTimer=0
+   --初始化死亡判断参数
+   temp.IsDelete=false
    --拿到物体实例
    temp.gameObject=Obj
    --敌人类型
@@ -46,6 +61,8 @@ function A_Enemy:New(Obj,HpCanvas,HpSetting,speed,getMoney)
    --拿到血量
    temp.TotalHp=HpSetting
    temp.Hp=HpSetting
+   --默认不是无尽模式
+   temp.IsNoEnd=false
    --目标位置
    temp.GoalPosition=CSU.GameObject.Find("EndPosition").transform.position
    --设置移动速度
@@ -67,7 +84,19 @@ function A_Enemy:Update()
      self.tool:SliderUp(self.Canvas)
      --如果到达目的地，游戏失败
      if(self.tool:IsFail(self.gameObject,self.GoalPosition)) then
+        A_CtrlMgr.PrefabPool:Put(self.gameObject)
+        
         A_SettlementCtrl.GetInstance():Failed()
+     end
+
+     --检测是否到了删除时间
+     if(self.IsDelete==true) then
+         self.DeadTimer=self.DeadTimer+CSU.Time.deltaTime
+         if self.DeadTimer>=1 then
+            A_CtrlMgr.PrefabPool:PutEnemy(self.gameObject)
+            --停止刷新其update
+            A_EnemyManager:Remove(self)
+         end
      end
   end
 end
@@ -83,7 +112,9 @@ function A_Enemy:Takedamage(damage)
    HpSlider.value=self.Hp/self.TotalHp
    --血量为0，敌人死亡
    if(self.Hp<=0) then
-   	 self:Die()
+      if self.IsDelete==false then
+         self:Die()
+      end
    end
 end
 
@@ -93,16 +124,18 @@ end
 function A_Enemy:Die()
    --在全局敌人列表中移除自身
    A_EnemySpawnerCtrl:UpdateALLEnemySpawnered(self.gameObject)
-   --停止刷新其update
-   A_EnemyManager:Remove(self)
    --加金币
    A_BuildManagerCtrl.ChanageMoney(-self.GetMoney)
    --播放死亡动画
    self.EnemyAnimator:SetBool("IsDeath",true)
    --删除敌人物体和身上的血条
    self.gameObject:GetComponent(typeof(CSU.AI.NavMeshAgent)).speed=0
-   self.tool:DestroyNow(self.gameObject,1.5)
-   self.tool:DestroyNow(self.Canvas,0)
-   --活着的敌人数量减一
-   A_EnemySpawnerCtrl.EnemyAlive=A_EnemySpawnerCtrl.EnemyAlive-1
+   --回收血条UI
+   A_CtrlMgr.PrefabPool:PutUI(self.Canvas)
+   if self.IsNoEnd==false then
+      --活着的敌人数量减1
+      A_EnemySpawnerCtrl.EnemyAlive=A_EnemySpawnerCtrl.EnemyAlive-1
+   end
+   --触发死亡事件
+   self.IsDelete=true
 end

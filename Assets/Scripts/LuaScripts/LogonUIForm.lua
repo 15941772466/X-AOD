@@ -48,7 +48,7 @@ function LogonUIForm.ProcessOKBtn()
     this.Inp_PW=transform:Find("BG/Inp_PW/Text"):GetComponent("UnityEngine.UI.Text")
 
     uiManager:ShowUIForms("StoryUIForm")
-    print(this.txtInp_ID.text)
+    --print(this.txtInp_ID.text)
     --判断打开窗体
     
     -- if CS.LoginRes.Login.LogIn(this.txtInp_ID.text,this.Inp_PW.text) then

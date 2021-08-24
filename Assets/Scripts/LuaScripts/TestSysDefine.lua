@@ -16,7 +16,9 @@ A_CtrlNames={
     "Z_Observer",--观察者模式基类
     "Z_ConcreteObserver",--观察者
     "Z_ObservationPost",--被观察者
-    -- "Z_ObserverCtrl",--观察者模式控制
+    
+    --对象池脚本
+    "PrefabObjectPool",
 
     --游戏逻辑控制脚本
     "A_BaseList",--封装List类

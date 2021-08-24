@@ -10,7 +10,7 @@ local UI_Manager=CS.UIFW.UIManager
 local uiManager=UI_Manager.GetInstance()
 
 --公告标题
-local strNotiTitle="<color='#ff0000ff'>重要公告</color>"
+local strNotiTitle="<color='#ff0000ff'>公告</color>"
 --公告内容
 local strNotiContent="<b>亲爱的玩家们：</b>\r\n\n　　由于服务器异常，“更多模式”出现了一些小问题，目前技术小哥正在紧急修复中，并将邮件模块暂时关闭。\r\n\n　　各位小伙伴们不用担心，问题修复后，会第一时间通知大家，给大家带来的不便，还请原谅！\r\n\n　　感谢大家多年以来对本游戏的关心与爱护\r\n\n　　　　　　　　　　　　　　　　X-AOD 3021年8月25日"
 local transform

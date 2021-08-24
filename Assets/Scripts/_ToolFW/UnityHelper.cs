@@ -8,19 +8,28 @@ namespace TFW
 	    public static Transform FindTheChildNode(GameObject goParent,string childName)     // 查找子节点对象
         {
             Transform searchTrans = null;                   //查找结果
-            searchTrans=goParent.transform.Find(childName);
-            if (searchTrans==null)
+            try
             {
-                foreach (Transform trans in goParent.transform)
+                searchTrans = goParent.transform.Find(childName);
+                if (searchTrans == null)
                 {
-                    searchTrans=FindTheChildNode(trans.gameObject, childName);
-                    if (searchTrans!=null)
+                    foreach (Transform trans in goParent.transform)
                     {
-                        return searchTrans;
+                        searchTrans = FindTheChildNode(trans.gameObject, childName);
+                        if (searchTrans != null)
+                        {
+                            return searchTrans;
+                        }
                     }
-                }            
+                }
+                return searchTrans;
             }
-            return searchTrans;
+            catch (System.Exception)
+            {
+
+                return null;
+            }
+           
         }
 	}
 }

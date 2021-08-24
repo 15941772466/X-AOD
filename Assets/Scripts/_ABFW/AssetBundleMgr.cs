@@ -71,6 +71,13 @@ namespace ABFW
             string path = ABFW.PathTools.GetABOutPath() + "/sences/";
             AssetBundle.LoadFromFile(path + ("sences.u3d").ToLower());
             level_oneNav = AssetBundle.LoadFromFile(path + ("level_one.ab").ToLower());
+            level_oneNav = AssetBundle.LoadFromFile(path + ("level_two.ab").ToLower());
+            level_oneNav = AssetBundle.LoadFromFile(path + ("level_three.ab").ToLower());
+            level_oneNav = AssetBundle.LoadFromFile(path + ("level_noend.ab").ToLower());
+
+            level_oneNav = AssetBundle.LoadFromFile(path + ("level_one_profiles.ab").ToLower());
+            level_oneNav = AssetBundle.LoadFromFile(path + ("level_two_profiles.ab").ToLower());
+            level_oneNav = AssetBundle.LoadFromFile(path + ("level_three_profiles.ab").ToLower());
         }
         public void DisposeAllAssets(string scenesName)          // 释放资源
         {

@@ -5,13 +5,10 @@ using ABFW;
 
 public class platform : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject canvas;
     void Start()
     {
-        string s = PathTools.GetABOutPath();
-        Debug.Log(Application.platform);
-        Debug.Log(s);
-        Debug.Log(Application.dataPath + "/" + "AB_Resources");
+       
     }
 
     // Update is called once per frame

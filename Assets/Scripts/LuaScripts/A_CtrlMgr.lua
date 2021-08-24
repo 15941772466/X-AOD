@@ -4,6 +4,7 @@
 A_CtrlMgr={
     abDTObj=CS.PFW.DefenseManager.GetInstance(), 
 	Money=nil,
+	PrefabPool=nil
 }
 local this=A_CtrlMgr
 
@@ -11,9 +12,13 @@ local this=A_CtrlMgr
 function A_CtrlMgr.Init()
  
  	print("A_CtrlMgr11:---------------------控制开启")
-	-- A_EnemyManager.EnemySelfList={}
-	-- A_TurretManager.DefenseList={}
-	-- A_BulletManager.Bulletlist={}
+	A_EnemyManager.EnemySelfList={}
+	A_TurretManager.DefenseList={}
+	A_BulletManager.Bulletlist={}
+
+
+	--实例化对象池
+	this.PrefabPool=PrefabObjectPool:New()
 
     --------------------------加载建造管理脚本-------------------------------------------
 	print("加载炮塔生成管理脚本")
@@ -41,6 +46,7 @@ function A_CtrlMgr.Init()
 
     --建立金币观察者模式
 	this.ObserverOpen()
+
 end
 
 

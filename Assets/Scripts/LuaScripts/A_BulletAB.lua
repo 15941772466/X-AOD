@@ -52,8 +52,9 @@ function A_BulletAB:Update()
 end
 
 function A_BulletAB:Die()
-   self.gameObject:SetActive(false)
+   --self.gameObject:SetActive(false)
    A_BulletManager:Remove(self)
+   A_CtrlMgr.PrefabPool:Put(self.gameObject)
 end
 
 function A_BulletAB:UpdateTarget()
