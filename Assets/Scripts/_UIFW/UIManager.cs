@@ -136,6 +136,7 @@ namespace UIFW
                     yield return null;
                 }
             }
+#if UNITY_EDITOR
             else  //本地
             {
                 while (!_IsUIRootNodeInitFinish)
@@ -145,9 +146,9 @@ namespace UIFW
                 _BaseUIForm = ShowLocal(uiFormName);
                
             }
-        
+#endif
             //根据不同的UI窗体的显示模式，分别作不同的加载处理
-            
+
             switch (_BaseUIForm.CurrentUIType.UIForms_ShowMode)
             {
                 case UIFormShowMode.Normal:                 //“普通显示”窗口模式
@@ -253,7 +254,7 @@ namespace UIFW
         }
         #endregion
 
-
+        #if UNITY_EDITOR
         #region 本地加载
         public BaseUIForm ShowLocal(string uiFormName)      //打开窗体 lua调用
         {
@@ -290,13 +291,12 @@ namespace UIFW
             {
                 bUI = _DicALLUIForms[uiFormName];
             }
-           
-        
-
-           
             return bUI;
         }
+
         #endregion
+
+        #endif
         #region 关闭窗体
         public void CloseUIForms(string uiFormName)      //关闭窗体 lua调用
         {

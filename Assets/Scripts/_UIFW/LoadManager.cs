@@ -32,35 +32,62 @@ namespace UIFW
         void Awake()
         {
             _GoCanvasRoot = GameObject.FindGameObjectWithTag(SysDefine.SYS_TAG_CANVAS);  //得到UI根节点对象  
-            _GoLoadUIForm = UnityHelper.FindTheChildNode(_GoCanvasRoot, "LoadUIForm").gameObject;
-            objProcessBar= UnityHelper.FindTheChildNode(_GoLoadUIForm, "Slider").gameObject;
-            percent = UnityHelper.FindTheChildNode(_GoLoadUIForm, "percent").gameObject;
+            try
+            {
+                _GoLoadUIForm = UnityHelper.FindTheChildNode(_GoCanvasRoot, "LoadUIForm").gameObject;
+                objProcessBar = UnityHelper.FindTheChildNode(_GoLoadUIForm, "Slider").gameObject;
+                percent = UnityHelper.FindTheChildNode(_GoLoadUIForm, "percent").gameObject;
+            }
+            catch (System.Exception)
+            {
+
+                
+            }
+            
+            
+           
         }
+        //public void Load(string str)
+        //{
+           
+
+        //    _GoLoadUIForm.SetActive(true);
+
+        //    StartCoroutine(StartLoading(str));
+        //}
+        //IEnumerator StartLoading(string str)
+        //{
+        //    float i = 0;
+        //    AsyncOperation acOp = SceneManager.LoadSceneAsync(str);
+
+        //    acOp.allowSceneActivation = false;
+        //    while (i <= 100)
+        //    {
+        //        i++;
+        //        objProcessBar.GetComponent<Slider>().value = i / 100;
+        //        yield return new WaitForEndOfFrame();
+        //        percent.GetComponent<Text>().text = i.ToString() + "%";
+        //    }
+         
+        //    acOp.allowSceneActivation = true;
+        //    _GoLoadUIForm.SetActive(false);
+        //    UIManager.GetInstance().ShowUIForms("CountdownUIForm");
+        //    Invoke("CloseCountDown", 3.8f);
+           
+        //    percent.GetComponent<Text>().text = "0%";
+
+        //}
         public void Load(string str)
         {
-            Debug.Log("执行到LoadManager");
-            _GoLoadUIForm.SetActive(true);
             StartCoroutine(StartLoading(str));
         }
         IEnumerator StartLoading(string str)
         {
-            float i = 0;
             AsyncOperation acOp = SceneManager.LoadSceneAsync(str);
-            acOp.allowSceneActivation = false;
-            while (i <= 100)
-            {
-                i++;
-                objProcessBar.GetComponent<Slider>().value = i / 100;
-                yield return new WaitForEndOfFrame();
-                percent.GetComponent<Text>().text = i.ToString() + "%";
-            }
-            //yield return null;
-            acOp.allowSceneActivation = true;
-            _GoLoadUIForm.SetActive(false);
+           
             UIManager.GetInstance().ShowUIForms("CountdownUIForm");
             Invoke("CloseCountDown", 3.8f);
-           
-            percent.GetComponent<Text>().text = "0%";
+            yield return null;
         }
         private void CloseCountDown()
         {

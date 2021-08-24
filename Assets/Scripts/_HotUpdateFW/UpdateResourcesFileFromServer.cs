@@ -34,7 +34,7 @@ namespace HotUpdateProcess
         private string _DownloadPath = string.Empty;
         //HTTP 服务器地址
         private string _ServerURL = HotUpdatePathTool.SERVER_URL;
-
+        
 
         void Awake()
         {
@@ -46,12 +46,14 @@ namespace HotUpdateProcess
                 _DownloadPath = PathTools.GetABOutPath(); //下载路径
                 //检测资源进行对比更新
                 StartCoroutine(DownloadResourceAndCheckUpdate(_ServerURL));
+                
             }
             //不启用热更新
             else {
                 Debug.Log("停止从服务器下载更新服务！");
                 //通知其他游戏主逻辑，开始运行
                 BroadcastMessage(HotUpdatePathTool.RECEIVE_INFO_START_RUNING, SendMessageOptions.DontRequireReceiver);
+              
             }
         }
 

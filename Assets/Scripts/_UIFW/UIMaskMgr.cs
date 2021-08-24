@@ -52,8 +52,18 @@ namespace UIFW
 
 	    public void CancelMaskWindow()                  // 取消遮罩状态
         {
-			_GoMaskPanel.SetActive(false);          
-            _UICamera.depth = _OriginalUICameralDepth;  //恢复层深
+            try
+            {
+				_GoMaskPanel.SetActive(false);
+				_UICamera.depth = _OriginalUICameralDepth;  //恢复层深
+			}
+            catch (System.Exception)
+            {
+
+               
+            }
+			      
+           
         }
 	}
 }
