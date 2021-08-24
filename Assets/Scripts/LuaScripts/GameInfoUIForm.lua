@@ -17,7 +17,7 @@ function HeroInfoUIForm.GetInstance()
 end
 
 function GameInfoUIForm.Awake(obj)
-   print("------- GameInfoUIForm.Awake  -----------");
+  
    gameobject=obj
    transform=obj.transform
 end
@@ -38,21 +38,21 @@ end
 
 function GameInfoUIForm.ProcessBackHallBtn()
   
-   print("执行到 ProcessBackHallBtn")
+  
 
 
    --卸载所有lua脚本
    for i=1, #A_ViewNames do
       package.loaded[A_ViewNames[i]] = nil
    end
-   print("卸载视图层脚本成功")
+ 
 
    for i=1, #A_CtrlNames do
       package.loaded[A_CtrlNames[i]] = nil
    end
    package.loaded["A_StartGame"]=nil
    package.loaded["A_CtrlMgr"]=nil
-   print("卸载控制层脚本成功")
+ 
 
    --打开窗体
    uiManager:ShowUIForms("MainCityUIForm")

@@ -30,6 +30,6 @@ function LoginFailUIForm.InitView()
 end
 
 function LoginFailUIForm.ProcessBackBtn()
-   print("执行到 ProcessBackBtn")
+   
    uiManager:CloseUIForms("LoginFailUIForm")
 end

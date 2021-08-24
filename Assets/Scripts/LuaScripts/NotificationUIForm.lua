@@ -18,7 +18,7 @@ local gameobject
 --说明:
 --输入参数： obj 表示UI窗体对象。
 function NotificationUIForm.Awake(obj)
-   print("------- NotificationUIForm.Awake  -----------")
+  
    gameobject=obj
    transform=obj.transform
    

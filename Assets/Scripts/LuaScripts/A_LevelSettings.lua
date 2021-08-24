@@ -152,8 +152,8 @@ A_LevelSettings.Level_Crazy={
 	},
 	--不同类型敌人的属性: 血量
 	enemyAttributes={
-		["A_Enemy1"]={Hp=300,getMoney=40},
-		["A_Enemy2"]={Hp=200,getMoney=60}
+		["A_Enemy1"]={Hp=550,getMoney=40},
+		["A_Enemy2"]={Hp=800,getMoney=60}
 	},
 	--同波次敌人生成间隔
 	EnemyRateTime=1.5,

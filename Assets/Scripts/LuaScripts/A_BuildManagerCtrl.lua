@@ -51,7 +51,7 @@ function A_BuildManagerCtrl.Awake()
 end
 
 function A_BuildManagerCtrl.Start(obj)
-    print("开始处理建造逻辑")    
+    --print("开始处理建造逻辑")    
     --当前关卡信息
     Level=levelData[obj.tag]
     --拿到升级UI
@@ -92,7 +92,7 @@ function A_BuildManagerCtrl.AddListener(levelDataTurret)
    --升级、拆除UI按钮监听
    UpgradeUI:Find("Upgrade"):GetComponent("UnityEngine.UI.Button").onClick:AddListener(this.UpgradeTurret)
    UpgradeUI:Find("Delete"):GetComponent("UnityEngine.UI.Button").onClick:AddListener(this.DeleteTurret)
-   print("按钮事件监听添加成功")
+  -- print("按钮事件监听添加成功")
 end
 
 
@@ -111,11 +111,11 @@ function A_BuildManagerCtrl.Update()
         if(isCollider==true and HitInfro.collider.gameObject.layer==8) then
             --找到点击的砖块名字
             local cubeName=HitInfro.collider.gameObject.name
-            print("点击了砖块： "..cubeName)
+            --print("点击了砖块： "..cubeName)
             --如果此砖块上无炮塔，且已经选择了一个炮塔
             if(GroundData[cubeName].preturret==nil and SelectedTurret~=nil) then
-               print(A_CtrlMgr.Money.number)
-               print(Level.turretAttributes[SelectedTurret].cost)
+               -- print(A_CtrlMgr.Money.number)
+               -- print(Level.turretAttributes[SelectedTurret].cost)
                --检测金币余额
                if(A_CtrlMgr.Money.number>=Level.turretAttributes[SelectedTurret].cost) then
                   --扣钱qwq
@@ -126,7 +126,7 @@ function A_BuildManagerCtrl.Update()
                   --没钱了你
                   print("没钱了！！")
                end
-               print("选择的炮塔："..SelectedTurret.."   价格："..Level.turretAttributes[SelectedTurret].cost.."剩余金币"..A_CtrlMgr.Money.number)
+               --print("选择的炮塔："..SelectedTurret.."   价格："..Level.turretAttributes[SelectedTurret].cost.."剩余金币"..A_CtrlMgr.Money.number)
             --已经有炮塔
             elseif(GroundData[cubeName].preturret~=nil) then
                --如果点击的位置有塔、和选中的炮塔一样、升级UI已经出现，则隐藏
@@ -218,9 +218,9 @@ function A_BuildManagerCtrl.UpgradeTurret()
          end
       end
    elseif GroundData[cubeNameUI].isUpgraded==true then
-      print("不能再升级了")
+      --print("不能再升级了")
    else
-      print("没钱升级了！！！")
+      --print("没钱升级了！！！")
    end
    --关闭升级UI
    this.HideUpGradeUI()

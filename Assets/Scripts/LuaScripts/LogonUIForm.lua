@@ -9,7 +9,7 @@ local UI_Manager=CS.UIFW.UIManager
 local uiManager=UI_Manager.GetInstance()
 
 -- 标题【welcome】
-local logonTitle="《赛博朋克3080》"
+local logonTitle="《赛博朋克2188》"
 
 local transform
 local gameobject
@@ -41,27 +41,25 @@ function LogonUIForm.InitView()
 end
 
 function LogonUIForm.ProcessOKBtn()
-    print("执行到 ProcessOKBtn")
+  
     --用户名
     this.txtInp_ID=transform:Find("BG/Inp_ID/Text"):GetComponent("UnityEngine.UI.Text")
     --密码
     this.Inp_PW=transform:Find("BG/Inp_PW/Text"):GetComponent("UnityEngine.UI.Text")
 
-    uiManager:ShowUIForms("StoryUIForm")
+    --uiManager:ShowUIForms("StoryUIForm")
     --print(this.txtInp_ID.text)
     --判断打开窗体
     
-    -- if CS.LoginRes.Login.LogIn(this.txtInp_ID.text,this.Inp_PW.text) then
-    --     uiManager:ShowUIForms("StoryUIForm")
-    -- else 
-    --     print("登录失败lua")
-    --     uiManager:ShowUIForms("LoginFailUIForm")  
-    -- end
+    if CS.LoginRes.Login.LogIn(this.txtInp_ID.text,this.Inp_PW.text) then
+        uiManager:ShowUIForms("StoryUIForm")
+    else 
+      
+        uiManager:ShowUIForms("LoginFailUIForm")  
+    end
 end
 
 
 function LogonUIForm.ProcessResBtn()
-   
-    print("执行到 ProcessResBtn")
     uiManager:ShowUIForms("ResUIForm")
 end

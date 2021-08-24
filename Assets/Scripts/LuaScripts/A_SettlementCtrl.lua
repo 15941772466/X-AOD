@@ -46,13 +46,13 @@ function A_SettlementCtrl:Unload()
   for i=1, #A_ViewNames do
       package.loaded[A_ViewNames[i]] = nil
   end
-  print("卸载视图层脚本成功")
+ -- print("卸载视图层脚本成功")
 
   for i=1, #A_CtrlNames do
       package.loaded[A_CtrlNames[i]] = nil
   end
   package.loaded["A_StartGame"]=nil
   package.loaded["A_CtrlMgr"]=nil
-  print("卸载控制层脚本成功")
+--  print("卸载控制层脚本成功")
 end
 

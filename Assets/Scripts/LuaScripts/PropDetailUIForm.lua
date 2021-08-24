@@ -17,7 +17,7 @@ function PropDetailUIForm.GetInstance()
 end
 
 function PropDetailUIForm.Awake(obj)
-    print("------- PropDetailUIForm.Awake  -----------");
+   
     gameobject=obj
     transform=obj.transform
 end
@@ -31,12 +31,8 @@ function PropDetailUIForm.InitView()
     this.CloseBtn=transform:Find("BtnClose")--返回transform
     this.CloseBtn=this.CloseBtn:GetComponent("UnityEngine.UI.Button") --返回Button类型
     this.CloseBtn.onClick:AddListener(this.ProcessBtn_Close)
-
-    
 end
 
 function PropDetailUIForm.ProcessBtn_Close()
-   
-    print("执行到 ProcessBtn_Close")  --开始游戏
     uiManager:CloseUIForms("PropDetailUIForm")
 end
